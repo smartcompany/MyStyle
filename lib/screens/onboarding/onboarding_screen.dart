@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../constants/app_routes.dart';
 import '../../constants/app_theme.dart';
+import '../photo_upload_screen.dart';
 import '../../widgets/common/app_button.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -70,12 +71,18 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         curve: Curves.easeInOut,
       );
     } else {
-      context.go(AppRoutes.photoUpload);
+      _startApp();
     }
   }
 
   void _skipOnboarding() {
-    context.go(AppRoutes.photoUpload);
+    _startApp();
+  }
+
+  void _startApp() {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => const PhotoUploadScreen()),
+    );
   }
 
   @override

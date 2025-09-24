@@ -1,277 +1,444 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import '../../constants/app_routes.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'dart:io';
 import '../../constants/app_theme.dart';
+import '../../services/ad_service.dart';
+import '../result/result_screen.dart';
+import '../../models/analysis_result.dart';
 
 class AnalysisScreen extends StatefulWidget {
-  const AnalysisScreen({super.key});
+  final String imagePath;
+
+  const AnalysisScreen({super.key, required this.imagePath});
 
   @override
   State<AnalysisScreen> createState() => _AnalysisScreenState();
 }
 
-class _AnalysisScreenState extends State<AnalysisScreen>
-    with TickerProviderStateMixin {
-  late AnimationController _progressController;
-  late AnimationController _pulseController;
-  late Animation<double> _progressAnimation;
-  late Animation<double> _pulseAnimation;
-
-  int _currentProgress = 0;
-  int _currentStep = 0;
-
-  final List<AnalysisStep> _steps = [
-    AnalysisStep(
-      title: '얼굴형 분석 중...',
-      description: '얼굴의 기본 구조와 형태를 분석하고 있습니다',
-      icon: Icons.face_outlined,
-      color: AppTheme.primaryColor,
-    ),
-    AnalysisStep(
-      title: '피부 상태 분석 중...',
-      description: '피부톤과 피부 타입을 분석하고 있습니다',
-      icon: Icons.face_retouching_natural,
-      color: AppTheme.secondaryColor,
-    ),
-    AnalysisStep(
-      title: '헤어스타일 분석 중...',
-      description: '어울리는 헤어스타일을 찾고 있습니다',
-      icon: Icons.content_cut,
-      color: AppTheme.accentColor,
-    ),
-    AnalysisStep(
-      title: '패션 분석 중...',
-      description: '어울리는 색상과 스타일을 분석하고 있습니다',
-      icon: Icons.style,
-      color: AppTheme.successColor,
-    ),
-    AnalysisStep(
-      title: '종합 분석 중...',
-      description: '모든 분석 결과를 종합하여 리포트를 작성하고 있습니다',
-      icon: Icons.analytics,
-      color: AppTheme.warningColor,
-    ),
-  ];
+class _AnalysisScreenState extends State<AnalysisScreen> {
+  bool _isAdLoaded = false;
+  bool _isAdShowing = false;
+  bool _isAnalysisComplete = false;
+  bool _isAdCompleted = false;
+  Map<String, dynamic>? _analysisResult;
+  String? _errorMessage;
 
   @override
   void initState() {
     super.initState();
-    _progressController = AnimationController(
-      duration: const Duration(seconds: 15),
-      vsync: this,
-    );
-    _pulseController = AnimationController(
-      duration: const Duration(seconds: 1),
-      vsync: this,
-    )..repeat(reverse: true);
+    _loadRewardedAd();
+  }
 
-    _progressAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _progressController, curve: Curves.easeInOut),
-    );
-    _pulseAnimation = Tween<double>(begin: 0.8, end: 1.2).animate(
-      CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
-    );
+  Future<void> _loadRewardedAd() async {
+    try {
+      await AdService().loadRewardedAd();
+      if (AdService().isRewardedAdReady) {
+        setState(() {
+          _isAdLoaded = true;
+        });
+        _showRewardedAd();
+      } else {
+        _showAdLoadFailedDialog();
+      }
+    } catch (e) {
+      _showAdLoadFailedDialog();
+    }
+  }
 
+  Future<void> _showRewardedAd() async {
+    if (!AdService().isRewardedAdReady) {
+      _showAdLoadFailedDialog();
+      return;
+    }
+
+    setState(() {
+      _isAdShowing = true;
+    });
+
+    // 광고 시청과 분석을 동시에 시작
     _startAnalysis();
-  }
 
-  @override
-  void dispose() {
-    _progressController.dispose();
-    _pulseController.dispose();
-    super.dispose();
-  }
-
-  void _startAnalysis() {
-    _progressController.forward();
-
-    // Simulate progress updates
-    _updateProgress();
-  }
-
-  void _updateProgress() {
-    if (_currentProgress < 100) {
-      Future.delayed(const Duration(milliseconds: 150), () {
-        if (mounted) {
-          setState(() {
-            _currentProgress += 2;
-            _currentStep = (_currentProgress / 20).floor();
-            if (_currentStep >= _steps.length) {
-              _currentStep = _steps.length - 1;
-            }
-          });
-          _updateProgress();
-        }
+    final adSuccess = await AdService().showRewardedAd();
+    if (adSuccess) {
+      setState(() {
+        _isAdCompleted = true;
       });
+      _checkAndNavigateToResult();
     } else {
-      // Analysis complete
-      Future.delayed(const Duration(milliseconds: 500), () {
-        if (mounted) {
-          // 현재 분석 화면을 스택에서 제거하고 결과 화면으로 이동
-          context.pushReplacement(AppRoutes.result);
-        }
+      setState(() {
+        _errorMessage = '광고 시청에 실패했습니다';
       });
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: Stack(
-        children: [
-          // Background
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Color(0xFF1F2937), Color(0xFF111827)],
-              ),
-            ),
+  Future<void> _startAnalysis() async {
+    if (_isAnalysisComplete) return;
+
+    setState(() {
+      _isAnalysisComplete = true;
+    });
+
+    try {
+      // 분석 시뮬레이션 (3-5초)
+      await Future.delayed(
+        Duration(seconds: 3 + (DateTime.now().millisecond % 3)),
+      );
+
+      // Mock 분석 결과 생성
+      _analysisResult = _generateMockResult();
+      _checkAndNavigateToResult();
+    } catch (e) {
+      setState(() {
+        _errorMessage = '분석 중 오류가 발생했습니다: $e';
+      });
+    }
+  }
+
+  void _checkAndNavigateToResult() {
+    if (_isAdCompleted && _isAnalysisComplete && _analysisResult != null) {
+      _navigateToResult();
+    }
+  }
+
+  void _navigateToResult() {
+    if (!mounted) return;
+
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => const ResultScreen()),
+    );
+  }
+
+  void _showAdLoadFailedDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        backgroundColor: const Color(0xFF2D1B69),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        title: const Text(
+          '광고 로드 실패',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
           ),
-
-          // Content
-          SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(32),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Analysis Icon
-                  AnimatedBuilder(
-                    animation: _pulseAnimation,
-                    builder: (context, child) {
-                      return Transform.scale(
-                        scale: _pulseAnimation.value,
-                        child: Container(
-                          width: 120,
-                          height: 120,
-                          decoration: BoxDecoration(
-                            color: _steps[_currentStep].color.withOpacity(0.2),
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: _steps[_currentStep].color,
-                              width: 2,
-                            ),
-                          ),
-                          child: Icon(
-                            _steps[_currentStep].icon,
-                            size: 60,
-                            color: _steps[_currentStep].color,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-
-                  const SizedBox(height: 48),
-
-                  // Current Step
-                  Text(
-                    _steps[_currentStep].title,
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-
-                  const SizedBox(height: 16),
-
-                  Text(
-                    _steps[_currentStep].description,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Colors.white70,
-                      height: 1.5,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-
-                  const SizedBox(height: 48),
-
-                  // Progress Bar
-                  Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            '진행률',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.white.withOpacity(0.7),
-                            ),
-                          ),
-                          Text(
-                            '$_currentProgress%',
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 12),
-                      AnimatedBuilder(
-                        animation: _progressAnimation,
-                        builder: (context, child) {
-                          return LinearProgressIndicator(
-                            value: _currentProgress / 100,
-                            backgroundColor: Colors.white.withOpacity(0.2),
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              _steps[_currentStep].color,
-                            ),
-                            minHeight: 8,
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(height: 32),
-
-                  // Steps Indicator
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(
-                      _steps.length,
-                      (index) => Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 4),
-                        width: 8,
-                        height: 8,
-                        decoration: BoxDecoration(
-                          color: index <= _currentStep
-                              ? _steps[index].color
-                              : Colors.white.withOpacity(0.3),
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+          textAlign: TextAlign.center,
+        ),
+        content: const Text(
+          '광고를 본 후 분석을 진행합니다.\n다시 시도하시겠습니까?',
+          style: TextStyle(color: Colors.white, fontSize: 16),
+          textAlign: TextAlign.center,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(); // 팝업 닫기
+              Navigator.of(context).pop(); // 이전 화면으로 돌아가기
+            },
+            child: const Text('아니오', style: TextStyle(color: Colors.white)),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pop(); // 팝업 닫기
+              _loadRewardedAd(); // 광고 재로드
+            },
+            child: const Text('예'),
           ),
         ],
       ),
     );
   }
-}
 
-class AnalysisStep {
-  final String title;
-  final String description;
-  final IconData icon;
-  final Color color;
+  Map<String, dynamic> _generateMockResult() {
+    return {
+      'id': 'analysis_${DateTime.now().millisecondsSinceEpoch}',
+      'createdAt': DateTime.now().toIso8601String(),
+      'gender': 'female',
+      'imagePath': widget.imagePath,
+      'faceAnalysis': {
+        'faceShape': '하트형',
+        'balanceScore': 85,
+        'balanceComment': '균형 잡힌 얼굴형으로 전체적으로 조화로운 비율을 가지고 있습니다.',
+        'strengths': ['이마가 넓어 지적인 인상', '턱선이 선명함'],
+        'improvements': ['볼 부분이 좀 더 각져 보일 수 있음'],
+      },
+      'skinAnalysis': {
+        'skinTone': '웜톤',
+        'skinType': '복합성',
+        'skinScore': 78,
+        'skinComment': '전반적으로 건강한 피부 상태를 유지하고 있습니다.',
+        'skinIssues': ['T존 유분', '볼 부분 건조'],
+        'careRoutine': ['아침: 클렌징 → 토너 → 세럼 → 크림', '저녁: 더블 클렌징 → 토너 → 세럼 → 크림'],
+        'productRecommendations': ['하이드레이팅 세럼', '논코메도제닉 크림'],
+      },
+      'hairAnalysis': {
+        'recommendedStyles': ['레이어드 컷', '사이드 뱅'],
+        'hairComment': '얼굴형에 잘 어울리는 헤어스타일을 추천합니다.',
+        'stylingTips': ['앞머리로 이마를 가리기', '볼륨을 살려 얼굴을 길게 보이게 하기'],
+        'beardAdvice': '',
+        'hairScore': 82,
+      },
+      'eyebrowAnalysis': {
+        'eyebrowShape': '아치형',
+        'eyebrowScore': 80,
+        'eyebrowComment': '자연스러운 아치형으로 눈매를 돋보이게 합니다.',
+        'maintenanceTips': ['정기적인 트리밍', '자연스러운 색상 유지'],
+        'stylingRecommendations': ['아치형 유지', '자연스러운 두께'],
+      },
+      'fashionAnalysis': {
+        'fashionScore': 75,
+        'fashionComment': '웜톤에 어울리는 컬러를 선택하세요.',
+        'colorPalette': ['네이비', '아이보리', '베이지', '따뜻한 브라운'],
+        'glassesRecommendations': ['라운드 프레임', '검정 뿔테'],
+        'accessoryTips': ['심플한 귀걸이', '미니멀한 목걸이'],
+      },
+      'lifestyleAdvice': {
+        'lifestyleScore': 70,
+        'lifestyleComment': '건강한 생활습관을 유지하고 있습니다.',
+        'sleepAdvice': '7-8시간 충분한 수면을 취하세요.',
+        'dietAdvice': '비타민이 풍부한 과일과 채소를 충분히 섭취하세요.',
+        'exerciseAdvice': '규칙적인 운동으로 혈액순환을 개선하세요.',
+      },
+      'overallScore': 78,
+      'overallComment':
+          '전반적으로 균형 잡힌 외모를 가지고 있습니다. 몇 가지 개선점을 적용하면 더욱 매력적인 모습이 될 것입니다.',
+    };
+  }
 
-  AnalysisStep({
-    required this.title,
-    required this.description,
-    required this.icon,
-    required this.color,
-  });
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Color(0xFF2D1B69), Color(0xFF8B5CF6), Color(0xFFEC4899)],
+          ),
+        ),
+        child: SafeArea(
+          child: Column(
+            children: [
+              // 헤더
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Center(
+                  child: Text(
+                    '스타일 분석',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              // 메인 콘텐츠
+              Expanded(
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // 분석 아이콘
+                      Container(
+                        width: 120,
+                        height: 120,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(60),
+                          border: Border.all(
+                            color: Colors.white.withOpacity(0.3),
+                            width: 2,
+                          ),
+                        ),
+                        child: const Icon(
+                          Icons.psychology,
+                          color: Colors.white,
+                          size: 60,
+                        ),
+                      ),
+                      const SizedBox(height: 40),
+
+                      // 제목
+                      Text(
+                        _isAdCompleted ? '분석 완료 중...' : '스타일 분석 시작',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 16),
+
+                      // 설명
+                      if (!_isAdCompleted)
+                        const Text(
+                          '광고를 시청하고 분석을 시작하세요',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            height: 1.5,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+
+                      const SizedBox(height: 40),
+
+                      // 광고 시청 버튼
+                      if (_isAdLoaded && !_isAdShowing && !_isAnalysisComplete)
+                        SizedBox(
+                          width: double.infinity,
+                          height: 56,
+                          child: ElevatedButton.icon(
+                            onPressed: _showRewardedAd,
+                            icon: const Icon(
+                              Icons.play_arrow,
+                              color: Colors.white,
+                              size: 24,
+                            ),
+                            label: const Text(
+                              '광고 시청하고 분석 시작',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF22C55E),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(28),
+                              ),
+                              elevation: 0,
+                            ),
+                          ),
+                        ),
+
+                      // 광고 로딩 중
+                      if (!_isAdLoaded && !_isAdShowing && !_isAnalysisComplete)
+                        const Column(
+                          children: [
+                            CircularProgressIndicator(color: Colors.white),
+                            SizedBox(height: 16),
+                            Text(
+                              '광고 로딩 중...',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
+                        ),
+
+                      // 광고 표시 중 또는 분석 진행 중
+                      if (_isAdShowing || _isAnalysisComplete)
+                        const Column(
+                          children: [
+                            CircularProgressIndicator(color: Colors.white),
+                            SizedBox(height: 16),
+                            Text(
+                              '분석 진행 중...',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
+                        ),
+
+                      // 에러 메시지
+                      if (_errorMessage != null)
+                        Container(
+                          padding: const EdgeInsets.all(24),
+                          margin: const EdgeInsets.symmetric(horizontal: 20),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.15),
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(
+                              color: Colors.white.withOpacity(0.3),
+                              width: 1,
+                            ),
+                          ),
+                          child: Column(
+                            children: [
+                              const Text(
+                                '분석 중 오류가 발생했습니다',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                              const SizedBox(height: 12),
+                              Text(
+                                _errorMessage!,
+                                style: TextStyle(
+                                  color: Colors.white.withOpacity(0.85),
+                                  fontSize: 14,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                              const SizedBox(height: 24),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: ElevatedButton(
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.white
+                                            .withOpacity(0.2),
+                                        foregroundColor: Colors.white,
+                                        elevation: 0,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            12,
+                                          ),
+                                        ),
+                                      ),
+                                      child: const Text('돌아가기'),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 16),
+                                  Expanded(
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          _errorMessage = null;
+                                          _isAnalysisComplete = false;
+                                        });
+                                        _startAnalysis();
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: const Color(
+                                          0xFF22C55E,
+                                        ),
+                                        foregroundColor: Colors.white,
+                                        elevation: 0,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            12,
+                                          ),
+                                        ),
+                                      ),
+                                      child: const Text('재시도'),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }

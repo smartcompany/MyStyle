@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import '../../constants/app_routes.dart';
 import '../../constants/app_theme.dart';
 import '../../models/analysis_result.dart';
 import '../../widgets/common/app_button.dart';
 import '../../widgets/common/score_card.dart';
+import '../photo_upload_screen.dart';
 
 class ResultScreen extends StatefulWidget {
   const ResultScreen({super.key});
@@ -123,7 +122,9 @@ class _ResultScreenState extends State<ResultScreen>
   }
 
   void _analyzeAgain() {
-    context.go(AppRoutes.photoUpload);
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => const PhotoUploadScreen()),
+    );
   }
 
   @override
@@ -135,7 +136,7 @@ class _ResultScreenState extends State<ResultScreen>
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          onPressed: () => context.pop(),
+          onPressed: () => Navigator.of(context).pop(),
           icon: const Icon(Icons.arrow_back_ios),
         ),
         actions: [
@@ -268,7 +269,6 @@ class _ResultScreenState extends State<ResultScreen>
             ..._analysisResult.faceAnalysis.improvements.map((i) => '개선점: $i'),
           ],
           icon: Icons.face_outlined,
-          onTap: () => context.push(AppRoutes.faceAnalysis),
         ),
 
         ScoreCard(
@@ -281,7 +281,6 @@ class _ResultScreenState extends State<ResultScreen>
             ..._analysisResult.skinAnalysis.skinIssues.map((i) => '관심사항: $i'),
           ],
           icon: Icons.face_retouching_natural,
-          onTap: () => context.push(AppRoutes.skinAnalysis),
         ),
 
         ScoreCard(
@@ -290,7 +289,6 @@ class _ResultScreenState extends State<ResultScreen>
           comment: _analysisResult.hairAnalysis.hairComment,
           details: _analysisResult.hairAnalysis.recommendedStyles,
           icon: Icons.content_cut,
-          onTap: () => context.push(AppRoutes.hairAnalysis),
         ),
 
         ScoreCard(
@@ -299,7 +297,6 @@ class _ResultScreenState extends State<ResultScreen>
           comment: _analysisResult.eyebrowAnalysis.eyebrowComment,
           details: _analysisResult.eyebrowAnalysis.maintenanceTips,
           icon: Icons.visibility,
-          onTap: () => context.push(AppRoutes.eyebrowAnalysis),
         ),
 
         ScoreCard(
@@ -315,7 +312,6 @@ class _ResultScreenState extends State<ResultScreen>
             ),
           ],
           icon: Icons.style,
-          onTap: () => context.push(AppRoutes.fashionAnalysis),
         ),
 
         ScoreCard(
@@ -328,7 +324,6 @@ class _ResultScreenState extends State<ResultScreen>
             _analysisResult.lifestyleAdvice.exerciseAdvice,
           ],
           icon: Icons.favorite,
-          onTap: () => context.push(AppRoutes.lifestyleAnalysis),
         ),
       ],
     );
