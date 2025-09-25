@@ -1,7 +1,10 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:http/http.dart' as http;
 import '../constants/ad_constants.dart';
 import 'api_service.dart';
 
@@ -11,7 +14,7 @@ class AdService {
   AdService._internal();
 
   RewardedAd? _rewardedAd;
-  bool _isRewardedAdReady = false;
+  InterstitialAd? _interstitialAd;
   final ApiService _apiService = ApiService();
 
   // Initialize AdMob
@@ -19,64 +22,118 @@ class AdService {
     await MobileAds.instance.initialize();
   }
 
-  // Load Rewarded Ad
-  Future<void> loadRewardedAd() async {
-    if (_isRewardedAdReady) return;
-
+  // Load Ad based on server configuration
+  Future<bool> loadAd() async {
     // 웹에서는 테스트 모드로 처리
     if (kIsWeb) {
       print('Web platform: simulating ad load');
-      _isRewardedAdReady = true;
-      return;
+      return true;
     }
 
-    try {
-      // Get ad unit ID from server
-      final adUnitId = await _apiService.getRewardedAdUnitId();
+    // Get ad configuration from server
+    final response = await http.get(
+      Uri.parse('https://my-style-server-chi.vercel.app/api/settings'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+    );
 
-      await RewardedAd.load(
-        adUnitId: adUnitId,
-        request: const AdRequest(),
-        rewardedAdLoadCallback: RewardedAdLoadCallback(
-          onAdLoaded: (RewardedAd ad) {
-            _rewardedAd = ad;
-            _isRewardedAdReady = true;
-            print('Rewarded ad loaded successfully with ID: $adUnitId');
-          },
-          onAdFailedToLoad: (LoadAdError error) {
-            _isRewardedAdReady = false;
-            print('Rewarded ad failed to load: $error');
-          },
-        ),
-      );
-    } catch (e) {
-      print('Error loading rewarded ad: $e');
-      // Fallback to test ad if server fails
-      await _loadFallbackRewardedAd();
+    if (response.statusCode == 200) {
+      final json = jsonDecode(response.body);
+      String? adType;
+      String? adUnitId;
+
+      if (Platform.isIOS) {
+        adType = json['ios_ad'] as String?;
+        final iosRef = json['ref']?['ios'] as Map<String, dynamic>?;
+        if (adType != null && iosRef != null && iosRef.containsKey(adType)) {
+          adUnitId = iosRef[adType] as String?;
+        }
+      } else if (Platform.isAndroid) {
+        adType = json['android_ad'] as String?;
+        final androidRef = json['ref']?['android'] as Map<String, dynamic>?;
+        if (adType != null &&
+            androidRef != null &&
+            androidRef.containsKey(adType)) {
+          adUnitId = androidRef[adType] as String?;
+        }
+      }
+
+      if (adUnitId == null) {
+        print('Failed to get ad unit ID from server');
+        return false;
+      }
+
+      adUnitId = 'ca-app-pub-3940256099942544/4411468910';
+      await _loadInterstitialAd(adUnitId);
+      return true;
+
+      print('Loading ad type: $adType with ID: $adUnitId');
+
+      // Load appropriate ad type based on server configuration
+      if (adType == 'rewarded_ad') {
+        await _loadRewardedAd(adUnitId);
+      } else if (adType == 'initial_ad') {
+        await _loadInterstitialAd(adUnitId);
+      } else {
+        print('Unknown ad type: $adType');
+        return false;
+      }
+
+      return true;
     }
+
+    return false;
   }
 
-  // Fallback to test ad if server fails
-  Future<void> _loadFallbackRewardedAd() async {
+  Future<void> _loadRewardedAd(String adUnitId) async {
+    final completer = Completer<void>();
+
     await RewardedAd.load(
-      adUnitId: AdConstants.rewardedAdId,
+      adUnitId: adUnitId,
       request: const AdRequest(),
       rewardedAdLoadCallback: RewardedAdLoadCallback(
         onAdLoaded: (RewardedAd ad) {
           _rewardedAd = ad;
-          _isRewardedAdReady = true;
-          print('Fallback rewarded ad loaded successfully');
+          print('Rewarded ad loaded successfully with ID: $adUnitId');
+          completer.complete();
         },
         onAdFailedToLoad: (LoadAdError error) {
-          _isRewardedAdReady = false;
-          print('Fallback rewarded ad failed to load: $error');
+          print('Rewarded ad failed to load: $error');
+          completer.completeError(error);
         },
       ),
     );
+
+    return completer.future;
   }
 
-  // Show Rewarded Ad
-  Future<bool> showRewardedAd() async {
+  Future<void> _loadInterstitialAd(String adUnitId) async {
+    final completer = Completer<void>();
+
+    await InterstitialAd.load(
+      adUnitId: adUnitId,
+      request: const AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (InterstitialAd ad) {
+          _interstitialAd = ad; // Use same flag for simplicity
+          print('Interstitial ad loaded successfully with ID: $adUnitId');
+
+          completer.complete();
+        },
+        onAdFailedToLoad: (LoadAdError error) {
+          print('Interstitial ad failed to load: $error');
+          completer.completeError(error);
+        },
+      ),
+    );
+
+    return completer.future;
+  }
+
+  // Show Ad (Rewarded or Interstitial based on loaded type)
+  Future<bool> showAd() async {
     // 웹에서는 테스트 모드로 처리
     if (kIsWeb) {
       print('Web platform: simulating ad completion');
@@ -84,10 +141,18 @@ class AdService {
       return true;
     }
 
-    if (!_isRewardedAdReady || _rewardedAd == null) {
-      print('Rewarded ad is not ready');
+    if (_rewardedAd != null) {
+      return _showRewardedAd();
+    } else if (_interstitialAd != null) {
+      return _showInterstitialAd();
+    } else {
+      print('No ad loaded');
       return false;
     }
+  }
+
+  Future<bool> _showRewardedAd() async {
+    if (_rewardedAd == null) return false;
 
     final Completer<bool> completer = Completer<bool>();
 
@@ -99,23 +164,21 @@ class AdService {
         print('Rewarded ad dismissed');
         ad.dispose();
         _rewardedAd = null;
-        _isRewardedAdReady = false;
         if (!completer.isCompleted) {
           completer.complete(false);
         }
         // Load next ad
-        loadRewardedAd();
+        loadAd();
       },
       onAdFailedToShowFullScreenContent: (RewardedAd ad, AdError error) {
         print('Rewarded ad failed to show: $error');
         ad.dispose();
         _rewardedAd = null;
-        _isRewardedAdReady = false;
         if (!completer.isCompleted) {
           completer.complete(false);
         }
         // Load next ad
-        loadRewardedAd();
+        loadAd();
       },
     );
 
@@ -131,11 +194,35 @@ class AdService {
     return completer.future;
   }
 
-  // Check if rewarded ad is ready
-  bool get isRewardedAdReady => _isRewardedAdReady;
+  Future<bool> _showInterstitialAd() async {
+    if (_interstitialAd == null) return false;
 
-  // Preload rewarded ad
-  Future<void> preloadRewardedAd() async {
-    await loadRewardedAd();
+    final completer = Completer<bool>();
+
+    _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
+      onAdShowedFullScreenContent: (ad) {
+        print('Interstitial ad showed full screen content');
+      },
+      onAdDismissedFullScreenContent: (ad) {
+        print('Interstitial ad dismissed');
+        ad.dispose();
+        _interstitialAd = null;
+        completer.complete(true);
+      },
+      onAdFailedToShowFullScreenContent: (ad, error) {
+        print('Interstitial ad failed to show: $error');
+        ad.dispose();
+        _interstitialAd = null;
+        completer.complete(false);
+      },
+    );
+
+    _interstitialAd!.show();
+    return completer.future;
+  }
+
+  // Preload ad
+  Future<void> preloadAd() async {
+    await loadAd();
   }
 }

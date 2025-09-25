@@ -26,17 +26,19 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
   @override
   void initState() {
     super.initState();
-    _loadRewardedAd();
+    _loadAd();
   }
 
-  Future<void> _loadRewardedAd() async {
+  Future<void> _loadAd() async {
     try {
-      await AdService().loadRewardedAd();
-      if (AdService().isRewardedAdReady) {
+      final adLoaded = await AdService().loadAd();
+
+      if (adLoaded) {
         setState(() {
           _isAdLoaded = true;
         });
-        _showRewardedAd();
+        // 광고가 로드되면 자동으로 광고를 보여줌
+        _showAd();
       } else {
         _showAdLoadFailedDialog();
       }
@@ -45,8 +47,8 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
     }
   }
 
-  Future<void> _showRewardedAd() async {
-    if (!AdService().isRewardedAdReady) {
+  Future<void> _showAd() async {
+    if (!_isAdLoaded) {
       _showAdLoadFailedDialog();
       return;
     }
@@ -58,7 +60,7 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
     // 광고 시청과 분석을 동시에 시작
     _startAnalysis();
 
-    final adSuccess = await AdService().showRewardedAd();
+    final adSuccess = await AdService().showAd();
     if (adSuccess) {
       setState(() {
         _isAdCompleted = true;
@@ -140,7 +142,7 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop(); // 팝업 닫기
-              _loadRewardedAd(); // 광고 재로드
+              _loadAd(); // 광고 재로드
             },
             child: const Text('예'),
           ),
@@ -285,38 +287,8 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
 
                       const SizedBox(height: 40),
 
-                      // 광고 시청 버튼
-                      if (_isAdLoaded && !_isAdShowing && !_isAnalysisComplete)
-                        SizedBox(
-                          width: double.infinity,
-                          height: 56,
-                          child: ElevatedButton.icon(
-                            onPressed: _showRewardedAd,
-                            icon: const Icon(
-                              Icons.play_arrow,
-                              color: Colors.white,
-                              size: 24,
-                            ),
-                            label: const Text(
-                              '광고 시청하고 분석 시작',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF22C55E),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(28),
-                              ),
-                              elevation: 0,
-                            ),
-                          ),
-                        ),
-
-                      // 광고 로딩 중
-                      if (!_isAdLoaded && !_isAdShowing && !_isAnalysisComplete)
+                      // 광고 로딩 중 또는 광고 시청 중
+                      if (!_isAdShowing && !_isAnalysisComplete)
                         const Column(
                           children: [
                             CircularProgressIndicator(color: Colors.white),
