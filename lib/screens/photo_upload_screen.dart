@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 import '../services/ad_service.dart';
+import '../debug_tools.dart';
 import 'analysis/analysis_screen.dart';
 
 class PhotoUploadScreen extends StatefulWidget {
@@ -74,7 +76,7 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Column(
           children: [
@@ -120,7 +122,8 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
             const SizedBox(height: 40),
 
             // Photo Display or Upload Area
-            Expanded(
+            SizedBox(
+              height: 300,
               child: _selectedImage == null
                   ? _buildUploadArea()
                   : _buildPhotoPreview(),
@@ -183,6 +186,12 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
                   ),
                 ],
               ),
+            ],
+
+            // Debug Panel (only in debug mode)
+            if (kDebugMode) ...[
+              const SizedBox(height: 24),
+              DebugTools.buildDebugPanel(context),
             ],
           ],
         ),

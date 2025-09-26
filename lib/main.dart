@@ -10,7 +10,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Initialize API Service
-  ApiService().initialize('http://localhost:3000');
+  ApiService().initialize();
 
   // Initialize AdMob
   await AdService.initialize();

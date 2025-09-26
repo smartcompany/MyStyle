@@ -3,6 +3,7 @@ import '../../constants/app_theme.dart';
 import '../../models/analysis_result.dart';
 import '../../widgets/common/app_button.dart';
 import '../../widgets/common/score_card.dart';
+import '../../widgets/common/share_ui.dart';
 import '../photo_upload_screen.dart';
 
 class ResultScreen extends StatefulWidget {
@@ -55,17 +56,6 @@ class _ResultScreenState extends State<ResultScreen>
     _fadeController.dispose();
     _slideController.dispose();
     super.dispose();
-  }
-
-  void _shareResult() {
-    // TODO: Implement share functionality
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('분석 결과를 공유했습니다!'),
-        backgroundColor: AppTheme.successColor,
-        behavior: SnackBarBehavior.floating,
-      ),
-    );
   }
 
   void _analyzeAgain() {
@@ -239,14 +229,51 @@ class _ResultScreenState extends State<ResultScreen>
           isFullWidth: true,
         ),
         const SizedBox(height: 12),
-        AppButton(
-          text: '결과 공유하기',
-          onPressed: _shareResult,
-          type: AppButtonType.outline,
-          icon: Icons.share,
-          isFullWidth: true,
+        // 공유 섹션 추가
+        ShareUI.buildShareSection(
+          context: context,
+          title: '결과 공유하기',
+          description: '분석 결과를 친구들과 공유해보세요!',
+          shareText: _generateShareText(),
+          onShareTap: _shareResult,
         ),
       ],
+    );
+  }
+
+  String _generateShareText() {
+    return '''
+🎨 MyStyle 분석 결과
+
+📊 종합 분석 결과
+${_analysisResult.overallComment}
+
+👤 얼굴형 분석
+${_analysisResult.faceAnalysis.balanceComment}
+
+✨ 피부 분석
+${_analysisResult.skinAnalysis.skinComment}
+
+💇‍♀️ 헤어스타일
+${_analysisResult.hairAnalysis.hairComment}
+
+👁️ 눈썹 관리
+${_analysisResult.eyebrowAnalysis.eyebrowComment}
+
+👔 패션 & 액세서리
+${_analysisResult.fashionAnalysis.fashionComment}
+
+💪 라이프스타일
+${_analysisResult.lifestyleAdvice.generalAdvice}
+
+MyStyle 앱으로 나만의 스타일을 찾아보세요! ✨
+    ''';
+  }
+
+  void _shareResult() {
+    ShareUI.showShareOptionsDialog(
+      context: context,
+      shareText: _generateShareText(),
     );
   }
 }
