@@ -110,8 +110,9 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
     if (!mounted) return;
 
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => ResultScreen(analysisResult: _analysisResult!),
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            ResultScreen(analysisResult: _analysisResult!),
       ),
     );
   }
