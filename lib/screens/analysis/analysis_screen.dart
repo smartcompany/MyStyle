@@ -3,6 +3,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'dart:io';
 import '../../constants/app_theme.dart';
 import '../../services/ad_service.dart';
+import '../../services/api_service.dart';
 import '../result/result_screen.dart';
 import '../../models/analysis_result.dart';
 
@@ -20,7 +21,7 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
   bool _isAdShowing = false;
   bool _isAnalysisComplete = false;
   bool _isAdCompleted = false;
-  Map<String, dynamic>? _analysisResult;
+  AnalysisResult? _analysisResult;
   String? _errorMessage;
 
   @override
@@ -81,14 +82,17 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
     });
 
     try {
-      // 분석 시뮬레이션 (3-5초)
-      await Future.delayed(
-        Duration(seconds: 3 + (DateTime.now().millisecond % 3)),
-      );
+      // 실제 OpenAI API 호출
+      final result = await ApiService().analyzeFace(widget.imagePath);
 
-      // Mock 분석 결과 생성
-      _analysisResult = _generateMockResult();
-      _checkAndNavigateToResult();
+      if (result != null) {
+        _analysisResult = result;
+        _checkAndNavigateToResult();
+      } else {
+        setState(() {
+          _errorMessage = '분석에 실패했습니다. 다시 시도해주세요.';
+        });
+      }
     } catch (e) {
       setState(() {
         _errorMessage = '분석 중 오류가 발생했습니다: $e';
@@ -106,7 +110,9 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
     if (!mounted) return;
 
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => const ResultScreen()),
+      MaterialPageRoute(
+        builder: (context) => ResultScreen(analysisResult: _analysisResult!),
+      ),
     );
   }
 

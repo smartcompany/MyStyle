@@ -6,7 +6,9 @@ import '../../widgets/common/score_card.dart';
 import '../photo_upload_screen.dart';
 
 class ResultScreen extends StatefulWidget {
-  const ResultScreen({super.key});
+  final AnalysisResult analysisResult;
+
+  const ResultScreen({super.key, required this.analysisResult});
 
   @override
   State<ResultScreen> createState() => _ResultScreenState();
@@ -19,7 +21,7 @@ class _ResultScreenState extends State<ResultScreen>
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
 
-  // Mock data for demonstration
+  // Analysis result from API
   late AnalysisResult _analysisResult;
 
   @override
@@ -43,7 +45,7 @@ class _ResultScreenState extends State<ResultScreen>
       end: Offset.zero,
     ).animate(CurvedAnimation(parent: _slideController, curve: Curves.easeOut));
 
-    _initializeMockData();
+    _analysisResult = widget.analysisResult;
     _fadeController.forward();
     _slideController.forward();
   }
@@ -53,61 +55,6 @@ class _ResultScreenState extends State<ResultScreen>
     _fadeController.dispose();
     _slideController.dispose();
     super.dispose();
-  }
-
-  void _initializeMockData() {
-    _analysisResult = AnalysisResult(
-      id: '1',
-      createdAt: DateTime.now(),
-      gender: 'auto_detected', // AI가 자동으로 감지
-      faceAnalysis: FaceAnalysis(
-        faceShape: 'heart',
-        balanceScore: 85,
-        balanceComment: '하트형 얼굴로 균형이 잘 잡혀있습니다. 이마가 넓고 턱이 뾰족한 특징이 있어요.',
-        strengths: ['균형잡힌 얼굴 비율', '자연스러운 턱선'],
-        improvements: ['입술 두께가 살짝 얇은 편'],
-      ),
-      skinAnalysis: SkinAnalysis(
-        skinTone: 'warm',
-        skinType: 'combination',
-        skinScore: 78,
-        skinComment: '웜톤의 복합성 피부로 건강한 상태입니다. T존 관리가 필요해요.',
-        skinIssues: ['T존 유분', '약간의 건조함'],
-        careRoutine: ['아침: 클렌징 → 토너 → 세럼 → 크림', '저녁: 더블 클렌징 → 토너 → 세럼 → 크림'],
-        productRecommendations: ['하이드레이팅 세럼', '수분 크림', '각질 제거 스크럽'],
-      ),
-      hairAnalysis: HairAnalysis(
-        recommendedStyles: ['보브 컷', '레이어드 컷', '숏 컷'],
-        hairComment: '하트형 얼굴에 잘 어울리는 보브 컷을 추천합니다.',
-        stylingTips: ['앞머리로 이마를 가려주세요', '옆머리를 살짝 내려 균형을 맞춰보세요'],
-        beardAdvice: '',
-        hairScore: 82,
-      ),
-      eyebrowAnalysis: EyebrowAnalysis(
-        eyebrowShape: 'soft_arch',
-        eyebrowScore: 75,
-        eyebrowComment: '자연스러운 아치형 눈썹으로 전체적으로 잘 정리되어 있습니다.',
-        maintenanceTips: ['정기적인 트리밍 필요', '털이 자라는 방향에 맞춰 정리'],
-        stylingRecommendations: ['자연스러운 아치 유지', '털이 희박한 부분 보완'],
-      ),
-      fashionAnalysis: FashionAnalysis(
-        recommendedColors: ['네이비', '아이보리', '로즈골드', '딥레드'],
-        glassesRecommendations: ['라운드 프레임', '캣아이 프레임'],
-        accessoryRecommendations: ['심플한 귀걸이', '미니멀 목걸이'],
-        fashionComment: '웜톤에 어울리는 따뜻한 톤의 색상을 추천합니다.',
-        fashionScore: 80,
-      ),
-      lifestyleAdvice: LifestyleAdvice(
-        sleepAdvice: '7-8시간의 충분한 수면으로 피부 회복을 도와주세요.',
-        dietAdvice: '비타민 C가 풍부한 과일과 채소를 충분히 섭취하세요.',
-        exerciseAdvice: '규칙적인 운동으로 혈액순환을 개선하고 피부 건강을 유지하세요.',
-        generalAdvice: '스트레스 관리와 충분한 수분 섭취를 잊지 마세요.',
-        lifestyleScore: 70,
-      ),
-      overallScore: 80,
-      overallComment:
-          '전반적으로 균형잡힌 얼굴형과 피부 상태를 가지고 있습니다. 몇 가지 개선사항을 적용하면 더욱 아름다워질 수 있어요!',
-    );
   }
 
   void _shareResult() {

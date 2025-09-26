@@ -43,20 +43,18 @@ class AnalysisResult {
 
   factory AnalysisResult.fromJson(Map<String, dynamic> json) {
     return AnalysisResult(
-      id: json['id'] ?? '',
-      createdAt: DateTime.parse(
-        json['createdAt'] ?? DateTime.now().toIso8601String(),
-      ),
-      gender: json['gender'] ?? '',
+      id: json['id'] ?? DateTime.now().millisecondsSinceEpoch.toString(),
+      createdAt: DateTime.now(),
+      gender: 'auto_detected',
       imagePath: json['imagePath'],
-      faceAnalysis: FaceAnalysis.fromJson(json['faceAnalysis'] ?? {}),
-      skinAnalysis: SkinAnalysis.fromJson(json['skinAnalysis'] ?? {}),
-      hairAnalysis: HairAnalysis.fromJson(json['hairAnalysis'] ?? {}),
-      eyebrowAnalysis: EyebrowAnalysis.fromJson(json['eyebrowAnalysis'] ?? {}),
-      fashionAnalysis: FashionAnalysis.fromJson(json['fashionAnalysis'] ?? {}),
-      lifestyleAdvice: LifestyleAdvice.fromJson(json['lifestyleAdvice'] ?? {}),
-      overallScore: json['overallScore'] ?? 0,
-      overallComment: json['overallComment'] ?? '',
+      faceAnalysis: FaceAnalysis.fromJson(json['face_analysis'] ?? {}),
+      skinAnalysis: SkinAnalysis.fromJson(json['skin_analysis'] ?? {}),
+      hairAnalysis: HairAnalysis.fromJson(json['hair_analysis'] ?? {}),
+      eyebrowAnalysis: EyebrowAnalysis.fromJson(json['eyebrow_analysis'] ?? {}),
+      fashionAnalysis: FashionAnalysis.fromJson(json['fashion_analysis'] ?? {}),
+      lifestyleAdvice: LifestyleAdvice.fromJson(json['lifestyle_advice'] ?? {}),
+      overallScore: 0, // 점수 제거됨
+      overallComment: json['overall_comment'] ?? '',
     );
   }
 }
@@ -108,14 +106,14 @@ class SkinAnalysis {
 
   factory SkinAnalysis.fromJson(Map<String, dynamic> json) {
     return SkinAnalysis(
-      skinTone: json['skinTone'] ?? '',
-      skinType: json['skinType'] ?? '',
-      skinScore: json['skinScore'] ?? 0,
-      skinComment: json['skinComment'] ?? '',
-      skinIssues: List<String>.from(json['skinIssues'] ?? []),
-      careRoutine: List<String>.from(json['careRoutine'] ?? []),
+      skinTone: json['skin_tone'] ?? '',
+      skinType: json['skin_type'] ?? '',
+      skinScore: 0, // 점수 제거됨
+      skinComment: json['skin_comment'] ?? '',
+      skinIssues: List<String>.from(json['skin_issues'] ?? []),
+      careRoutine: List<String>.from(json['care_routine'] ?? []),
       productRecommendations: List<String>.from(
-        json['productRecommendations'] ?? [],
+        json['product_recommendations'] ?? [],
       ),
     );
   }
@@ -138,11 +136,11 @@ class HairAnalysis {
 
   factory HairAnalysis.fromJson(Map<String, dynamic> json) {
     return HairAnalysis(
-      recommendedStyles: List<String>.from(json['recommendedStyles'] ?? []),
-      hairComment: json['hairComment'] ?? '',
-      stylingTips: List<String>.from(json['stylingTips'] ?? []),
-      beardAdvice: json['beardAdvice'] ?? '',
-      hairScore: json['hairScore'] ?? 0,
+      recommendedStyles: List<String>.from(json['recommended_styles'] ?? []),
+      hairComment: json['hair_comment'] ?? '',
+      stylingTips: List<String>.from(json['styling_tips'] ?? []),
+      beardAdvice: json['beard_advice'] ?? '',
+      hairScore: 0, // 점수 제거됨
     );
   }
 }
@@ -164,12 +162,12 @@ class EyebrowAnalysis {
 
   factory EyebrowAnalysis.fromJson(Map<String, dynamic> json) {
     return EyebrowAnalysis(
-      eyebrowShape: json['eyebrowShape'] ?? '',
-      eyebrowScore: json['eyebrowScore'] ?? 0,
-      eyebrowComment: json['eyebrowComment'] ?? '',
-      maintenanceTips: List<String>.from(json['maintenanceTips'] ?? []),
+      eyebrowShape: json['eyebrow_shape'] ?? '',
+      eyebrowScore: 0, // 점수 제거됨
+      eyebrowComment: json['eyebrow_comment'] ?? '',
+      maintenanceTips: List<String>.from(json['maintenance_tips'] ?? []),
       stylingRecommendations: List<String>.from(
-        json['stylingRecommendations'] ?? [],
+        json['styling_recommendations'] ?? [],
       ),
     );
   }
@@ -192,15 +190,15 @@ class FashionAnalysis {
 
   factory FashionAnalysis.fromJson(Map<String, dynamic> json) {
     return FashionAnalysis(
-      recommendedColors: List<String>.from(json['recommendedColors'] ?? []),
+      recommendedColors: List<String>.from(json['recommended_colors'] ?? []),
       glassesRecommendations: List<String>.from(
-        json['glassesRecommendations'] ?? [],
+        json['glasses_recommendations'] ?? [],
       ),
       accessoryRecommendations: List<String>.from(
-        json['accessoryRecommendations'] ?? [],
+        json['accessory_recommendations'] ?? [],
       ),
-      fashionComment: json['fashionComment'] ?? '',
-      fashionScore: json['fashionScore'] ?? 0,
+      fashionComment: json['fashion_comment'] ?? '',
+      fashionScore: 0, // 점수 제거됨
     );
   }
 }
@@ -222,11 +220,11 @@ class LifestyleAdvice {
 
   factory LifestyleAdvice.fromJson(Map<String, dynamic> json) {
     return LifestyleAdvice(
-      sleepAdvice: json['sleepAdvice'] ?? '',
-      dietAdvice: json['dietAdvice'] ?? '',
-      exerciseAdvice: json['exerciseAdvice'] ?? '',
-      generalAdvice: json['generalAdvice'] ?? '',
-      lifestyleScore: json['lifestyleScore'] ?? 0,
+      sleepAdvice: json['sleep_advice'] ?? '',
+      dietAdvice: json['diet_advice'] ?? '',
+      exerciseAdvice: json['exercise_advice'] ?? '',
+      generalAdvice: json['general_advice'] ?? '',
+      lifestyleScore: 0, // 점수 제거됨
     );
   }
 }

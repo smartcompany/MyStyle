@@ -10,7 +10,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Initialize API Service
-  ApiService().initialize(baseUrl: 'http://localhost:3000');
+  ApiService().initialize('http://localhost:3000');
 
   // Initialize AdMob
   await AdService.initialize();
@@ -31,7 +31,6 @@ class StyleGuideApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const OnboardingScreen(),
-      routes: {'/result': (context) => const ResultScreen()},
     );
   }
 }

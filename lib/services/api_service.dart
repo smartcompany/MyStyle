@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../models/ad_config.dart';
+import '../models/analysis_result.dart';
 
 class ApiService {
   static final ApiService _instance = ApiService._internal();
@@ -9,12 +10,11 @@ class ApiService {
   ApiService._internal();
 
   String _baseUrl = 'https://my-style-server-chi.vercel.app';
+
   AdConfig? _adConfig;
   bool _isConfigLoaded = false;
 
-  void initialize({String baseUrl = 'https://my-style-server-chi.vercel.app'}) {
-    _baseUrl = baseUrl;
-  }
+  void initialize() {}
 
   // Get ad configuration from server
   Future<AdConfig?> getAdConfig() async {
@@ -167,5 +167,36 @@ class ApiService {
   void clearConfigCache() {
     _adConfig = null;
     _isConfigLoaded = false;
+  }
+
+  // Analyze face image using OpenAI
+  Future<AnalysisResult?> analyzeFace(String imagePath) async {
+    try {
+      final file = File(imagePath);
+      if (!await file.exists()) {
+        throw Exception('이미지 파일이 존재하지 않습니다.');
+      }
+
+      final request = http.MultipartRequest(
+        'POST',
+        Uri.parse('$_baseUrl/api/analyze'),
+      );
+
+      request.files.add(await http.MultipartFile.fromPath('image', imagePath));
+
+      final streamedResponse = await request.send();
+      final response = await http.Response.fromStream(streamedResponse);
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return AnalysisResult.fromJson(data);
+      } else {
+        final errorData = jsonDecode(response.body);
+        throw Exception('분석 실패: ${errorData['error'] ?? '알 수 없는 오류'}');
+      }
+    } catch (e) {
+      print('얼굴 분석 오류: $e');
+      return null;
+    }
   }
 }
