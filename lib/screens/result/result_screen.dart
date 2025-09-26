@@ -190,65 +190,24 @@ class _ResultScreenState extends State<ResultScreen>
           ),
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Container(
-                  width: 60,
-                  height: 60,
-                  decoration: BoxDecoration(
-                    color: AppTheme.primaryColor,
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Icons.analytics,
-                    color: Colors.white,
-                    size: 30,
-                  ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        '종합 분석 결과',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: AppTheme.textPrimary,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        _analysisResult.overallComment,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: AppTheme.textSecondary,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
-                  decoration: BoxDecoration(
-                    color: AppTheme.primaryColor,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Text(
-                    '${_analysisResult.overallScore}점',
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ],
+            const Text(
+              '종합 분석 결과',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: AppTheme.textPrimary,
+              ),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              _analysisResult.overallComment,
+              style: const TextStyle(
+                fontSize: 18,
+                color: AppTheme.textPrimary,
+                height: 1.5,
+              ),
             ),
           ],
         ),
@@ -261,7 +220,6 @@ class _ResultScreenState extends State<ResultScreen>
       children: [
         ScoreCard(
           title: '얼굴형 분석',
-          score: _analysisResult.faceAnalysis.balanceScore,
           comment: _analysisResult.faceAnalysis.balanceComment,
           details: [
             '얼굴형: ${_analysisResult.faceAnalysis.faceShape}',
@@ -273,7 +231,6 @@ class _ResultScreenState extends State<ResultScreen>
 
         ScoreCard(
           title: '피부 분석',
-          score: _analysisResult.skinAnalysis.skinScore,
           comment: _analysisResult.skinAnalysis.skinComment,
           details: [
             '피부톤: ${_analysisResult.skinAnalysis.skinTone}',
@@ -285,7 +242,6 @@ class _ResultScreenState extends State<ResultScreen>
 
         ScoreCard(
           title: '헤어스타일',
-          score: _analysisResult.hairAnalysis.hairScore,
           comment: _analysisResult.hairAnalysis.hairComment,
           details: _analysisResult.hairAnalysis.recommendedStyles,
           icon: Icons.content_cut,
@@ -293,7 +249,6 @@ class _ResultScreenState extends State<ResultScreen>
 
         ScoreCard(
           title: '눈썹 관리',
-          score: _analysisResult.eyebrowAnalysis.eyebrowScore,
           comment: _analysisResult.eyebrowAnalysis.eyebrowComment,
           details: _analysisResult.eyebrowAnalysis.maintenanceTips,
           icon: Icons.visibility,
@@ -301,7 +256,6 @@ class _ResultScreenState extends State<ResultScreen>
 
         ScoreCard(
           title: '패션 & 액세서리',
-          score: _analysisResult.fashionAnalysis.fashionScore,
           comment: _analysisResult.fashionAnalysis.fashionComment,
           details: [
             ..._analysisResult.fashionAnalysis.recommendedColors.map(
@@ -316,7 +270,6 @@ class _ResultScreenState extends State<ResultScreen>
 
         ScoreCard(
           title: '라이프스타일',
-          score: _analysisResult.lifestyleAdvice.lifestyleScore,
           comment: _analysisResult.lifestyleAdvice.generalAdvice,
           details: [
             _analysisResult.lifestyleAdvice.sleepAdvice,
