@@ -67,17 +67,31 @@ class _ResultScreenState extends State<ResultScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppTheme.backgroundColor,
+      backgroundColor: const Color(0xFFF8FAFC),
       appBar: AppBar(
-        title: const Text('분석 결과'),
-        backgroundColor: Colors.transparent,
+        title: const Text(
+          '스타일 분석 결과',
+          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+        ),
+        backgroundColor: Colors.white,
         elevation: 0,
+        surfaceTintColor: Colors.transparent,
         leading: IconButton(
           onPressed: () => Navigator.of(context).pop(),
-          icon: const Icon(Icons.arrow_back_ios),
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.black87),
         ),
         actions: [
-          IconButton(onPressed: _shareResult, icon: const Icon(Icons.share)),
+          Container(
+            margin: const EdgeInsets.only(right: 8),
+            decoration: BoxDecoration(
+              color: Colors.blue.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: IconButton(
+              onPressed: _shareResult,
+              icon: const Icon(Icons.share, color: Colors.blue),
+            ),
+          ),
         ],
       ),
       body: FadeTransition(
@@ -112,132 +126,218 @@ class _ResultScreenState extends State<ResultScreen>
   }
 
   Widget _buildOverallScoreCard() {
-    return Card(
-      child: Container(
-        padding: const EdgeInsets.all(24),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              AppTheme.primaryColor.withOpacity(0.1),
-              AppTheme.secondaryColor.withOpacity(0.1),
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Colors.white, Colors.grey.shade50],
+        ),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.08),
+            blurRadius: 20,
+            offset: const Offset(0, 8),
+          ),
+        ],
+        border: Border.all(color: Colors.grey.shade100),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Colors.blue.shade400, Colors.purple.shade400],
+                  ),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Icon(
+                  Icons.auto_awesome,
+                  color: Colors.white,
+                  size: 24,
+                ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      '종합 분석 결과',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      'AI가 분석한 당신의 스타일',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey.shade600,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              '종합 분석 결과',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: AppTheme.textPrimary,
-              ),
+          const SizedBox(height: 20),
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.blue.shade50,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: Colors.blue.shade100),
             ),
-            const SizedBox(height: 12),
-            Text(
+            child: Text(
               _analysisResult.overallComment,
-              style: const TextStyle(
-                fontSize: 18,
-                color: AppTheme.textPrimary,
-                height: 1.5,
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.grey.shade800,
+                height: 1.6,
+                fontWeight: FontWeight.w500,
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 
   Widget _buildAnalysisSections() {
-    return Column(
-      children: [
-        ScoreCard(
-          title: '얼굴형 분석',
-          comment: _analysisResult.faceAnalysis.balanceComment,
-          details: [
-            '얼굴형: ${_analysisResult.faceAnalysis.faceShape}',
-            ..._analysisResult.faceAnalysis.strengths.map((s) => '장점: $s'),
-            ..._analysisResult.faceAnalysis.improvements.map((i) => '개선점: $i'),
-          ],
-          icon: Icons.face_outlined,
-        ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        children: [
+          _buildModernScoreCard(
+            title: '얼굴형 분석',
+            comment: _analysisResult.faceAnalysis.balanceComment,
+            details: [
+              '얼굴형: ${_analysisResult.faceAnalysis.faceShape}',
+              '장점: ${_analysisResult.faceAnalysis.strengths}',
+              '개선점: ${_analysisResult.faceAnalysis.improvements}',
+            ],
+            icon: Icons.face_outlined,
+            gradientColors: [Colors.pink.shade400, Colors.orange.shade400],
+          ),
 
-        ScoreCard(
-          title: '피부 분석',
-          comment: _analysisResult.skinAnalysis.skinComment,
-          details: [
-            '피부톤: ${_analysisResult.skinAnalysis.skinTone}',
-            '피부타입: ${_analysisResult.skinAnalysis.skinType}',
-            ..._analysisResult.skinAnalysis.skinIssues.map((i) => '관심사항: $i'),
-          ],
-          icon: Icons.face_retouching_natural,
-        ),
+          _buildModernScoreCard(
+            title: '피부 분석',
+            comment: _analysisResult.skinAnalysis.skinComment,
+            details: [
+              '피부톤: ${_analysisResult.skinAnalysis.skinTone}',
+              '피부타입: ${_analysisResult.skinAnalysis.skinType}',
+              '관심사항: ${_analysisResult.skinAnalysis.skinIssues}',
+            ],
+            icon: Icons.face_retouching_natural,
+            gradientColors: [Colors.green.shade400, Colors.teal.shade400],
+          ),
 
-        ScoreCard(
-          title: '헤어스타일',
-          comment: _analysisResult.hairAnalysis.hairComment,
-          details: _analysisResult.hairAnalysis.recommendedStyles,
-          icon: Icons.content_cut,
-        ),
+          _buildModernScoreCard(
+            title: '헤어스타일',
+            comment: _analysisResult.hairAnalysis.hairComment,
+            details: [_analysisResult.hairAnalysis.recommendedStyles],
+            icon: Icons.content_cut,
+            gradientColors: [Colors.purple.shade400, Colors.indigo.shade400],
+          ),
 
-        ScoreCard(
-          title: '눈썹 관리',
-          comment: _analysisResult.eyebrowAnalysis.eyebrowComment,
-          details: _analysisResult.eyebrowAnalysis.maintenanceTips,
-          icon: Icons.visibility,
-        ),
+          _buildModernScoreCard(
+            title: '눈썹 관리',
+            comment: _analysisResult.eyebrowAnalysis.eyebrowComment,
+            details: [_analysisResult.eyebrowAnalysis.maintenanceTips],
+            icon: Icons.visibility,
+            gradientColors: [Colors.amber.shade400, Colors.orange.shade400],
+          ),
 
-        ScoreCard(
-          title: '패션 & 액세서리',
-          comment: _analysisResult.fashionAnalysis.fashionComment,
-          details: [
-            ..._analysisResult.fashionAnalysis.recommendedColors.map(
-              (c) => '추천 색상: $c',
-            ),
-            ..._analysisResult.fashionAnalysis.glassesRecommendations.map(
-              (g) => '안경: $g',
-            ),
-          ],
-          icon: Icons.style,
-        ),
+          _buildModernScoreCard(
+            title: '패션 & 액세서리',
+            comment: _analysisResult.fashionAnalysis.fashionComment,
+            details: [
+              '추천 색상: ${_analysisResult.fashionAnalysis.recommendedColors}',
+              '안경: ${_analysisResult.fashionAnalysis.glassesRecommendations}',
+            ],
+            icon: Icons.style,
+            gradientColors: [Colors.cyan.shade400, Colors.blue.shade400],
+          ),
 
-        ScoreCard(
-          title: '라이프스타일',
-          comment: _analysisResult.lifestyleAdvice.generalAdvice,
-          details: [
-            _analysisResult.lifestyleAdvice.sleepAdvice,
-            _analysisResult.lifestyleAdvice.dietAdvice,
-            _analysisResult.lifestyleAdvice.exerciseAdvice,
-          ],
-          icon: Icons.favorite,
-        ),
-      ],
+          _buildModernScoreCard(
+            title: '라이프스타일',
+            comment: _analysisResult.lifestyleAdvice.generalAdvice,
+            details: [
+              _analysisResult.lifestyleAdvice.sleepAdvice,
+              _analysisResult.lifestyleAdvice.dietAdvice,
+              _analysisResult.lifestyleAdvice.exerciseAdvice,
+            ],
+            icon: Icons.favorite,
+            gradientColors: [Colors.red.shade400, Colors.pink.shade400],
+          ),
+        ],
+      ),
     );
   }
 
   Widget _buildActionButtons() {
-    return Column(
-      children: [
-        AppButton(
-          text: '다시 분석하기',
-          onPressed: _analyzeAgain,
-          icon: Icons.refresh,
-          isFullWidth: true,
-        ),
-        const SizedBox(height: 12),
-        // 공유 섹션 추가
-        ShareUI.buildShareSection(
-          context: context,
-          title: '결과 공유하기',
-          description: '분석 결과를 친구들과 공유해보세요!',
-          shareText: _generateShareText(),
-          onShareTap: _shareResult,
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        children: [
+          Container(
+            width: double.infinity,
+            height: 56,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.blue.shade500, Colors.purple.shade500],
+              ),
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.blue.withOpacity(0.3),
+                  blurRadius: 15,
+                  offset: const Offset(0, 8),
+                ),
+              ],
+            ),
+            child: ElevatedButton.icon(
+              onPressed: _analyzeAgain,
+              icon: const Icon(Icons.refresh, color: Colors.white),
+              label: const Text(
+                '다시 분석하기',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.transparent,
+                shadowColor: Colors.transparent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 20),
+          // 공유 섹션 추가
+          ShareUI.buildShareSection(
+            context: context,
+            title: '결과 공유하기',
+            description: '분석 결과를 친구들과 공유해보세요!',
+            shareText: _generateShareText(),
+            onShareTap: _shareResult,
+          ),
+        ],
+      ),
     );
   }
 
@@ -274,6 +374,113 @@ MyStyle 앱으로 나만의 스타일을 찾아보세요! ✨
     ShareUI.showShareOptionsDialog(
       context: context,
       shareText: _generateShareText(),
+    );
+  }
+
+  Widget _buildModernScoreCard({
+    required String title,
+    required String comment,
+    required List<String> details,
+    required IconData icon,
+    required List<Color> gradientColors,
+  }) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Colors.white, Colors.grey.shade50],
+        ),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 15,
+            offset: const Offset(0, 5),
+          ),
+        ],
+        border: Border.all(color: Colors.grey.shade100),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(colors: gradientColors),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(icon, color: Colors.white, size: 20),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: gradientColors[0].withOpacity(0.05),
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: gradientColors[0].withOpacity(0.1)),
+            ),
+            child: Text(
+              comment,
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.grey.shade800,
+                height: 1.5,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          if (details.isNotEmpty) ...[
+            const SizedBox(height: 12),
+            ...details.map(
+              (detail) => Padding(
+                padding: const EdgeInsets.only(bottom: 4),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 4,
+                      height: 4,
+                      margin: const EdgeInsets.only(top: 8, right: 8),
+                      decoration: BoxDecoration(
+                        color: gradientColors[0],
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        detail,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey.shade700,
+                          height: 1.4,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ],
+      ),
     );
   }
 }

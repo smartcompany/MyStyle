@@ -87,7 +87,14 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
                   width: 80,
                   height: 80,
                   decoration: BoxDecoration(
-                    color: Colors.blue.withOpacity(0.1),
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Colors.blue.withOpacity(0.2),
+                        Colors.purple.withOpacity(0.2),
+                      ],
+                    ),
                     shape: BoxShape.circle,
                   ),
                   child: const Icon(
@@ -98,7 +105,7 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
                 ),
                 const SizedBox(height: 24),
                 const Text(
-                  '얼굴 사진을 업로드해주세요',
+                  '나만의 스타일을 찾아보세요',
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -108,13 +115,71 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
                 ),
                 const SizedBox(height: 12),
                 const Text(
-                  '정확한 분석을 위해\n얼굴이 잘 보이는 사진을 사용해주세요',
+                  'AI가 당신의 얼굴을 분석하여\n헤어스타일, 눈썹, 패션, 액세서리를 추천해드립니다',
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.grey,
                     height: 1.5,
                   ),
                   textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 20),
+
+                // 스타일링 가이드 카드
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [Colors.white, Colors.grey.shade50],
+                    ),
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: Colors.grey.shade200),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.05),
+                        blurRadius: 10,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.style_outlined,
+                            color: Colors.blue,
+                            size: 20,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            '분석 항목',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black87,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 12),
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: [
+                          _buildAnalysisTag('💇‍♀️ 헤어스타일'),
+                          _buildAnalysisTag('👁️ 눈썹 관리'),
+                          _buildAnalysisTag('👓 안경 추천'),
+                          _buildAnalysisTag('🎩 모자 스타일'),
+                          _buildAnalysisTag('💍 귀걸이'),
+                          _buildAnalysisTag('🎨 컬러 팔레트'),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -252,6 +317,25 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
         child: AspectRatio(
           aspectRatio: 1,
           child: Image.file(_selectedImage!, fit: BoxFit.cover),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAnalysisTag(String text) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      decoration: BoxDecoration(
+        color: Colors.blue.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.blue.withOpacity(0.3)),
+      ),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 12,
+          color: Colors.blue.shade700,
+          fontWeight: FontWeight.w500,
         ),
       ),
     );

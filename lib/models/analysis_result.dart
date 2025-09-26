@@ -63,8 +63,8 @@ class FaceAnalysis {
   final String faceShape;
   final int balanceScore;
   final String balanceComment;
-  final List<String> strengths;
-  final List<String> improvements;
+  final String strengths;
+  final String improvements;
 
   FaceAnalysis({
     required this.faceShape,
@@ -76,11 +76,11 @@ class FaceAnalysis {
 
   factory FaceAnalysis.fromJson(Map<String, dynamic> json) {
     return FaceAnalysis(
-      faceShape: json['faceShape'] ?? '',
+      faceShape: json['face_shape'] ?? '',
       balanceScore: json['balanceScore'] ?? 0,
-      balanceComment: json['balanceComment'] ?? '',
-      strengths: List<String>.from(json['strengths'] ?? []),
-      improvements: List<String>.from(json['improvements'] ?? []),
+      balanceComment: json['balance_comment'] ?? '',
+      strengths: json['strengths'] ?? '',
+      improvements: json['improvements'] ?? '',
     );
   }
 }
@@ -90,9 +90,9 @@ class SkinAnalysis {
   final String skinType;
   final int skinScore;
   final String skinComment;
-  final List<String> skinIssues;
-  final List<String> careRoutine;
-  final List<String> productRecommendations;
+  final String skinIssues;
+  final String careRoutine;
+  final String productRecommendations;
 
   SkinAnalysis({
     required this.skinTone,
@@ -110,19 +110,17 @@ class SkinAnalysis {
       skinType: json['skin_type'] ?? '',
       skinScore: 0, // 점수 제거됨
       skinComment: json['skin_comment'] ?? '',
-      skinIssues: List<String>.from(json['skin_issues'] ?? []),
-      careRoutine: List<String>.from(json['care_routine'] ?? []),
-      productRecommendations: List<String>.from(
-        json['product_recommendations'] ?? [],
-      ),
+      skinIssues: json['skin_issues'] ?? '',
+      careRoutine: json['care_routine'] ?? '',
+      productRecommendations: json['product_recommendations'] ?? '',
     );
   }
 }
 
 class HairAnalysis {
-  final List<String> recommendedStyles;
+  final String recommendedStyles;
   final String hairComment;
-  final List<String> stylingTips;
+  final String stylingTips;
   final String beardAdvice; // For male users
   final int hairScore;
 
@@ -136,9 +134,9 @@ class HairAnalysis {
 
   factory HairAnalysis.fromJson(Map<String, dynamic> json) {
     return HairAnalysis(
-      recommendedStyles: List<String>.from(json['recommended_styles'] ?? []),
+      recommendedStyles: json['recommended_styles'] ?? '',
       hairComment: json['hair_comment'] ?? '',
-      stylingTips: List<String>.from(json['styling_tips'] ?? []),
+      stylingTips: json['styling_tips'] ?? '',
       beardAdvice: json['beard_advice'] ?? '',
       hairScore: 0, // 점수 제거됨
     );
@@ -149,8 +147,8 @@ class EyebrowAnalysis {
   final String eyebrowShape;
   final int eyebrowScore;
   final String eyebrowComment;
-  final List<String> maintenanceTips;
-  final List<String> stylingRecommendations;
+  final String maintenanceTips;
+  final String stylingRecommendations;
 
   EyebrowAnalysis({
     required this.eyebrowShape,
@@ -165,18 +163,16 @@ class EyebrowAnalysis {
       eyebrowShape: json['eyebrow_shape'] ?? '',
       eyebrowScore: 0, // 점수 제거됨
       eyebrowComment: json['eyebrow_comment'] ?? '',
-      maintenanceTips: List<String>.from(json['maintenance_tips'] ?? []),
-      stylingRecommendations: List<String>.from(
-        json['styling_recommendations'] ?? [],
-      ),
+      maintenanceTips: json['maintenance_tips'] ?? '',
+      stylingRecommendations: json['styling_recommendations'] ?? '',
     );
   }
 }
 
 class FashionAnalysis {
-  final List<String> recommendedColors;
-  final List<String> glassesRecommendations;
-  final List<String> accessoryRecommendations;
+  final String recommendedColors;
+  final String glassesRecommendations;
+  final String accessoryRecommendations;
   final String fashionComment;
   final int fashionScore;
 
@@ -190,13 +186,9 @@ class FashionAnalysis {
 
   factory FashionAnalysis.fromJson(Map<String, dynamic> json) {
     return FashionAnalysis(
-      recommendedColors: List<String>.from(json['recommended_colors'] ?? []),
-      glassesRecommendations: List<String>.from(
-        json['glasses_recommendations'] ?? [],
-      ),
-      accessoryRecommendations: List<String>.from(
-        json['accessory_recommendations'] ?? [],
-      ),
+      recommendedColors: json['recommended_colors'] ?? '',
+      glassesRecommendations: json['glasses_recommendations'] ?? '',
+      accessoryRecommendations: json['accessory_recommendations'] ?? '',
       fashionComment: json['fashion_comment'] ?? '',
       fashionScore: 0, // 점수 제거됨
     );

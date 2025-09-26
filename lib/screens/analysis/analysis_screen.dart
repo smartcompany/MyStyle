@@ -219,9 +219,14 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Color(0xFF2D1B69), Color(0xFF8B5CF6), Color(0xFFEC4899)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color(0xFF667eea), // 모던 블루
+              Color(0xFF764ba2), // 딥 퍼플
+              Color(0xFFf093fb), // 소프트 핑크
+            ],
+            stops: [0.0, 0.5, 1.0],
           ),
         ),
         child: SafeArea(
@@ -249,31 +254,46 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                     children: [
                       // 분석 아이콘
                       Container(
-                        width: 120,
-                        height: 120,
+                        width: 140,
+                        height: 140,
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(60),
-                          border: Border.all(
-                            color: Colors.white.withOpacity(0.3),
-                            width: 2,
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              Colors.white.withOpacity(0.2),
+                              Colors.white.withOpacity(0.1),
+                            ],
                           ),
+                          borderRadius: BorderRadius.circular(70),
+                          border: Border.all(
+                            color: Colors.white.withOpacity(0.4),
+                            width: 3,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              blurRadius: 20,
+                              offset: const Offset(0, 10),
+                            ),
+                          ],
                         ),
                         child: const Icon(
-                          Icons.psychology,
+                          Icons.auto_awesome,
                           color: Colors.white,
-                          size: 60,
+                          size: 70,
                         ),
                       ),
                       const SizedBox(height: 40),
 
                       // 제목
                       Text(
-                        _isAdCompleted ? '분석 완료 중...' : '스타일 분석 시작',
+                        _isAdCompleted ? 'AI 분석 완료 중...' : 'AI 스타일 분석',
                         style: const TextStyle(
                           color: Colors.white,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
+                          fontSize: 28,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 0.5,
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -282,11 +302,12 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                       // 설명
                       if (!_isAdCompleted)
                         const Text(
-                          '광고를 시청하고 분석을 시작하세요',
+                          '광고 시청 후 당신만의 스타일을 분석합니다',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 16,
                             height: 1.5,
+                            fontWeight: FontWeight.w400,
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -295,15 +316,27 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
 
                       // 광고 로딩 중 또는 광고 시청 중
                       if (!_isAdShowing && !_isAnalysisComplete)
-                        const Column(
+                        Column(
                           children: [
-                            CircularProgressIndicator(color: Colors.white),
-                            SizedBox(height: 16),
-                            Text(
-                              '광고 로딩 중...',
-                              style: TextStyle(
+                            Container(
+                              width: 50,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              child: const CircularProgressIndicator(
                                 color: Colors.white,
+                                strokeWidth: 3,
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            Text(
+                              '광고 준비 중...',
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(0.9),
                                 fontSize: 16,
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
                           ],
@@ -311,15 +344,27 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
 
                       // 광고 표시 중 또는 분석 진행 중
                       if (_isAdShowing || _isAnalysisComplete)
-                        const Column(
+                        Column(
                           children: [
-                            CircularProgressIndicator(color: Colors.white),
-                            SizedBox(height: 16),
-                            Text(
-                              '분석 진행 중...',
-                              style: TextStyle(
+                            Container(
+                              width: 50,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              child: const CircularProgressIndicator(
                                 color: Colors.white,
+                                strokeWidth: 3,
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            Text(
+                              'AI가 스타일을 분석하고 있습니다...',
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(0.9),
                                 fontSize: 16,
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
                           ],
