@@ -80,7 +80,11 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
 
     try {
       // 실제 OpenAI API 호출
-      final result = await ApiService().analyzeFace(widget.imagePath);
+      final currentLocale = Localizations.localeOf(context);
+      final result = await ApiService().analyzeFace(
+        widget.imagePath,
+        language: currentLocale.languageCode,
+      );
 
       if (result != null) {
         setState(() {

@@ -170,7 +170,10 @@ class ApiService {
   }
 
   // Analyze face image using OpenAI
-  Future<AnalysisResult?> analyzeFace(String imagePath) async {
+  Future<AnalysisResult?> analyzeFace(
+    String imagePath, {
+    String? language,
+  }) async {
     try {
       final file = File(imagePath);
       if (!await file.exists()) {
@@ -183,6 +186,11 @@ class ApiService {
       );
 
       request.files.add(await http.MultipartFile.fromPath('image', imagePath));
+
+      // 언어 정보 추가
+      if (language != null) {
+        request.headers['X-Language'] = language;
+      }
 
       final streamedResponse = await request.send();
       final response = await http.Response.fromStream(streamedResponse);
