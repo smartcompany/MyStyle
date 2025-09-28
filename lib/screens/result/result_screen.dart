@@ -59,9 +59,7 @@ class _ResultScreenState extends State<ResultScreen>
   }
 
   void _analyzeAgain() {
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => const PhotoUploadScreen()),
-    );
+    Navigator.of(context).pop();
   }
 
   @override
@@ -169,20 +167,19 @@ class _ResultScreenState extends State<ResultScreen>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       '종합 분석 결과',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
-                      ),
+                      style: Theme.of(context).textTheme.headlineSmall
+                          ?.copyWith(
+                            color: AppTheme.textPrimary,
+                            fontWeight: FontWeight.w700,
+                          ),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       'AI가 분석한 당신의 스타일',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey.shade600,
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: AppTheme.textSecondary,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -201,11 +198,11 @@ class _ResultScreenState extends State<ResultScreen>
             ),
             child: Text(
               _analysisResult.overallComment,
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey.shade800,
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                color: AppTheme.textPrimary,
                 height: 1.6,
                 fontWeight: FontWeight.w500,
+                fontSize: 18,
               ),
             ),
           ),
@@ -420,10 +417,9 @@ MyStyle 앱으로 나만의 스타일을 찾아보세요! ✨
               Expanded(
                 child: Text(
                   title,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    color: AppTheme.textPrimary,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
               ),
@@ -439,11 +435,11 @@ MyStyle 앱으로 나만의 스타일을 찾아보세요! ✨
             ),
             child: Text(
               comment,
-              style: TextStyle(
-                fontSize: 15,
-                color: Colors.grey.shade800,
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                color: AppTheme.textPrimary,
                 height: 1.5,
                 fontWeight: FontWeight.w500,
+                fontSize: 17,
               ),
             ),
           ),
@@ -467,10 +463,10 @@ MyStyle 앱으로 나만의 스타일을 찾아보세요! ✨
                     Expanded(
                       child: Text(
                         detail,
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey.shade700,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: AppTheme.textSecondary,
                           height: 1.4,
+                          fontSize: 16,
                         ),
                       ),
                     ),

@@ -223,9 +223,9 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Color(0xFF667eea), // 모던 블루
-              Color(0xFF764ba2), // 딥 퍼플
-              Color(0xFFf093fb), // 소프트 핑크
+              Color(0xFF3B82F6), // 블루 500
+              Color(0xFF6366F1), // 인디고 500
+              Color(0xFF8B5CF6), // 바이올렛 500
             ],
             stops: [0.0, 0.5, 1.0],
           ),
@@ -311,6 +311,46 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                             fontWeight: FontWeight.w400,
                           ),
                           textAlign: TextAlign.center,
+                        )
+                      else
+                        Column(
+                          children: [
+                            const Text(
+                              'AI가 당신의 스타일을 분석하고 있습니다',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                height: 1.5,
+                                fontWeight: FontWeight.w400,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 12),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 12,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.15),
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(
+                                  color: Colors.white.withOpacity(0.3),
+                                  width: 1,
+                                ),
+                              ),
+                              child: const Text(
+                                '💇‍♀️ 헤어스타일 • 👁️ 눈썹 정리 • ✨ 화장 팁\n🎨 색상 추천 • 👔 패션 조언 • 💎 액세서리',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                  height: 1.4,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ],
                         ),
 
                       const SizedBox(height: 40),

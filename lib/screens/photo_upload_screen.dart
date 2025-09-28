@@ -70,11 +70,21 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xFFF8FAFC),
       appBar: AppBar(
-        title: const Text('사진 업로드'),
-        backgroundColor: Colors.transparent,
+        title: Text(
+          'MyStyle',
+          style: TextStyle(
+            color: const Color(0xFF1E293B),
+            fontSize: 20,
+            fontWeight: FontWeight.w700,
+            letterSpacing: -0.5,
+          ),
+        ),
+        backgroundColor: Colors.white,
         elevation: 0,
+        surfaceTintColor: Colors.transparent,
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
@@ -84,42 +94,52 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
             Column(
               children: [
                 Container(
-                  width: 80,
-                  height: 80,
+                  width: 90,
+                  height: 90,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       colors: [
-                        Colors.blue.withOpacity(0.2),
-                        Colors.purple.withOpacity(0.2),
+                        const Color(0xFF3B82F6),
+                        const Color(0xFF6366F1),
                       ],
                     ),
                     shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color(0xFF3B82F6).withOpacity(0.3),
+                        blurRadius: 20,
+                        offset: const Offset(0, 8),
+                      ),
+                    ],
                   ),
                   child: const Icon(
-                    Icons.camera_alt_outlined,
-                    size: 40,
-                    color: Colors.blue,
+                    Icons.palette_rounded,
+                    size: 45,
+                    color: Colors.white,
                   ),
                 ),
                 const SizedBox(height: 24),
-                const Text(
+                Text(
                   '나만의 스타일을 찾아보세요',
                   style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
+                    fontSize: 28,
+                    fontWeight: FontWeight.w800,
+                    color: const Color(0xFF1E293B),
+                    letterSpacing: -0.5,
+                    height: 1.2,
                   ),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 12),
-                const Text(
+                Text(
                   'AI가 당신의 얼굴을 분석하여\n헤어스타일, 눈썹, 패션, 액세서리를 추천해드립니다',
                   style: TextStyle(
                     fontSize: 16,
-                    color: Colors.grey,
-                    height: 1.5,
+                    color: const Color(0xFF64748B),
+                    height: 1.6,
+                    fontWeight: FontWeight.w500,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -127,20 +147,19 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
 
                 // 스타일링 가이드 카드
                 Container(
-                  padding: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(24),
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [Colors.white, Colors.grey.shade50],
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      color: const Color(0xFFE2E8F0),
+                      width: 1,
                     ),
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: Colors.grey.shade200),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.05),
-                        blurRadius: 10,
-                        offset: const Offset(0, 4),
+                        color: const Color(0xFF3B82F6).withOpacity(0.08),
+                        blurRadius: 20,
+                        offset: const Offset(0, 8),
                       ),
                     ],
                   ),
@@ -149,18 +168,31 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
                     children: [
                       Row(
                         children: [
-                          Icon(
-                            Icons.style_outlined,
-                            color: Colors.blue,
-                            size: 20,
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  const Color(0xFF3B82F6),
+                                  const Color(0xFF6366F1),
+                                ],
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: const Icon(
+                              Icons.auto_awesome_rounded,
+                              color: Colors.white,
+                              size: 18,
+                            ),
                           ),
                           const SizedBox(width: 8),
                           Text(
                             '분석 항목',
                             style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black87,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                              color: const Color(0xFF1E293B),
+                              letterSpacing: -0.25,
                             ),
                           ),
                         ],
@@ -198,31 +230,80 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
 
             // Action Buttons
             if (_selectedImage == null) ...[
-              SizedBox(
+              Container(
                 width: double.infinity,
+                height: 56,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [const Color(0xFF3B82F6), const Color(0xFF6366F1)],
+                  ),
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color(0xFF3B82F6).withOpacity(0.3),
+                      blurRadius: 15,
+                      offset: const Offset(0, 8),
+                    ),
+                  ],
+                ),
                 child: ElevatedButton.icon(
                   onPressed: () => _pickImage(ImageSource.camera),
-                  icon: const Icon(Icons.camera_alt),
-                  label: const Text('카메라로 촬영'),
+                  icon: const Icon(
+                    Icons.camera_alt_rounded,
+                    color: Colors.white,
+                  ),
+                  label: const Text(
+                    '카메라로 촬영',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                   style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    backgroundColor: Colors.transparent,
+                    shadowColor: Colors.transparent,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(16),
                     ),
                   ),
                 ),
               ),
               const SizedBox(height: 12),
-              SizedBox(
+              Container(
                 width: double.infinity,
+                height: 56,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: const Color(0xFF3B82F6), width: 2),
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color(0xFF3B82F6).withOpacity(0.1),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
                 child: OutlinedButton.icon(
                   onPressed: () => _pickImage(ImageSource.gallery),
-                  icon: const Icon(Icons.photo_library_outlined),
-                  label: const Text('갤러리에서 선택'),
+                  icon: const Icon(
+                    Icons.photo_library_rounded,
+                    color: Color(0xFF3B82F6),
+                  ),
+                  label: const Text(
+                    '갤러리에서 선택',
+                    style: TextStyle(
+                      color: Color(0xFF3B82F6),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                   style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    backgroundColor: Colors.transparent,
+                    side: BorderSide.none,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(16),
                     ),
                   ),
                 ),
@@ -239,13 +320,46 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
                   ),
                   const SizedBox(width: 12),
                   Expanded(
-                    child: ElevatedButton.icon(
-                      onPressed: _analyzePhoto,
-                      icon: const Icon(Icons.analytics_outlined),
-                      label: const Text('분석 시작'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.amber,
-                        foregroundColor: Colors.white,
+                    child: Container(
+                      height: 48,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            const Color(0xFF3B82F6),
+                            const Color(0xFF6366F1),
+                          ],
+                        ),
+                        borderRadius: BorderRadius.circular(12),
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color(0xFF3B82F6).withOpacity(0.3),
+                            blurRadius: 12,
+                            offset: const Offset(0, 6),
+                          ),
+                        ],
+                      ),
+                      child: ElevatedButton.icon(
+                        onPressed: _analyzePhoto,
+                        icon: const Icon(
+                          Icons.auto_awesome_rounded,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                        label: const Text(
+                          '분석 시작',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                          shadowColor: Colors.transparent,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -324,18 +438,36 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
 
   Widget _buildAnalysisTag(String text) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       decoration: BoxDecoration(
-        color: Colors.blue.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.blue.withOpacity(0.3)),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            const Color(0xFF3B82F6).withOpacity(0.08),
+            const Color(0xFF6366F1).withOpacity(0.08),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(25),
+        border: Border.all(
+          color: const Color(0xFF3B82F6).withOpacity(0.2),
+          width: 1,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF3B82F6).withOpacity(0.05),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Text(
         text,
-        style: TextStyle(
-          fontSize: 12,
-          color: Colors.blue.shade700,
-          fontWeight: FontWeight.w500,
+        style: const TextStyle(
+          fontSize: 13,
+          color: Color(0xFF1E293B),
+          fontWeight: FontWeight.w600,
+          letterSpacing: -0.1,
         ),
       ),
     );
