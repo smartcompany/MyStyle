@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "224226217437",
+    "project_id": "styleme-2b68d",
+    "storage_bucket": "styleme-2b68d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:224226217437:android:a3c63aaa58b71af60d7a34",
+        "android_client_info": {
+          "package_name": "com.smartCompany.styleMe"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyQV8oOOjIxJ5YB-BpJsKqbj1-_3Wg1WM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

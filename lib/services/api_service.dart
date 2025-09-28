@@ -189,9 +189,11 @@ class ApiService {
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
+        print('클라이언트에서 받은 분석 결과: ${jsonEncode(data)}');
         return AnalysisResult.fromJson(data);
       } else {
         final errorData = jsonDecode(response.body);
+        print('분석 실패 응답: ${jsonEncode(errorData)}');
         throw Exception('분석 실패: ${errorData['error'] ?? '알 수 없는 오류'}');
       }
     } catch (e) {

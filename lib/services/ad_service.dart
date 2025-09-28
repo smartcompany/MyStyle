@@ -65,16 +65,12 @@ class AdService {
         return false;
       }
 
-      adUnitId = 'ca-app-pub-3940256099942544/4411468910';
-      await _loadInterstitialAd(adUnitId);
-      return true;
-
       print('Loading ad type: $adType with ID: $adUnitId');
 
       // Load appropriate ad type based on server configuration
-      if (adType == 'rewarded_ad') {
+      if (adType?.startsWith('rewarded') ?? false) {
         await _loadRewardedAd(adUnitId);
-      } else if (adType == 'initial_ad') {
+      } else if (adType?.startsWith('initial') ?? false) {
         await _loadInterstitialAd(adUnitId);
       } else {
         print('Unknown ad type: $adType');
@@ -155,6 +151,7 @@ class AdService {
     if (_rewardedAd == null) return false;
 
     final Completer<bool> completer = Completer<bool>();
+    bool rewardEarned = false;
 
     _rewardedAd!.fullScreenContentCallback = FullScreenContentCallback(
       onAdShowedFullScreenContent: (RewardedAd ad) {
@@ -164,9 +161,8 @@ class AdService {
         print('Rewarded ad dismissed');
         ad.dispose();
         _rewardedAd = null;
-        if (!completer.isCompleted) {
-          completer.complete(false);
-        }
+        rewardEarned = true;
+        completer.complete(rewardEarned);
         // Load next ad
         loadAd();
       },
@@ -185,9 +181,8 @@ class AdService {
     _rewardedAd!.show(
       onUserEarnedReward: (AdWithoutView ad, RewardItem reward) {
         print('User earned reward: ${reward.amount} ${reward.type}');
-        if (!completer.isCompleted) {
-          completer.complete(true);
-        }
+        rewardEarned = true;
+        completer.complete(rewardEarned);
       },
     );
 

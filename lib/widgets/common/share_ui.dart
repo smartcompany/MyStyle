@@ -10,6 +10,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
+import '../../l10n/app_localizations.dart';
 
 /// 공유 관련 UI 컴포넌트들을 제공하는 클래스
 class ShareUI {
@@ -139,7 +140,7 @@ class ShareUI {
                   Icon(Icons.share_rounded, size: 20),
                   const SizedBox(width: 8),
                   Text(
-                    '저장 & 공유하기',
+                    AppLocalizations.of(context)!.saveAndShare,
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                   ),
                 ],
@@ -188,7 +189,7 @@ class ShareUI {
               children: [
                 // 제목
                 Text(
-                  '공유하기',
+                  AppLocalizations.of(context)!.shareTitle,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -201,24 +202,24 @@ class ShareUI {
                 _buildShareOption(
                   context,
                   icon: Icons.chat_bubble_outline,
-                  title: '카카오톡',
-                  subtitle: '친구들과 공유하기',
+                  title: AppLocalizations.of(context)!.kakaoTalk,
+                  subtitle: AppLocalizations.of(context)!.shareWithFriendsTitle,
                   onTap: () => _shareToKakao(context, shareText),
                 ),
 
                 _buildShareOption(
                   context,
                   icon: Icons.copy_outlined,
-                  title: '텍스트 복사',
-                  subtitle: '클립보드에 복사',
+                  title: AppLocalizations.of(context)!.textCopy,
+                  subtitle: AppLocalizations.of(context)!.copyToClipboardTitle,
                   onTap: () => _copyToClipboard(context, shareText),
                 ),
 
                 _buildShareOption(
                   context,
                   icon: Icons.save_outlined,
-                  title: '파일로 저장',
-                  subtitle: '파일 앱에 저장',
+                  title: AppLocalizations.of(context)!.saveToFileTitle,
+                  subtitle: AppLocalizations.of(context)!.saveToFilesAppTitle,
                   onTap: () => saveToFile(
                     shareText,
                     fileName: 'style_analysis_result.txt',
@@ -228,8 +229,10 @@ class ShareUI {
                 _buildShareOption(
                   context,
                   icon: Icons.share_outlined,
-                  title: '기타 공유',
-                  subtitle: '기본 공유 기능',
+                  title: AppLocalizations.of(context)!.otherShareTitle,
+                  subtitle: AppLocalizations.of(
+                    context,
+                  )!.defaultShareFunctionTitle,
                   onTap: () => _shareWithDefault(context, shareText, imagePath),
                 ),
 
@@ -239,7 +242,7 @@ class ShareUI {
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(),
                   child: Text(
-                    '취소',
+                    AppLocalizations.of(context)!.cancelTitle,
                     style: TextStyle(
                       color: Colors.white.withOpacity(0.7),
                       fontSize: 16,
@@ -355,7 +358,7 @@ class ShareUI {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('카카오톡으로 공유되었습니다'),
+            content: Text(AppLocalizations.of(context)!.sharedToKakaoMessage),
             backgroundColor: Colors.green,
           ),
         );
@@ -366,7 +369,9 @@ class ShareUI {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('공유 중 오류가 발생했습니다: ${sdkError.toString()}'),
+            content: Text(
+              '${AppLocalizations.of(context)!.shareErrorMessage}: ${sdkError.toString()}',
+            ),
             backgroundColor: Colors.red,
           ),
         );
@@ -386,7 +391,9 @@ class ShareUI {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('클립보드에 복사되었습니다'),
+            content: Text(
+              AppLocalizations.of(context)!.copiedToClipboardMessage,
+            ),
             backgroundColor: Colors.green,
           ),
         );
@@ -395,7 +402,9 @@ class ShareUI {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('복사 중 오류가 발생했습니다: ${e.toString()}'),
+            content: Text(
+              '${AppLocalizations.of(context)!.copyErrorMessage}: ${e.toString()}',
+            ),
             backgroundColor: Colors.red,
           ),
         );
@@ -415,23 +424,31 @@ class ShareUI {
         await Share.shareXFiles(
           [XFile(imagePath)],
           text: shareText,
-          subject: 'MyStyle 분석 결과',
+          subject: AppLocalizations.of(context)!.myStyleAnalysisResultSubject,
         );
       } else {
         // 텍스트만 공유
-        await Share.share(shareText, subject: 'MyStyle 분석 결과');
+        await Share.share(
+          shareText,
+          subject: AppLocalizations.of(context)!.myStyleAnalysisResultSubject,
+        );
       }
 
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('공유가 완료되었습니다'), backgroundColor: Colors.green),
+          SnackBar(
+            content: Text(AppLocalizations.of(context)!.shareCompleteMessage),
+            backgroundColor: Colors.green,
+          ),
         );
       }
     } catch (e) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('공유 중 오류가 발생했습니다: ${e.toString()}'),
+            content: Text(
+              '${AppLocalizations.of(context)!.shareErrorMessage}: ${e.toString()}',
+            ),
             backgroundColor: Colors.red,
           ),
         );

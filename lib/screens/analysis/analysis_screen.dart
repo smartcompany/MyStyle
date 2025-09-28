@@ -6,6 +6,7 @@ import '../../services/ad_service.dart';
 import '../../services/api_service.dart';
 import '../result/result_screen.dart';
 import '../../models/analysis_result.dart';
+import '../../l10n/app_localizations.dart';
 
 class AnalysisScreen extends StatefulWidget {
   final String imagePath;
@@ -69,7 +70,7 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
       _checkAndNavigateToResult();
     } else {
       setState(() {
-        _errorMessage = '광고 시청에 실패했습니다';
+        _errorMessage = AppLocalizations.of(context)!.adViewingFailed;
       });
     }
   }
@@ -77,25 +78,25 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
   Future<void> _startAnalysis() async {
     if (_isAnalysisComplete) return;
 
-    setState(() {
-      _isAnalysisComplete = true;
-    });
-
     try {
       // 실제 OpenAI API 호출
       final result = await ApiService().analyzeFace(widget.imagePath);
 
       if (result != null) {
-        _analysisResult = result;
+        setState(() {
+          _analysisResult = result;
+          _isAnalysisComplete = true;
+        });
         _checkAndNavigateToResult();
       } else {
         setState(() {
-          _errorMessage = '분석에 실패했습니다. 다시 시도해주세요.';
+          _errorMessage = AppLocalizations.of(context)!.analysisFailed;
         });
       }
     } catch (e) {
       setState(() {
-        _errorMessage = '분석 중 오류가 발생했습니다: $e';
+        _errorMessage =
+            '${AppLocalizations.of(context)!.analysisErrorOccurred}: $e';
       });
     }
   }
@@ -124,8 +125,8 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
       builder: (context) => AlertDialog(
         backgroundColor: const Color(0xFF2D1B69),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        title: const Text(
-          '광고 로드 실패',
+        title: Text(
+          AppLocalizations.of(context)!.adLoadFailedTitle,
           style: TextStyle(
             color: Colors.white,
             fontSize: 20,
@@ -133,8 +134,8 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
           ),
           textAlign: TextAlign.center,
         ),
-        content: const Text(
-          '광고를 본 후 분석을 진행합니다.\n다시 시도하시겠습니까?',
+        content: Text(
+          AppLocalizations.of(context)!.adLoadFailedMessage,
           style: TextStyle(color: Colors.white, fontSize: 16),
           textAlign: TextAlign.center,
         ),
@@ -144,14 +145,17 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
               Navigator.of(context).pop(); // 팝업 닫기
               Navigator.of(context).pop(); // 이전 화면으로 돌아가기
             },
-            child: const Text('아니오', style: TextStyle(color: Colors.white)),
+            child: Text(
+              AppLocalizations.of(context)!.no,
+              style: const TextStyle(color: Colors.white),
+            ),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop(); // 팝업 닫기
               _loadAd(); // 광고 재로드
             },
-            child: const Text('예'),
+            child: Text(AppLocalizations.of(context)!.yes),
           ),
         ],
       ),
@@ -238,7 +242,7 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                 padding: const EdgeInsets.all(16.0),
                 child: Center(
                   child: Text(
-                    '스타일 분석',
+                    AppLocalizations.of(context)!.styleAnalysis,
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
@@ -289,7 +293,9 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
 
                       // 제목
                       Text(
-                        _isAdCompleted ? 'AI 분석 완료 중...' : 'AI 스타일 분석',
+                        _isAdCompleted
+                            ? AppLocalizations.of(context)!.analysisComplete
+                            : AppLocalizations.of(context)!.aiStyleAnalysis,
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 28,
@@ -302,8 +308,8 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
 
                       // 설명
                       if (!_isAdCompleted)
-                        const Text(
-                          '광고 시청 후 당신만의 스타일을 분석합니다',
+                        Text(
+                          AppLocalizations.of(context)!.analyzeAfterAd,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 16,
@@ -315,8 +321,8 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                       else
                         Column(
                           children: [
-                            const Text(
-                              'AI가 당신의 스타일을 분석하고 있습니다',
+                            Text(
+                              AppLocalizations.of(context)!.aiAnalyzing,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,
@@ -339,8 +345,10 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                                   width: 1,
                                 ),
                               ),
-                              child: const Text(
-                                '💇‍♀️ 헤어스타일 • 👁️ 눈썹 정리 • ✨ 화장 팁\n🎨 색상 추천 • 👔 패션 조언 • 💎 액세서리',
+                              child: Text(
+                                AppLocalizations.of(
+                                  context,
+                                )!.analysisDescription,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 14,
@@ -373,7 +381,7 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                             ),
                             const SizedBox(height: 20),
                             Text(
-                              '광고 준비 중...',
+                              AppLocalizations.of(context)!.adPreparing,
                               style: TextStyle(
                                 color: Colors.white.withOpacity(0.9),
                                 fontSize: 16,
@@ -401,7 +409,7 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                             ),
                             const SizedBox(height: 20),
                             Text(
-                              'AI가 스타일을 분석하고 있습니다...',
+                              AppLocalizations.of(context)!.aiAnalyzing,
                               style: TextStyle(
                                 color: Colors.white.withOpacity(0.9),
                                 fontSize: 16,
@@ -426,8 +434,8 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                           ),
                           child: Column(
                             children: [
-                              const Text(
-                                '분석 중 오류가 발생했습니다',
+                              Text(
+                                AppLocalizations.of(context)!.analysisError,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
@@ -462,7 +470,9 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                                           ),
                                         ),
                                       ),
-                                      child: const Text('돌아가기'),
+                                      child: Text(
+                                        AppLocalizations.of(context)!.goBack,
+                                      ),
                                     ),
                                   ),
                                   const SizedBox(width: 16),
@@ -487,7 +497,9 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                                           ),
                                         ),
                                       ),
-                                      child: const Text('재시도'),
+                                      child: Text(
+                                        AppLocalizations.of(context)!.retry,
+                                      ),
                                     ),
                                   ),
                                 ],

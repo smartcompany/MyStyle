@@ -1,11 +1,11 @@
 {
-    "name": "style_guide_app",
-    "short_name": "style_guide_app",
+    "name": "Style Me",
+    "short_name": "Style Me",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "AI-powered style diagnosis app",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

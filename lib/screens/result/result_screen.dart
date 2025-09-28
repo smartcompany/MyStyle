@@ -5,6 +5,7 @@ import '../../widgets/common/app_button.dart';
 import '../../widgets/common/score_card.dart';
 import '../../widgets/common/share_ui.dart';
 import '../photo_upload_screen.dart';
+import '../../l10n/app_localizations.dart';
 
 class ResultScreen extends StatefulWidget {
   final AnalysisResult analysisResult;
@@ -67,8 +68,8 @@ class _ResultScreenState extends State<ResultScreen>
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
       appBar: AppBar(
-        title: const Text(
-          '스타일 분석 결과',
+        title: Text(
+          AppLocalizations.of(context)!.styleAnalysisResult,
           style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
         ),
         backgroundColor: Colors.white,
@@ -168,7 +169,7 @@ class _ResultScreenState extends State<ResultScreen>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '종합 분석 결과',
+                      AppLocalizations.of(context)!.overallAnalysisResultTitle,
                       style: Theme.of(context).textTheme.headlineSmall
                           ?.copyWith(
                             color: AppTheme.textPrimary,
@@ -177,7 +178,7 @@ class _ResultScreenState extends State<ResultScreen>
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      'AI가 분석한 당신의 스타일',
+                      AppLocalizations.of(context)!.aiAnalyzedYourStyle,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: AppTheme.textSecondary,
                         fontWeight: FontWeight.w500,
@@ -217,31 +218,31 @@ class _ResultScreenState extends State<ResultScreen>
       child: Column(
         children: [
           _buildModernScoreCard(
-            title: '얼굴형 분석',
+            title: AppLocalizations.of(context)!.faceShapeAnalysisTitle,
             comment: _analysisResult.faceAnalysis.balanceComment,
             details: [
-              '얼굴형: ${_analysisResult.faceAnalysis.faceShape}',
-              '장점: ${_analysisResult.faceAnalysis.strengths}',
-              '개선점: ${_analysisResult.faceAnalysis.improvements}',
+              '${AppLocalizations.of(context)!.faceShape}: ${_analysisResult.faceAnalysis.faceShape}',
+              '${AppLocalizations.of(context)!.strengths}: ${_analysisResult.faceAnalysis.strengths}',
+              '${AppLocalizations.of(context)!.improvements}: ${_analysisResult.faceAnalysis.improvements}',
             ],
             icon: Icons.face_outlined,
             gradientColors: [Colors.pink.shade400, Colors.orange.shade400],
           ),
 
           _buildModernScoreCard(
-            title: '피부 분석',
+            title: AppLocalizations.of(context)!.skinAnalysisTitle,
             comment: _analysisResult.skinAnalysis.skinComment,
             details: [
-              '피부톤: ${_analysisResult.skinAnalysis.skinTone}',
-              '피부타입: ${_analysisResult.skinAnalysis.skinType}',
-              '관심사항: ${_analysisResult.skinAnalysis.skinIssues}',
+              '${AppLocalizations.of(context)!.skinTone}: ${_analysisResult.skinAnalysis.skinTone}',
+              '${AppLocalizations.of(context)!.skinType}: ${_analysisResult.skinAnalysis.skinType}',
+              '${AppLocalizations.of(context)!.skinIssues}: ${_analysisResult.skinAnalysis.skinIssues}',
             ],
             icon: Icons.face_retouching_natural,
             gradientColors: [Colors.green.shade400, Colors.teal.shade400],
           ),
 
           _buildModernScoreCard(
-            title: '헤어스타일',
+            title: AppLocalizations.of(context)!.hairStyleTitle,
             comment: _analysisResult.hairAnalysis.hairComment,
             details: [_analysisResult.hairAnalysis.recommendedStyles],
             icon: Icons.content_cut,
@@ -249,7 +250,7 @@ class _ResultScreenState extends State<ResultScreen>
           ),
 
           _buildModernScoreCard(
-            title: '눈썹 관리',
+            title: AppLocalizations.of(context)!.eyebrowManagementTitle,
             comment: _analysisResult.eyebrowAnalysis.eyebrowComment,
             details: [_analysisResult.eyebrowAnalysis.maintenanceTips],
             icon: Icons.visibility,
@@ -257,18 +258,18 @@ class _ResultScreenState extends State<ResultScreen>
           ),
 
           _buildModernScoreCard(
-            title: '패션 & 액세서리',
+            title: AppLocalizations.of(context)!.fashionAccessoriesTitle,
             comment: _analysisResult.fashionAnalysis.fashionComment,
             details: [
-              '추천 색상: ${_analysisResult.fashionAnalysis.recommendedColors}',
-              '안경: ${_analysisResult.fashionAnalysis.glassesRecommendations}',
+              '${AppLocalizations.of(context)!.recommendedColors}: ${_analysisResult.fashionAnalysis.recommendedColors}',
+              '${AppLocalizations.of(context)!.glassesRecommendations}: ${_analysisResult.fashionAnalysis.glassesRecommendations}',
             ],
             icon: Icons.style,
             gradientColors: [Colors.cyan.shade400, Colors.blue.shade400],
           ),
 
           _buildModernScoreCard(
-            title: '라이프스타일',
+            title: AppLocalizations.of(context)!.lifestyleTitle,
             comment: _analysisResult.lifestyleAdvice.generalAdvice,
             details: [
               _analysisResult.lifestyleAdvice.sleepAdvice,
@@ -307,8 +308,8 @@ class _ResultScreenState extends State<ResultScreen>
             child: ElevatedButton.icon(
               onPressed: _analyzeAgain,
               icon: const Icon(Icons.refresh, color: Colors.white),
-              label: const Text(
-                '다시 분석하기',
+              label: Text(
+                AppLocalizations.of(context)!.analyzeAgain,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 16,
@@ -328,8 +329,8 @@ class _ResultScreenState extends State<ResultScreen>
           // 공유 섹션 추가
           ShareUI.buildShareSection(
             context: context,
-            title: '결과 공유하기',
-            description: '분석 결과를 친구들과 공유해보세요!',
+            title: AppLocalizations.of(context)!.shareResultTitle,
+            description: AppLocalizations.of(context)!.styleGuideDescription,
             shareText: _generateShareText(),
             onShareTap: _shareResult,
           ),
@@ -340,30 +341,30 @@ class _ResultScreenState extends State<ResultScreen>
 
   String _generateShareText() {
     return '''
-🎨 MyStyle 분석 결과
+🎨 ${AppLocalizations.of(context)!.myStyleAnalysisResult}
 
-📊 종합 분석 결과
+📊 ${AppLocalizations.of(context)!.overallAnalysisResultTitle}
 ${_analysisResult.overallComment}
 
-👤 얼굴형 분석
+👤 ${AppLocalizations.of(context)!.faceShapeAnalysisTitle}
 ${_analysisResult.faceAnalysis.balanceComment}
 
-✨ 피부 분석
+✨ ${AppLocalizations.of(context)!.skinAnalysisTitle}
 ${_analysisResult.skinAnalysis.skinComment}
 
-💇‍♀️ 헤어스타일
+💇‍♀️ ${AppLocalizations.of(context)!.hairStyleTitle}
 ${_analysisResult.hairAnalysis.hairComment}
 
-👁️ 눈썹 관리
+👁️ ${AppLocalizations.of(context)!.eyebrowManagementTitle}
 ${_analysisResult.eyebrowAnalysis.eyebrowComment}
 
-👔 패션 & 액세서리
+👔 ${AppLocalizations.of(context)!.fashionAccessoriesTitle}
 ${_analysisResult.fashionAnalysis.fashionComment}
 
-💪 라이프스타일
+💪 ${AppLocalizations.of(context)!.lifestyleTitle}
 ${_analysisResult.lifestyleAdvice.generalAdvice}
 
-MyStyle 앱으로 나만의 스타일을 찾아보세요! ✨
+${AppLocalizations.of(context)!.myStyleAppRecommendation}
     ''';
   }
 

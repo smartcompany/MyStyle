@@ -2,9 +2,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
+import '../l10n/app_localizations.dart';
 import '../services/ad_service.dart';
 import '../debug_tools.dart';
 import 'analysis/analysis_screen.dart';
+import 'onboarding/onboarding_screen.dart';
 
 class PhotoUploadScreen extends StatefulWidget {
   const PhotoUploadScreen({super.key});
@@ -37,7 +39,7 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
         });
       }
     } catch (e) {
-      _showErrorSnackBar('이미지를 선택하는 중 오류가 발생했습니다.');
+      _showErrorSnackBar(AppLocalizations.of(context)!.imageSelectionError);
     }
   }
 
@@ -67,13 +69,19 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
     });
   }
 
+  void _showOnboarding() {
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute(builder: (context) => const OnboardingScreen()));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
       appBar: AppBar(
         title: Text(
-          'MyStyle',
+          AppLocalizations.of(context)!.appTitle,
           style: TextStyle(
             color: const Color(0xFF1E293B),
             fontSize: 20,
@@ -85,6 +93,30 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
         elevation: 0,
         surfaceTintColor: Colors.transparent,
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: _showOnboarding,
+            icon: Container(
+              width: 32,
+              height: 32,
+              decoration: BoxDecoration(
+                color: const Color(0xFF3B82F6).withOpacity(0.1),
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: const Color(0xFF3B82F6).withOpacity(0.3),
+                  width: 1,
+                ),
+              ),
+              child: const Icon(
+                Icons.help_outline_rounded,
+                size: 18,
+                color: Color(0xFF3B82F6),
+              ),
+            ),
+            tooltip: AppLocalizations.of(context)!.showOnboarding,
+          ),
+          const SizedBox(width: 8),
+        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
@@ -122,7 +154,7 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
                 ),
                 const SizedBox(height: 24),
                 Text(
-                  '나만의 스타일을 찾아보세요',
+                  AppLocalizations.of(context)!.findYourStyle,
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.w800,
@@ -134,7 +166,7 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  'AI가 당신의 얼굴을 분석하여\n헤어스타일, 눈썹, 패션, 액세서리를 추천해드립니다',
+                  AppLocalizations.of(context)!.aiAnalysisDescription,
                   style: TextStyle(
                     fontSize: 16,
                     color: const Color(0xFF64748B),
@@ -187,7 +219,7 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
                           ),
                           const SizedBox(width: 8),
                           Text(
-                            '분석 항목',
+                            AppLocalizations.of(context)!.analysisItems,
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w700,
@@ -202,12 +234,24 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
                         spacing: 8,
                         runSpacing: 8,
                         children: [
-                          _buildAnalysisTag('💇‍♀️ 헤어스타일'),
-                          _buildAnalysisTag('👁️ 눈썹 관리'),
-                          _buildAnalysisTag('👓 안경 추천'),
-                          _buildAnalysisTag('🎩 모자 스타일'),
-                          _buildAnalysisTag('💍 귀걸이'),
-                          _buildAnalysisTag('🎨 컬러 팔레트'),
+                          _buildAnalysisTag(
+                            AppLocalizations.of(context)!.hairstyle,
+                          ),
+                          _buildAnalysisTag(
+                            AppLocalizations.of(context)!.eyebrowCare,
+                          ),
+                          _buildAnalysisTag(
+                            AppLocalizations.of(context)!.glassesRecommendation,
+                          ),
+                          _buildAnalysisTag(
+                            AppLocalizations.of(context)!.hatStyle,
+                          ),
+                          _buildAnalysisTag(
+                            AppLocalizations.of(context)!.earrings,
+                          ),
+                          _buildAnalysisTag(
+                            AppLocalizations.of(context)!.colorPalette,
+                          ),
                         ],
                       ),
                     ],
@@ -252,9 +296,9 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
                     Icons.camera_alt_rounded,
                     color: Colors.white,
                   ),
-                  label: const Text(
-                    '카메라로 촬영',
-                    style: TextStyle(
+                  label: Text(
+                    AppLocalizations.of(context)!.takePhoto,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -291,9 +335,9 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
                     Icons.photo_library_rounded,
                     color: Color(0xFF3B82F6),
                   ),
-                  label: const Text(
-                    '갤러리에서 선택',
-                    style: TextStyle(
+                  label: Text(
+                    AppLocalizations.of(context)!.selectFromGallery,
+                    style: const TextStyle(
                       color: Color(0xFF3B82F6),
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -315,7 +359,7 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
                     child: OutlinedButton.icon(
                       onPressed: _retakePhoto,
                       icon: const Icon(Icons.refresh),
-                      label: const Text('다시 촬영'),
+                      label: Text(AppLocalizations.of(context)!.retakePhoto),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -345,9 +389,9 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
                           color: Colors.white,
                           size: 20,
                         ),
-                        label: const Text(
-                          '분석 시작',
-                          style: TextStyle(
+                        label: Text(
+                          AppLocalizations.of(context)!.startAnalysis,
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
@@ -396,7 +440,7 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
           Icon(Icons.cloud_upload_outlined, size: 64, color: Colors.grey[400]),
           const SizedBox(height: 16),
           Text(
-            '사진을 업로드하거나 촬영하세요',
+            AppLocalizations.of(context)!.uploadPhotoInstruction,
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w600,
@@ -405,7 +449,7 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
           ),
           const SizedBox(height: 8),
           Text(
-            'JPG, PNG 형식 지원',
+            AppLocalizations.of(context)!.supportedFormats,
             style: TextStyle(fontSize: 14, color: Colors.grey[500]),
           ),
         ],

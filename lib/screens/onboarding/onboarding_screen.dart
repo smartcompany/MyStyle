@@ -4,6 +4,7 @@ import '../../constants/app_routes.dart';
 import '../../constants/app_theme.dart';
 import '../photo_upload_screen.dart';
 import '../../widgets/common/app_button.dart';
+import '../../l10n/app_localizations.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -19,29 +20,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   late Animation<double> _fadeAnimation;
   int _currentPage = 0;
 
-  final List<OnboardingPage> _pages = [
-    OnboardingPage(
-      title: 'AI 스타일 진단',
-      subtitle: '사진 한 장으로\n나만의 스타일을 찾아보세요',
-      description: '전문가 수준의 분석으로\n당신에게 어울리는 스타일을 제안합니다',
-      icon: Icons.face_retouching_natural,
-      color: AppTheme.primaryColor,
-    ),
-    OnboardingPage(
-      title: '맞춤형 가이드',
-      subtitle: '구체적인 실행 방법까지\n상세히 안내해드려요',
-      description: '단순한 분석이 아닌\n실제로 적용할 수 있는 조언을 제공합니다',
-      icon: Icons.style,
-      color: AppTheme.secondaryColor,
-    ),
-    OnboardingPage(
-      title: '전문가 상담',
-      subtitle: '리포트 카드 형태로\n전문가가 상담해주는 느낌',
-      description: '피부, 헤어, 패션까지\n종합적인 스타일 분석을 받아보세요',
-      icon: Icons.psychology,
-      color: AppTheme.accentColor,
-    ),
-  ];
+  late List<OnboardingPage> _pages;
 
   @override
   void initState() {
@@ -55,6 +34,32 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       CurvedAnimation(parent: _fadeController, curve: Curves.easeInOut),
     );
     _fadeController.forward();
+  }
+
+  void _initializePages(BuildContext context) {
+    _pages = [
+      OnboardingPage(
+        title: AppLocalizations.of(context)!.aiStyleDiagnosis,
+        subtitle: AppLocalizations.of(context)!.findYourStyleSubtitle,
+        description: AppLocalizations.of(context)!.expertLevelAnalysis,
+        icon: Icons.face_retouching_natural,
+        color: AppTheme.primaryColor,
+      ),
+      OnboardingPage(
+        title: AppLocalizations.of(context)!.customizedGuide,
+        subtitle: AppLocalizations.of(context)!.detailedGuidance,
+        description: AppLocalizations.of(context)!.actionableAdvice,
+        icon: Icons.style,
+        color: AppTheme.secondaryColor,
+      ),
+      OnboardingPage(
+        title: AppLocalizations.of(context)!.comprehensiveAnalysis,
+        subtitle: AppLocalizations.of(context)!.styleGuide,
+        description: AppLocalizations.of(context)!.detailedAnalysis,
+        icon: Icons.psychology,
+        color: AppTheme.accentColor,
+      ),
+    ];
   }
 
   @override
@@ -87,6 +92,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   @override
   Widget build(BuildContext context) {
+    _initializePages(context);
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -157,7 +163,9 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
                     // Next Button
                     AppButton(
-                      text: _currentPage == _pages.length - 1 ? '시작하기' : '다음',
+                      text: _currentPage == _pages.length - 1
+                          ? AppLocalizations.of(context)!.startAnalysis
+                          : AppLocalizations.of(context)!.next,
                       onPressed: _nextPage,
                       isFullWidth: true,
                       icon: _currentPage == _pages.length - 1
