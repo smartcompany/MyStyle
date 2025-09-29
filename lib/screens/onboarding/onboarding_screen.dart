@@ -7,7 +7,9 @@ import '../../widgets/common/app_button.dart';
 import '../../l10n/app_localizations.dart';
 
 class OnboardingScreen extends StatefulWidget {
-  const OnboardingScreen({super.key});
+  final VoidCallback? onFinish;
+
+  const OnboardingScreen({super.key, this.onFinish});
 
   @override
   State<OnboardingScreen> createState() => _OnboardingScreenState();
@@ -85,9 +87,9 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   }
 
   void _startApp() {
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => const PhotoUploadScreen()),
-    );
+    if (widget.onFinish != null) {
+      widget.onFinish!();
+    }
   }
 
   @override

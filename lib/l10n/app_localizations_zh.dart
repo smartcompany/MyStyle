@@ -51,7 +51,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get startAnalysis => '开始分析';
 
   @override
-  String get uploadPhotoInstruction => '请上传或拍摄照片';
+  String get uploadPhotoInstruction => '请上传照片';
 
   @override
   String get supportedFormats => '支持 JPG、PNG 格式';

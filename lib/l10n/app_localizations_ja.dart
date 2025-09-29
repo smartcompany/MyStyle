@@ -52,7 +52,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get startAnalysis => '分析開始';
 
   @override
-  String get uploadPhotoInstruction => '写真をアップロードまたは撮影してください';
+  String get uploadPhotoInstruction => '写真をアップロードしてください';
 
   @override
   String get supportedFormats => 'JPG、PNG形式をサポート';

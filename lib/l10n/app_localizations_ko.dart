@@ -52,7 +52,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get startAnalysis => '분석 시작';
 
   @override
-  String get uploadPhotoInstruction => '사진을 업로드하거나 촬영하세요';
+  String get uploadPhotoInstruction => '사진을 업로드하세요';
 
   @override
   String get supportedFormats => 'JPG, PNG 형식 지원';

@@ -31,6 +31,7 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
         maxWidth: 1024,
         maxHeight: 1024,
         imageQuality: 85,
+        preferredCameraDevice: CameraDevice.front, // 셀카 모드로 설정
       );
 
       if (image != null) {
@@ -70,9 +71,15 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
   }
 
   void _showOnboarding() {
-    Navigator.of(
-      context,
-    ).push(MaterialPageRoute(builder: (context) => const OnboardingScreen()));
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => OnboardingScreen(
+          onFinish: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ),
+    );
   }
 
   @override
@@ -80,43 +87,50 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
       appBar: AppBar(
-        title: Text(
-          AppLocalizations.of(context)!.appTitle,
-          style: TextStyle(
-            color: const Color(0xFF1E293B),
-            fontSize: 20,
-            fontWeight: FontWeight.w700,
-            letterSpacing: -0.5,
-          ),
+        title: Stack(
+          children: [
+            Center(
+              child: Text(
+                AppLocalizations.of(context)!.appTitle,
+                style: TextStyle(
+                  color: const Color(0xFF1E293B),
+                  fontSize: 24,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: -0.5,
+                ),
+              ),
+            ),
+            Positioned(
+              left: 0,
+              top: 0,
+              bottom: 0,
+              child: GestureDetector(
+                onTap: _showOnboarding,
+                child: Container(
+                  width: 28,
+                  height: 28,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF3B82F6).withOpacity(0.1),
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: const Color(0xFF3B82F6).withOpacity(0.3),
+                      width: 1,
+                    ),
+                  ),
+                  child: const Icon(
+                    Icons.help_outline_rounded,
+                    size: 16,
+                    color: Color(0xFF3B82F6),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
         backgroundColor: Colors.white,
         elevation: 0,
         surfaceTintColor: Colors.transparent,
         centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: _showOnboarding,
-            icon: Container(
-              width: 32,
-              height: 32,
-              decoration: BoxDecoration(
-                color: const Color(0xFF3B82F6).withOpacity(0.1),
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: const Color(0xFF3B82F6).withOpacity(0.3),
-                  width: 1,
-                ),
-              ),
-              child: const Icon(
-                Icons.help_outline_rounded,
-                size: 18,
-                color: Color(0xFF3B82F6),
-              ),
-            ),
-            tooltip: AppLocalizations.of(context)!.showOnboarding,
-          ),
-          const SizedBox(width: 8),
-        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
@@ -313,45 +327,6 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 12),
-              Container(
-                width: double.infinity,
-                height: 56,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: const Color(0xFF3B82F6), width: 2),
-                  boxShadow: [
-                    BoxShadow(
-                      color: const Color(0xFF3B82F6).withOpacity(0.1),
-                      blurRadius: 10,
-                      offset: const Offset(0, 4),
-                    ),
-                  ],
-                ),
-                child: OutlinedButton.icon(
-                  onPressed: () => _pickImage(ImageSource.gallery),
-                  icon: const Icon(
-                    Icons.photo_library_rounded,
-                    color: Color(0xFF3B82F6),
-                  ),
-                  label: Text(
-                    AppLocalizations.of(context)!.selectFromGallery,
-                    style: const TextStyle(
-                      color: Color(0xFF3B82F6),
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  style: OutlinedButton.styleFrom(
-                    backgroundColor: Colors.transparent,
-                    side: BorderSide.none,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                  ),
-                ),
-              ),
             ] else ...[
               Row(
                 children: [
@@ -423,36 +398,43 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
   }
 
   Widget _buildUploadArea() {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: Colors.grey[50],
-        border: Border.all(
-          color: Colors.grey[300]!,
-          width: 2,
-          style: BorderStyle.solid,
+    return GestureDetector(
+      onTap: () => _pickImage(ImageSource.gallery),
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: Colors.grey[50],
+          border: Border.all(
+            color: Colors.grey[300]!,
+            width: 2,
+            style: BorderStyle.solid,
+          ),
+          borderRadius: BorderRadius.circular(16),
         ),
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.cloud_upload_outlined, size: 64, color: Colors.grey[400]),
-          const SizedBox(height: 16),
-          Text(
-            AppLocalizations.of(context)!.uploadPhotoInstruction,
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-              color: Colors.grey[600],
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.cloud_upload_outlined,
+              size: 64,
+              color: Colors.grey[400],
             ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            AppLocalizations.of(context)!.supportedFormats,
-            style: TextStyle(fontSize: 14, color: Colors.grey[500]),
-          ),
-        ],
+            const SizedBox(height: 16),
+            Text(
+              AppLocalizations.of(context)!.uploadPhotoInstruction,
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: Colors.grey[600],
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              AppLocalizations.of(context)!.supportedFormats,
+              style: TextStyle(fontSize: 14, color: Colors.grey[500]),
+            ),
+          ],
+        ),
       ),
     );
   }

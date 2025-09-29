@@ -1,0 +1,11 @@
+EXPORT_COMPLIANCE_INFO
+
+This app uses standard encryption provided by iOS and does not implement any custom encryption algorithms.
+
+The app uses:
+- HTTPS for network communications (standard iOS networking)
+- Standard iOS security features for data protection
+- Firebase services (which use standard encryption)
+- Google Mobile Ads SDK (which uses standard encryption)
+
+No custom encryption is implemented in this application.
