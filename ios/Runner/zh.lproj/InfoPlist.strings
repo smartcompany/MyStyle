@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  Style Me Glow
+
+  Created by Flutter.
+*/
+
+"CFBundleDisplayName" = "风格我";
+"NSPhotoLibraryUsageDescription" = "需要访问您的照片库以进行风格分析。";
+"NSCameraUsageDescription" = "需要访问您的相机以进行风格分析。";

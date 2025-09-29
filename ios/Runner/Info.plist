@@ -45,6 +45,10 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app needs access to your photo library to analyze your photos for style recommendations.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app needs access to your camera to take photos for style analysis.</string>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-5520596727761259~4145160225</string>
 	<key>SKAdNetworkItems</key>
