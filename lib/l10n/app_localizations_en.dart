@@ -52,7 +52,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get startAnalysis => 'Start Analysis';
 
   @override
-  String get uploadPhotoInstruction => 'Upload a photo';
+  String get uploadPhotoInstruction => 'Select a photo';
 
   @override
   String get supportedFormats => 'JPG, PNG formats supported';

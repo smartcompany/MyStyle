@@ -189,7 +189,7 @@ abstract class AppLocalizations {
   /// No description provided for @uploadPhotoInstruction.
   ///
   /// In en, this message translates to:
-  /// **'Upload a photo'**
+  /// **'Select a photo'**
   String get uploadPhotoInstruction;
 
   /// No description provided for @supportedFormats.
