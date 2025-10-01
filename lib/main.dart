@@ -1,15 +1,12 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:kakao_flutter_sdk_common/kakao_flutter_sdk_common.dart';
 import 'l10n/app_localizations.dart';
 import 'screens/onboarding/onboarding_screen.dart';
 import 'screens/photo_upload_screen.dart';
-import 'screens/result/result_screen.dart';
 import 'services/ad_service.dart';
 import 'services/api_service.dart';
 
@@ -50,31 +47,34 @@ class StyleGuideApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MediaQuery(
-      data: MediaQuery.of(context).copyWith(
-        textScaler: const TextScaler.linear(1.0), // 시스템 폰트 크기 무시
+    return MaterialApp(
+      title: 'Style Me',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        useMaterial3: true,
       ),
-      child: MaterialApp(
-        title: 'Style Me',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-          useMaterial3: true,
-        ),
-        localizationsDelegates: const [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: const [
-          Locale('en', ''), // English
-          Locale('ko', ''), // Korean
-          Locale('zh', ''), // Chinese
-          Locale('ja', ''), // Japanese
-        ],
-        home: const OnboardingLauncher(),
-      ),
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en', ''), // English
+        Locale('ko', ''), // Korean
+        Locale('zh', ''), // Chinese
+        Locale('ja', ''), // Japanese
+      ],
+      builder: (context, child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(
+            textScaler: const TextScaler.linear(1.0), // 시스템 폰트 크기 무시
+          ),
+          child: child!,
+        );
+      },
+      home: const OnboardingLauncher(),
     );
   }
 }
