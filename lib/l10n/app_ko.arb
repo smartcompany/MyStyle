@@ -122,5 +122,6 @@
   "feedbackDescription": "피드백을 보내주세요",
   "language": "언어",
   "languageSettings": "언어 설정",
-  "selectLanguage": "언어 선택"
+  "selectLanguage": "언어 선택",
+  "skip": "건너뛰기"
 }

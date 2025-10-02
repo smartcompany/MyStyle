@@ -337,6 +337,9 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                             ),
                             const SizedBox(height: 12),
                             Container(
+                              margin: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                              ),
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 20,
                                 vertical: 12,
@@ -355,9 +358,9 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                                 )!.analysisDescription,
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 14,
+                                  fontSize: 16,
                                   height: 1.4,
-                                  fontWeight: FontWeight.w400,
+                                  fontWeight: FontWeight.w500,
                                 ),
                                 textAlign: TextAlign.center,
                               ),

@@ -379,4 +379,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get selectLanguage => 'Select Language';
+
+  @override
+  String get skip => '跳过';
 }

@@ -110,9 +110,9 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                   children: [
                     TextButton(
                       onPressed: _skipOnboarding,
-                      child: const Text(
-                        '건너뛰기',
-                        style: TextStyle(
+                      child: Text(
+                        AppLocalizations.of(context)?.skip ?? 'Skip',
+                        style: const TextStyle(
                           color: AppTheme.textSecondary,
                           fontSize: 16,
                         ),

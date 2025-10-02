@@ -381,4 +381,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get selectLanguage => '언어 선택';
+
+  @override
+  String get skip => '건너뛰기';
 }

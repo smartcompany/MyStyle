@@ -122,5 +122,6 @@
   "feedbackDescription": "Send us your feedback",
   "language": "Language",
   "languageSettings": "Language Settings",
-  "selectLanguage": "Select Language"
+  "selectLanguage": "Select Language",
+  "skip": "Skip"
 }

@@ -88,50 +88,38 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
       appBar: AppBar(
-        title: Stack(
-          children: [
-            Center(
-              child: Text(
-                AppLocalizations.of(context)!.appTitle,
-                style: TextStyle(
-                  color: const Color(0xFF1E293B),
-                  fontSize: 24,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: -0.5,
-                ),
-              ),
-            ),
-            Positioned(
-              left: 0,
-              top: 0,
-              bottom: 0,
-              child: GestureDetector(
-                onTap: _showOnboarding,
-                child: Container(
-                  width: 28,
-                  height: 28,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF3B82F6).withOpacity(0.1),
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: const Color(0xFF3B82F6).withOpacity(0.3),
-                      width: 1,
-                    ),
-                  ),
-                  child: const Icon(
-                    Icons.help_outline_rounded,
-                    size: 16,
-                    color: Color(0xFF3B82F6),
-                  ),
-                ),
-              ),
-            ),
-          ],
+        title: Text(
+          AppLocalizations.of(context)!.appTitle,
+          style: TextStyle(
+            color: const Color(0xFF1E293B),
+            fontSize: 24,
+            fontWeight: FontWeight.w700,
+            letterSpacing: -0.5,
+          ),
         ),
         backgroundColor: Colors.white,
         elevation: 0,
         surfaceTintColor: Colors.transparent,
         centerTitle: true,
+        leading: GestureDetector(
+          onTap: _showOnboarding,
+          child: Container(
+            margin: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: const Color(0xFF3B82F6).withOpacity(0.1),
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: const Color(0xFF3B82F6).withOpacity(0.3),
+                width: 1,
+              ),
+            ),
+            child: const Icon(
+              Icons.help_outline_rounded,
+              size: 16,
+              color: Color(0xFF3B82F6),
+            ),
+          ),
+        ),
         actions: [
           IconButton(
             onPressed: () {

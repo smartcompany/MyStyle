@@ -12,7 +12,11 @@ class SettingsScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           AppLocalizations.of(context)?.settings ?? 'Settings',
-          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+          style: const TextStyle(
+            fontWeight: FontWeight.w700,
+            fontSize: 24,
+            letterSpacing: -0.5,
+          ),
         ),
         backgroundColor: Colors.white,
         elevation: 0,

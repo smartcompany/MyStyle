@@ -381,4 +381,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get selectLanguage => 'Select Language';
+
+  @override
+  String get skip => 'スキップ';
 }
