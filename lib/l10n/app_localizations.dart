@@ -749,6 +749,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Show app guide'**
   String get showOnboarding;
+
+  /// No description provided for @settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
+
+  /// No description provided for @appInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'App Information'**
+  String get appInfo;
+
+  /// No description provided for @appVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'App Version'**
+  String get appVersion;
+
+  /// No description provided for @privacyAndSecurity.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy & Security'**
+  String get privacyAndSecurity;
+
+  /// No description provided for @privacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get privacyPolicy;
+
+  /// No description provided for @privacyPolicyDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'View our privacy policy'**
+  String get privacyPolicyDescription;
+
+  /// No description provided for @dataUsage.
+  ///
+  /// In en, this message translates to:
+  /// **'Data Usage'**
+  String get dataUsage;
+
+  /// No description provided for @dataUsageDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'How we use your data'**
+  String get dataUsageDescription;
+
+  /// No description provided for @support.
+  ///
+  /// In en, this message translates to:
+  /// **'Support'**
+  String get support;
+
+  /// No description provided for @helpAndSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Help & Support'**
+  String get helpAndSupport;
+
+  /// No description provided for @helpDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Get help and support'**
+  String get helpDescription;
+
+  /// No description provided for @feedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback'**
+  String get feedback;
+
+  /// No description provided for @feedbackDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Send us your feedback'**
+  String get feedbackDescription;
+
+  /// No description provided for @language.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get language;
+
+  /// No description provided for @languageSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Language Settings'**
+  String get languageSettings;
+
+  /// No description provided for @selectLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Language'**
+  String get selectLanguage;
 }
 
 class _AppLocalizationsDelegate

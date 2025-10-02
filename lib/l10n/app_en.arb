@@ -106,5 +106,21 @@
   "analysisInProgress": "Analysis in progress",
   "analysisDescription": "Through this result, we will tell you what's good for hairstyles, makeup, eyebrow grooming, or accessories",
   "next": "Next",
-  "showOnboarding": "Show app guide"
+  "showOnboarding": "Show app guide",
+  "settings": "Settings",
+  "appInfo": "App Information",
+  "appVersion": "App Version",
+  "privacyAndSecurity": "Privacy & Security",
+  "privacyPolicy": "Privacy Policy",
+  "privacyPolicyDescription": "View our privacy policy",
+  "dataUsage": "Data Usage",
+  "dataUsageDescription": "How we use your data",
+  "support": "Support",
+  "helpAndSupport": "Help & Support",
+  "helpDescription": "Get help and support",
+  "feedback": "Feedback",
+  "feedbackDescription": "Send us your feedback",
+  "language": "Language",
+  "languageSettings": "Language Settings",
+  "selectLanguage": "Select Language"
 }

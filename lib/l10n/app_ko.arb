@@ -106,5 +106,21 @@
   "analysisInProgress": "분석 중",
   "analysisDescription": "이 결과를 통해서 헤어 스타일이나 화장 눈썹정리 혹은 액세서리 등이 어떤게 좋을지 알려 줄거예요",
   "next": "다음",
-  "showOnboarding": "앱 가이드 보기"
+  "showOnboarding": "앱 가이드 보기",
+  "settings": "설정",
+  "appInfo": "앱 정보",
+  "appVersion": "앱 버전",
+  "privacyAndSecurity": "개인정보 및 보안",
+  "privacyPolicy": "개인정보보호정책",
+  "privacyPolicyDescription": "개인정보보호정책을 확인하세요",
+  "dataUsage": "데이터 사용",
+  "dataUsageDescription": "데이터 사용 방법",
+  "support": "지원",
+  "helpAndSupport": "도움말 및 지원",
+  "helpDescription": "도움말 및 지원을 받으세요",
+  "feedback": "피드백",
+  "feedbackDescription": "피드백을 보내주세요",
+  "language": "언어",
+  "languageSettings": "언어 설정",
+  "selectLanguage": "언어 선택"
 }

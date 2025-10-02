@@ -331,4 +331,52 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get showOnboarding => '查看应用指南';
+
+  @override
+  String get settings => 'Settings';
+
+  @override
+  String get appInfo => 'App Information';
+
+  @override
+  String get appVersion => 'App Version';
+
+  @override
+  String get privacyAndSecurity => 'Privacy & Security';
+
+  @override
+  String get privacyPolicy => 'Privacy Policy';
+
+  @override
+  String get privacyPolicyDescription => 'View our privacy policy';
+
+  @override
+  String get dataUsage => 'Data Usage';
+
+  @override
+  String get dataUsageDescription => 'How we use your data';
+
+  @override
+  String get support => 'Support';
+
+  @override
+  String get helpAndSupport => 'Help & Support';
+
+  @override
+  String get helpDescription => 'Get help and support';
+
+  @override
+  String get feedback => 'Feedback';
+
+  @override
+  String get feedbackDescription => 'Send us your feedback';
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get languageSettings => 'Language Settings';
+
+  @override
+  String get selectLanguage => 'Select Language';
 }

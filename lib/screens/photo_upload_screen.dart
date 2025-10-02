@@ -7,6 +7,7 @@ import '../services/ad_service.dart';
 import '../debug_tools.dart';
 import 'analysis/analysis_screen.dart';
 import 'onboarding/onboarding_screen.dart';
+import 'settings_screen.dart';
 
 class PhotoUploadScreen extends StatefulWidget {
   const PhotoUploadScreen({super.key});
@@ -131,6 +132,16 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
         elevation: 0,
         surfaceTintColor: Colors.transparent,
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const SettingsScreen()),
+              );
+            },
+            icon: const Icon(Icons.settings_outlined, color: Color(0xFF1E293B)),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),

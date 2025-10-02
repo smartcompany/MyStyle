@@ -333,4 +333,52 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get showOnboarding => '앱 가이드 보기';
+
+  @override
+  String get settings => '설정';
+
+  @override
+  String get appInfo => '앱 정보';
+
+  @override
+  String get appVersion => '앱 버전';
+
+  @override
+  String get privacyAndSecurity => '개인정보 및 보안';
+
+  @override
+  String get privacyPolicy => '개인정보보호정책';
+
+  @override
+  String get privacyPolicyDescription => '개인정보보호정책을 확인하세요';
+
+  @override
+  String get dataUsage => '데이터 사용';
+
+  @override
+  String get dataUsageDescription => '데이터 사용 방법';
+
+  @override
+  String get support => '지원';
+
+  @override
+  String get helpAndSupport => '도움말 및 지원';
+
+  @override
+  String get helpDescription => '도움말 및 지원을 받으세요';
+
+  @override
+  String get feedback => '피드백';
+
+  @override
+  String get feedbackDescription => '피드백을 보내주세요';
+
+  @override
+  String get language => '언어';
+
+  @override
+  String get languageSettings => '언어 설정';
+
+  @override
+  String get selectLanguage => '언어 선택';
 }

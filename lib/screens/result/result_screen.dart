@@ -5,6 +5,7 @@ import '../../widgets/common/app_button.dart';
 import '../../widgets/common/score_card.dart';
 import '../../widgets/common/share_ui.dart';
 import '../photo_upload_screen.dart';
+import '../settings_screen.dart';
 import '../../l10n/app_localizations.dart';
 
 class ResultScreen extends StatefulWidget {
@@ -90,6 +91,14 @@ class _ResultScreenState extends State<ResultScreen>
               onPressed: _shareResult,
               icon: const Icon(Icons.share, color: Colors.blue),
             ),
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const SettingsScreen()),
+              );
+            },
+            icon: const Icon(Icons.settings_outlined, color: Colors.black87),
           ),
         ],
       ),
