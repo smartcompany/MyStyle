@@ -73,7 +73,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aiAnalyzing => 'AI is analyzing your style...';
 
   @override
-  String get analysisComplete => 'AI analysis complete...';
+  String get analysisComplete => 'AI analysis is completing...';
 
   @override
   String get styleAnalysisResult => 'Style Analysis Result';
@@ -390,4 +390,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get skip => 'Skip';
+
+  @override
+  String get pleaseWaitLongTime => 'It may take a while, please wait.';
 }

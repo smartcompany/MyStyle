@@ -382,4 +382,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get skip => '跳过';
+
+  @override
+  String get pleaseWaitLongTime => '可能需要一些时间，请稍候。';
 }

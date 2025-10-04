@@ -123,5 +123,6 @@
   "language": "언어",
   "languageSettings": "언어 설정",
   "selectLanguage": "언어 선택",
-  "skip": "건너뛰기"
+  "skip": "건너뛰기",
+  "pleaseWaitLongTime": "시간이 오래 걸릴 수 있으니 기다려 주세요"
 }

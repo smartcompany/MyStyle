@@ -107,5 +107,6 @@
   "analysisDescription": "通过这个结果，我们会告诉您发型、化妆、眉毛护理或配饰等什么最适合",
   "next": "下一步",
   "showOnboarding": "查看应用指南",
-  "skip": "跳过"
+  "skip": "跳过",
+  "pleaseWaitLongTime": "可能需要一些时间，请稍候。"
 }

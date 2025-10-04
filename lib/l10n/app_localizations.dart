@@ -231,7 +231,7 @@ abstract class AppLocalizations {
   /// No description provided for @analysisComplete.
   ///
   /// In en, this message translates to:
-  /// **'AI analysis complete...'**
+  /// **'AI analysis is completing...'**
   String get analysisComplete;
 
   /// No description provided for @styleAnalysisResult.
@@ -851,6 +851,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Skip'**
   String get skip;
+
+  /// No description provided for @pleaseWaitLongTime.
+  ///
+  /// In en, this message translates to:
+  /// **'It may take a while, please wait.'**
+  String get pleaseWaitLongTime;
 }
 
 class _AppLocalizationsDelegate

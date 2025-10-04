@@ -107,5 +107,6 @@
   "analysisDescription": "この結果を通して、ヘアスタイル、メイク、眉毛ケア、アクセサリーなど、何が良いかを教えます",
   "next": "次へ",
   "showOnboarding": "アプリガイドを見る",
-  "skip": "スキップ"
+  "skip": "スキップ",
+  "pleaseWaitLongTime": "時間がかかる場合がありますので、お待ちください。"
 }

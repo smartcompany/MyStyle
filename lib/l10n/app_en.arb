@@ -20,7 +20,7 @@
   "analyzeAfterAd": "Analyze your style after watching an ad",
   "adPreparing": "Preparing ad...",
   "aiAnalyzing": "AI is analyzing your style...",
-  "analysisComplete": "AI analysis complete...",
+  "analysisComplete": "AI analysis is completing...",
   "styleAnalysisResult": "Style Analysis Result",
   "overallAnalysisResult": "Overall Analysis Result",
   "aiAnalyzedYourStyle": "Your style analyzed by AI",
@@ -123,5 +123,6 @@
   "language": "Language",
   "languageSettings": "Language Settings",
   "selectLanguage": "Select Language",
-  "skip": "Skip"
+  "skip": "Skip",
+  "pleaseWaitLongTime": "It may take a while, please wait."
 }

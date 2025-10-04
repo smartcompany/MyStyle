@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'dart:io';
-import '../../constants/app_theme.dart';
+import 'dart:math' as math;
 import '../../services/ad_service.dart';
 import '../../services/api_service.dart';
 import '../result/result_screen.dart';
 import '../../models/analysis_result.dart';
 import '../../l10n/app_localizations.dart';
+import 'dart:async';
 
 class AnalysisScreen extends StatefulWidget {
   final String imagePath;
@@ -17,7 +16,8 @@ class AnalysisScreen extends StatefulWidget {
   State<AnalysisScreen> createState() => _AnalysisScreenState();
 }
 
-class _AnalysisScreenState extends State<AnalysisScreen> {
+class _AnalysisScreenState extends State<AnalysisScreen>
+    with TickerProviderStateMixin {
   bool _isAdLoaded = false;
   bool _isAdShowing = false;
   bool _isAnalysisComplete = false;
@@ -25,10 +25,56 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
   AnalysisResult? _analysisResult;
   String? _errorMessage;
 
+  late AnimationController _sparkleController;
+  late AnimationController _pulseController;
+  late AnimationController _rotateController;
+  late Animation<double> _sparkleAnimation;
+  late Animation<double> _pulseAnimation;
+  late Animation<double> _rotateAnimation;
+
   @override
   void initState() {
     super.initState();
+    _initializeAnimations();
     _loadAd();
+  }
+
+  void _initializeAnimations() {
+    _sparkleController = AnimationController(
+      duration: const Duration(milliseconds: 1500),
+      vsync: this,
+    )..repeat();
+
+    _pulseController = AnimationController(
+      duration: const Duration(milliseconds: 2000),
+      vsync: this,
+    )..repeat(reverse: true);
+
+    _rotateController = AnimationController(
+      duration: const Duration(seconds: 3),
+      vsync: this,
+    )..repeat();
+
+    _sparkleAnimation = Tween<double>(begin: 0.8, end: 1.2).animate(
+      CurvedAnimation(parent: _sparkleController, curve: Curves.easeInOut),
+    );
+
+    _pulseAnimation = Tween<double>(begin: 0.95, end: 1.05).animate(
+      CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
+    );
+
+    _rotateAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(_rotateController);
+  }
+
+  @override
+  void dispose() {
+    _sparkleController.dispose();
+    _pulseController.dispose();
+    _rotateController.dispose();
+    super.dispose();
   }
 
   Future<void> _loadAd() async {
@@ -166,62 +212,6 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
     );
   }
 
-  Map<String, dynamic> _generateMockResult() {
-    return {
-      'id': 'analysis_${DateTime.now().millisecondsSinceEpoch}',
-      'createdAt': DateTime.now().toIso8601String(),
-      'gender': 'female',
-      'imagePath': widget.imagePath,
-      'faceAnalysis': {
-        'faceShape': '하트형',
-        'balanceScore': 85,
-        'balanceComment': '균형 잡힌 얼굴형으로 전체적으로 조화로운 비율을 가지고 있습니다.',
-        'strengths': ['이마가 넓어 지적인 인상', '턱선이 선명함'],
-        'improvements': ['볼 부분이 좀 더 각져 보일 수 있음'],
-      },
-      'skinAnalysis': {
-        'skinTone': '웜톤',
-        'skinType': '복합성',
-        'skinScore': 78,
-        'skinComment': '전반적으로 건강한 피부 상태를 유지하고 있습니다.',
-        'skinIssues': ['T존 유분', '볼 부분 건조'],
-        'careRoutine': ['아침: 클렌징 → 토너 → 세럼 → 크림', '저녁: 더블 클렌징 → 토너 → 세럼 → 크림'],
-        'productRecommendations': ['하이드레이팅 세럼', '논코메도제닉 크림'],
-      },
-      'hairAnalysis': {
-        'recommendedStyles': ['레이어드 컷', '사이드 뱅'],
-        'hairComment': '얼굴형에 잘 어울리는 헤어스타일을 추천합니다.',
-        'stylingTips': ['앞머리로 이마를 가리기', '볼륨을 살려 얼굴을 길게 보이게 하기'],
-        'beardAdvice': '',
-        'hairScore': 82,
-      },
-      'eyebrowAnalysis': {
-        'eyebrowShape': '아치형',
-        'eyebrowScore': 80,
-        'eyebrowComment': '자연스러운 아치형으로 눈매를 돋보이게 합니다.',
-        'maintenanceTips': ['정기적인 트리밍', '자연스러운 색상 유지'],
-        'stylingRecommendations': ['아치형 유지', '자연스러운 두께'],
-      },
-      'fashionAnalysis': {
-        'fashionScore': 75,
-        'fashionComment': '웜톤에 어울리는 컬러를 선택하세요.',
-        'colorPalette': ['네이비', '아이보리', '베이지', '따뜻한 브라운'],
-        'glassesRecommendations': ['라운드 프레임', '검정 뿔테'],
-        'accessoryTips': ['심플한 귀걸이', '미니멀한 목걸이'],
-      },
-      'lifestyleAdvice': {
-        'lifestyleScore': 70,
-        'lifestyleComment': '건강한 생활습관을 유지하고 있습니다.',
-        'sleepAdvice': '7-8시간 충분한 수면을 취하세요.',
-        'dietAdvice': '비타민이 풍부한 과일과 채소를 충분히 섭취하세요.',
-        'exerciseAdvice': '규칙적인 운동으로 혈액순환을 개선하세요.',
-      },
-      'overallScore': 78,
-      'overallComment':
-          '전반적으로 균형 잡힌 외모를 가지고 있습니다. 몇 가지 개선점을 적용하면 더욱 매력적인 모습이 될 것입니다.',
-    };
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -261,44 +251,105 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // 분석 아이콘
-                      Container(
-                        width: 140,
-                        height: 140,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              Colors.white.withOpacity(0.2),
-                              Colors.white.withOpacity(0.1),
-                            ],
-                          ),
-                          borderRadius: BorderRadius.circular(70),
-                          border: Border.all(
-                            color: Colors.white.withOpacity(0.4),
-                            width: 3,
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
-                              blurRadius: 20,
-                              offset: const Offset(0, 10),
+                      // 분석 아이콘 (애니메이션 포함)
+                      AnimatedBuilder(
+                        animation: Listenable.merge([
+                          _sparkleAnimation,
+                          _pulseAnimation,
+                        ]),
+                        builder: (context, child) {
+                          return Transform.scale(
+                            scale: _pulseAnimation.value,
+                            child: Container(
+                              width: 140,
+                              height: 140,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    Colors.white.withOpacity(0.3),
+                                    Colors.white.withOpacity(0.15),
+                                  ],
+                                ),
+                                borderRadius: BorderRadius.circular(70),
+                                border: Border.all(
+                                  color: Colors.white.withOpacity(0.5),
+                                  width: 3,
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    blurRadius: 25,
+                                    offset: const Offset(0, 10),
+                                  ),
+                                  BoxShadow(
+                                    color: Colors.white.withOpacity(0.1),
+                                    blurRadius: 15,
+                                    offset: const Offset(0, -5),
+                                  ),
+                                ],
+                              ),
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  // 메인 아이콘
+                                  Icon(
+                                    Icons.auto_awesome,
+                                    color: Colors.white,
+                                    size: 70,
+                                  ),
+                                  // 회전하는 작은 아이콘들
+                                  ...List.generate(3, (index) {
+                                    return AnimatedBuilder(
+                                      animation: _rotateAnimation,
+                                      builder: (context, child) {
+                                        final angle =
+                                            (index * 120) * (3.14159 / 180) +
+                                            (_rotateAnimation.value *
+                                                2 *
+                                                3.14159);
+                                        return Transform.translate(
+                                          offset: Offset(
+                                            (60 * _sparkleAnimation.value) *
+                                                math.cos(angle),
+                                            (60 * _sparkleAnimation.value) *
+                                                math.sin(angle),
+                                          ),
+                                          child: Transform.scale(
+                                            scale: _sparkleAnimation.value,
+                                            child: Container(
+                                              width: 20,
+                                              height: 20,
+                                              decoration: BoxDecoration(
+                                                color: Colors.white.withOpacity(
+                                                  0.8,
+                                                ),
+                                                shape: BoxShape.circle,
+                                              ),
+                                              child: Icon(
+                                                Icons.star,
+                                                color: Colors.blue[400],
+                                                size: 12,
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  }),
+                                ],
+                              ),
                             ),
-                          ],
-                        ),
-                        child: const Icon(
-                          Icons.auto_awesome,
-                          color: Colors.white,
-                          size: 70,
-                        ),
+                          );
+                        },
                       ),
                       const SizedBox(height: 40),
 
                       // 제목
                       Text(
                         _isAdCompleted
-                            ? AppLocalizations.of(context)!.analysisComplete
+                            ? AppLocalizations.of(context)!.aiAnalyzing
                             : AppLocalizations.of(context)!.aiStyleAnalysis,
                         style: const TextStyle(
                           color: Colors.white,
@@ -323,49 +374,30 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                           textAlign: TextAlign.center,
                         )
                       else
-                        Column(
-                          children: [
-                            Text(
-                              AppLocalizations.of(context)!.aiAnalyzing,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                height: 1.5,
-                                fontWeight: FontWeight.w400,
-                              ),
-                              textAlign: TextAlign.center,
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 20),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 12,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.15),
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(
+                              color: Colors.white.withOpacity(0.3),
+                              width: 1,
                             ),
-                            const SizedBox(height: 12),
-                            Container(
-                              margin: const EdgeInsets.symmetric(
-                                horizontal: 20,
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 20,
-                                vertical: 12,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.15),
-                                borderRadius: BorderRadius.circular(20),
-                                border: Border.all(
-                                  color: Colors.white.withOpacity(0.3),
-                                  width: 1,
-                                ),
-                              ),
-                              child: Text(
-                                AppLocalizations.of(
-                                  context,
-                                )!.analysisDescription,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  height: 1.4,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
+                          ),
+                          child: Text(
+                            AppLocalizations.of(context)!.analysisDescription,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              height: 1.4,
+                              fontWeight: FontWeight.w500,
                             ),
-                          ],
+                            textAlign: TextAlign.center,
+                          ),
                         ),
 
                       const SizedBox(height: 40),
@@ -402,25 +434,75 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                       if (_isAdShowing || _isAnalysisComplete)
                         Column(
                           children: [
+                            // 간단한 로딩 인디케이터
                             Container(
-                              width: 50,
-                              height: 50,
+                              width: 60,
+                              height: 60,
                               decoration: BoxDecoration(
                                 color: Colors.white.withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(25),
+                                borderRadius: BorderRadius.circular(30),
+                                border: Border.all(
+                                  color: Colors.white.withOpacity(0.3),
+                                  width: 2,
+                                ),
                               ),
-                              child: const CircularProgressIndicator(
-                                color: Colors.white,
-                                strokeWidth: 3,
+                              child: Center(
+                                child: AnimatedBuilder(
+                                  animation: _pulseAnimation,
+                                  builder: (context, child) {
+                                    return Transform.scale(
+                                      scale: _pulseAnimation.value,
+                                      child: Container(
+                                        width: 20,
+                                        height: 20,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          shape: BoxShape.circle,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.white.withOpacity(
+                                                0.5,
+                                              ),
+                                              blurRadius: 12,
+                                              spreadRadius: 3,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
                             ),
-                            const SizedBox(height: 20),
-                            Text(
-                              AppLocalizations.of(context)!.aiAnalyzing,
-                              style: TextStyle(
-                                color: Colors.white.withOpacity(0.9),
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
+                            const SizedBox(height: 24),
+                            // 대기 메시지
+                            Container(
+                              margin: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 12,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.15),
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(
+                                  color: Colors.white.withOpacity(0.3),
+                                  width: 1,
+                                ),
+                              ),
+                              child: Text(
+                                AppLocalizations.of(
+                                  context,
+                                )!.pleaseWaitLongTime,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  height: 1.4,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                textAlign: TextAlign.center,
                               ),
                             ),
                           ],

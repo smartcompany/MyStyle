@@ -384,4 +384,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get skip => '건너뛰기';
+
+  @override
+  String get pleaseWaitLongTime => '시간이 오래 걸릴 수 있으니 기다려 주세요';
 }

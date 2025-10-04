@@ -384,4 +384,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get skip => 'スキップ';
+
+  @override
+  String get pleaseWaitLongTime => '時間がかかる場合がありますので、お待ちください。';
 }
