@@ -29,9 +29,9 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
     try {
       final XFile? image = await _picker.pickImage(
         source: source,
-        maxWidth: 1024,
-        maxHeight: 1024,
-        imageQuality: 85,
+        maxWidth: 800,
+        maxHeight: 800,
+        imageQuality: 70,
         preferredCameraDevice: CameraDevice.front, // 셀카 모드로 설정
       );
 
