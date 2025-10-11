@@ -1,0 +1,124 @@
+{
+  "recommendations": [
+    {
+      "id": "hot_sunny",
+      "title": "시원한 여름 룩",
+      "description": "가벼운 소재의 민소매나 반팔을 추천해요",
+      "clothingItems": ["민소매", "반팔", "반바지", "치마", "샌들"],
+      "colors": ["흰색", "파란색", "연한 색상"],
+      "category": "casual",
+      "weatherType": "sunny",
+      "temperature": 30.0,
+      "confidence": 85,
+      "conditions": {
+        "temperature": { "min": 30, "max": 50 },
+        "weather": ["Clear", "Sunny"]
+      }
+    },
+    {
+      "id": "warm_sunny",
+      "title": "편안한 봄/가을 룩",
+      "description": "가벼운 긴팔이나 얇은 외투를 추천해요",
+      "clothingItems": ["긴팔", "반바지", "가벼운 외투", "스니커즈"],
+      "colors": ["베이지", "회색", "파스텔 톤"],
+      "category": "casual",
+      "weatherType": "sunny",
+      "temperature": 25.0,
+      "confidence": 80,
+      "conditions": {
+        "temperature": { "min": 20, "max": 29 },
+        "weather": ["Clear", "Sunny"]
+      }
+    },
+    {
+      "id": "warm_cloudy",
+      "title": "흐린 날 룩",
+      "description": "레이어링으로 대비를 주어보세요",
+      "clothingItems": ["긴팔", "가디건", "긴바지", "스니커즈"],
+      "colors": ["회색", "베이지", "중성 톤"],
+      "category": "casual",
+      "weatherType": "cloudy",
+      "temperature": 22.0,
+      "confidence": 75,
+      "conditions": {
+        "temperature": { "min": 20, "max": 29 },
+        "weather": ["Clouds", "Overcast"]
+      }
+    },
+    {
+      "id": "cool_cloudy",
+      "title": "따뜻한 가을 룩",
+      "description": "점퍼나 가디건을 추가해보세요",
+      "clothingItems": ["긴팔", "긴바지", "점퍼", "가디건", "부츠"],
+      "colors": ["갈색", "오렌지", "따뜻한 톤"],
+      "category": "casual",
+      "weatherType": "cloudy",
+      "temperature": 15.0,
+      "confidence": 85,
+      "conditions": {
+        "temperature": { "min": 10, "max": 19 },
+        "weather": ["Clouds", "Overcast"]
+      }
+    },
+    {
+      "id": "cold_cloudy",
+      "title": "따뜻한 겨울 룩",
+      "description": "패딩이나 코트를 추천해요",
+      "clothingItems": ["패딩", "코트", "긴바지", "목도리", "장갑"],
+      "colors": ["검은색", "네이비", "어두운 톤"],
+      "category": "casual",
+      "weatherType": "cloudy",
+      "temperature": 5.0,
+      "confidence": 90,
+      "conditions": {
+        "temperature": { "min": 0, "max": 9 },
+        "weather": ["Clouds", "Overcast"]
+      }
+    },
+    {
+      "id": "very_cold_snowy",
+      "title": "매우 따뜻한 겨울 룩",
+      "description": "두꺼운 패딩과 겨울 액세서리가 필요해요",
+      "clothingItems": ["두꺼운 패딩", "털부츠", "목도리", "장갑", "모자"],
+      "colors": ["검은색", "다크 그레이", "따뜻한 톤"],
+      "category": "casual",
+      "weatherType": "snowy",
+      "temperature": -5.0,
+      "confidence": 95,
+      "conditions": {
+        "temperature": { "min": -20, "max": -1 },
+        "weather": ["Snow", "Rain", "Drizzle"]
+      }
+    },
+    {
+      "id": "warm_rainy",
+      "title": "비 오는 날 룩",
+      "description": "우비나 방수 재킷을 준비하세요",
+      "clothingItems": ["우비", "방수 재킷", "긴바지", "부츠", "우산"],
+      "colors": ["노란색", "투명", "밝은 색상"],
+      "category": "casual",
+      "weatherType": "rainy",
+      "temperature": 18.0,
+      "confidence": 90,
+      "conditions": {
+        "temperature": { "min": 15, "max": 25 },
+        "weather": ["Rain", "Drizzle", "Thunderstorm"]
+      }
+    },
+    {
+      "id": "cool_rainy",
+      "title": "차가운 비 오는 날 룩",
+      "description": "방수 재킷과 따뜻한 옷을 조합하세요",
+      "clothingItems": ["방수 재킷", "스웨터", "긴바지", "부츠", "우산"],
+      "colors": ["다크 블루", "그레이", "어두운 톤"],
+      "category": "casual",
+      "weatherType": "rainy",
+      "temperature": 12.0,
+      "confidence": 88,
+      "conditions": {
+        "temperature": { "min": 5, "max": 14 },
+        "weather": ["Rain", "Drizzle", "Thunderstorm"]
+      }
+    }
+  ]
+}
