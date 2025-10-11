@@ -38,11 +38,24 @@ class _MainScreenState extends State<MainScreen> {
       body: IndexedStack(index: _currentIndex, children: _screens),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.white.withOpacity(0.95),
+              Colors.white.withOpacity(0.98),
+            ],
+          ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 10,
-              offset: const Offset(0, -2),
+              color: Colors.black.withOpacity(0.08),
+              blurRadius: 20,
+              offset: const Offset(0, -5),
+            ),
+            BoxShadow(
+              color: Colors.black.withOpacity(0.03),
+              blurRadius: 40,
+              offset: const Offset(0, -10),
             ),
           ],
         ),
@@ -54,27 +67,75 @@ class _MainScreenState extends State<MainScreen> {
             });
           },
           type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.white,
-          selectedItemColor: const Color(0xFF3B82F6),
-          unselectedItemColor: Colors.grey,
-          selectedFontSize: 12,
-          unselectedFontSize: 12,
+          backgroundColor: Colors.transparent,
+          selectedItemColor: const Color(0xFF1A1A1A),
+          unselectedItemColor: const Color(0xFF8E8E93),
+          selectedFontSize: 11,
+          unselectedFontSize: 11,
           elevation: 0,
           items: [
             BottomNavigationBarItem(
-              icon: const Icon(Icons.home_outlined),
-              activeIcon: const Icon(Icons.home),
-              label: AppLocalizations.of(context)?.home ?? 'Home',
+              icon: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: _currentIndex == 0
+                      ? const Color(0xFF1A1A1A).withOpacity(0.1)
+                      : Colors.transparent,
+                ),
+                child: const Icon(Icons.style, size: 20),
+              ),
+              activeIcon: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: const Color(0xFF1A1A1A).withOpacity(0.1),
+                ),
+                child: const Icon(Icons.style, size: 20),
+              ),
+              label: '코디',
             ),
             BottomNavigationBarItem(
-              icon: const Icon(Icons.camera_alt_outlined),
-              activeIcon: const Icon(Icons.camera_alt),
-              label: AppLocalizations.of(context)?.camera ?? 'Camera',
+              icon: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: _currentIndex == 1
+                      ? const Color(0xFF1A1A1A).withOpacity(0.1)
+                      : Colors.transparent,
+                ),
+                child: const Icon(Icons.face, size: 20),
+              ),
+              activeIcon: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: const Color(0xFF1A1A1A).withOpacity(0.1),
+                ),
+                child: const Icon(Icons.face, size: 20),
+              ),
+              label: '페이스',
             ),
             BottomNavigationBarItem(
-              icon: const Icon(Icons.person_outline),
-              activeIcon: const Icon(Icons.person),
-              label: AppLocalizations.of(context)?.profile ?? 'Profile',
+              icon: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: _currentIndex == 2
+                      ? const Color(0xFF1A1A1A).withOpacity(0.1)
+                      : Colors.transparent,
+                ),
+                child: const Icon(Icons.person_outline, size: 20),
+              ),
+              activeIcon: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: const Color(0xFF1A1A1A).withOpacity(0.1),
+                ),
+                child: const Icon(Icons.person, size: 20),
+              ),
+              label: '프로필',
             ),
           ],
         ),

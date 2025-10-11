@@ -61,11 +61,36 @@ class StyleGuideApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Style Me',
+      title: 'FaceStyle',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF1A1A1A),
+          brightness: Brightness.light,
+        ),
         useMaterial3: true,
+        fontFamily: 'SF Pro Display',
+        scaffoldBackgroundColor: const Color(0xFFFAFAFA),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          centerTitle: true,
+          titleTextStyle: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w700,
+            color: Color(0xFF1A1A1A),
+            letterSpacing: 0.5,
+          ),
+        ),
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: Color(0xFF1A1A1A),
+          unselectedItemColor: Color(0xFF8E8E93),
+          selectedIconTheme: IconThemeData(size: 11),
+          unselectedIconTheme: IconThemeData(size: 11),
+        ),
       ),
       localizationsDelegates: const [
         AppLocalizations.delegate,

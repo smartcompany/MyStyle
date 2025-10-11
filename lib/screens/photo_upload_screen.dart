@@ -137,48 +137,56 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: const Color(0xFFFAFAFA),
       appBar: AppBar(
         title: Text(
-          AppLocalizations.of(context)!.appTitle,
+          'FaceStyle',
           style: TextStyle(
-            color: const Color(0xFF1E293B),
-            fontSize: 24,
+            fontSize: 20,
             fontWeight: FontWeight.w700,
-            letterSpacing: -0.5,
+            letterSpacing: 0.5,
+            color: const Color(0xFF1A1A1A),
           ),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         elevation: 0,
-        surfaceTintColor: Colors.transparent,
         centerTitle: true,
         leading: GestureDetector(
           onTap: _showOnboarding,
           child: Container(
             margin: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: const Color(0xFF3B82F6).withOpacity(0.1),
+              color: const Color(0xFF1A1A1A).withOpacity(0.05),
               shape: BoxShape.circle,
-              border: Border.all(
-                color: const Color(0xFF3B82F6).withOpacity(0.3),
-                width: 1,
-              ),
             ),
             child: const Icon(
               Icons.help_outline_rounded,
               size: 16,
-              color: Color(0xFF3B82F6),
+              color: Color(0xFF1A1A1A),
             ),
           ),
         ),
         actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const SettingsScreen()),
-              );
-            },
-            icon: const Icon(Icons.settings_outlined, color: Color(0xFF1E293B)),
+          Container(
+            margin: const EdgeInsets.only(right: 8),
+            decoration: BoxDecoration(
+              color: const Color(0xFF1A1A1A).withOpacity(0.05),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: IconButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const SettingsScreen(),
+                  ),
+                );
+              },
+              icon: const Icon(
+                Icons.settings_outlined,
+                size: 20,
+                color: Color(0xFF1A1A1A),
+              ),
+            ),
           ),
         ],
       ),

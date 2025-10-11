@@ -51,55 +51,34 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surfaceContainerLowest,
+      backgroundColor: const Color(0xFFFAFAFA),
       appBar: AppBar(
-        title: Row(
-          children: [
-            Text(
-              'WEATHER',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w300,
-                letterSpacing: 2.0,
-                color: Theme.of(context).colorScheme.onSurface,
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 8),
-              width: 4,
-              height: 4,
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.secondary,
-                shape: BoxShape.circle,
-              ),
-            ),
-            Text(
-              'STYLE',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                letterSpacing: 2.0,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-            ),
-          ],
+        title: Text(
+          'FaceStyle',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 0.5,
+            color: const Color(0xFF1A1A1A),
+          ),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
+        centerTitle: true,
         actions: [
           Container(
-            margin: const EdgeInsets.only(right: 8),
+            margin: const EdgeInsets.only(right: 16),
             decoration: BoxDecoration(
-              border: Border.all(
-                color: Theme.of(context).colorScheme.outline,
-                width: 1,
-              ),
-              borderRadius: BorderRadius.circular(8),
+              color: const Color(0xFF1A1A1A).withOpacity(0.05),
+              borderRadius: BorderRadius.circular(12),
             ),
             child: IconButton(
-              icon: const Icon(Icons.tune, size: 20),
+              icon: const Icon(
+                Icons.settings_outlined,
+                size: 20,
+                color: Color(0xFF1A1A1A),
+              ),
               onPressed: () {
-                // 설정 화면으로 이동 (필요시 구현)
                 ScaffoldMessenger.of(
                   context,
                 ).showSnackBar(const SnackBar(content: Text('설정 화면은 준비 중입니다')));
