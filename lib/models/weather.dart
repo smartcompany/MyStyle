@@ -23,15 +23,15 @@ class Weather {
 
   factory Weather.fromJson(Map<String, dynamic> json) {
     return Weather(
-      temperature: (json['main']['temp'] as num).toDouble(),
-      feelsLike: (json['main']['feels_like'] as num).toDouble(),
-      humidity: json['main']['humidity'] as int,
-      windSpeed: (json['wind']['speed'] as num).toDouble(),
-      description: json['weather'][0]['description'] as String,
-      icon: json['weather'][0]['icon'] as String,
-      main: json['weather'][0]['main'] as String,
-      location: json['name'] as String,
-      timestamp: DateTime.now(),
+      temperature: (json['temperature'] as num).toDouble(),
+      feelsLike: (json['feelsLike'] as num).toDouble(),
+      humidity: json['humidity'] as int,
+      windSpeed: (json['windSpeed'] as num).toDouble(),
+      description: json['description'] as String,
+      icon: json['icon'] as String,
+      main: json['main'] as String,
+      location: json['location'] as String,
+      timestamp: DateTime.parse(json['timestamp'] as String),
     );
   }
 
@@ -56,7 +56,7 @@ class WeatherForecast {
   WeatherForecast({required this.days});
 
   factory WeatherForecast.fromJson(Map<String, dynamic> json) {
-    List<dynamic> list = json['list'];
+    List<dynamic> list = json['days'];
     List<WeatherDay> days = list
         .map((item) => WeatherDay.fromJson(item))
         .toList();
@@ -83,12 +83,12 @@ class WeatherDay {
 
   factory WeatherDay.fromJson(Map<String, dynamic> json) {
     return WeatherDay(
-      date: DateTime.fromMillisecondsSinceEpoch(json['dt'] * 1000),
-      minTemp: (json['main']['temp_min'] as num).toDouble(),
-      maxTemp: (json['main']['temp_max'] as num).toDouble(),
-      description: json['weather'][0]['description'] as String,
-      icon: json['weather'][0]['icon'] as String,
-      main: json['weather'][0]['main'] as String,
+      date: DateTime.parse(json['date'] as String),
+      minTemp: (json['minTemp'] as num).toDouble(),
+      maxTemp: (json['maxTemp'] as num).toDouble(),
+      description: json['description'] as String,
+      icon: json['icon'] as String,
+      main: json['main'] as String,
     );
   }
 }

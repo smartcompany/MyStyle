@@ -4,10 +4,11 @@ class ApiConstants {
   // 개발: http://localhost:3000
   static const String _apiBaseUrl = 'https://my-style-server-chi.vercel.app';
 
+  // Weather Endpoints
   static final Uri weatherUri = Uri.parse('$_apiBaseUrl/api/weather');
   static final Uri forecastUri = Uri.parse('$_apiBaseUrl/api/forecast');
 
-  // URI constants - use static final instead of const
+  // Analysis Endpoints
   static final Uri analyzeUri = Uri.parse('$_apiBaseUrl/api/analyze');
   static final Uri settingsUri = Uri.parse('$_apiBaseUrl/api/settings');
 }
