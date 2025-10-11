@@ -22,6 +22,10 @@ class AppLocalizationsKo extends AppLocalizations {
   String get analysisItems => '분석 항목';
 
   @override
+  String get analysisDescription =>
+      '이 결과를 통해서 헤어 스타일이나 화장 눈썹정리 혹은 액세서리 등이 어떤게 좋을지 알려 줄거예요';
+
+  @override
   String get hairstyle => '💇‍♀️ 헤어스타일';
 
   @override
@@ -323,10 +327,6 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get analysisInProgress => '분석 중';
-
-  @override
-  String get analysisDescription =>
-      '이 결과를 통해서 헤어 스타일이나 화장 눈썹정리 혹은 액세서리 등이 어떤게 좋을지 알려 줄거예요';
 
   @override
   String get next => '다음';

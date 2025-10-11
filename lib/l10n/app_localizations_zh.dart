@@ -21,6 +21,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get analysisItems => '分析项目';
 
   @override
+  String get analysisDescription => '通过这个结果，我们会告诉您发型、化妆、眉毛护理或配饰等什么最适合';
+
+  @override
   String get hairstyle => '💇‍♀️ 发型';
 
   @override
@@ -322,9 +325,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get analysisInProgress => '分析中';
-
-  @override
-  String get analysisDescription => '通过这个结果，我们会告诉您发型、化妆、眉毛护理或配饰等什么最适合';
 
   @override
   String get next => '下一步';

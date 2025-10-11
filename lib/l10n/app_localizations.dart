@@ -126,6 +126,12 @@ abstract class AppLocalizations {
   /// **'Analysis Items'**
   String get analysisItems;
 
+  /// No description provided for @analysisDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Through this result, we will tell you what\'s good for hairstyles, makeup, eyebrow grooming, or accessories'**
+  String get analysisDescription;
+
   /// No description provided for @hairstyle.
   ///
   /// In en, this message translates to:
@@ -731,12 +737,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Analysis in progress'**
   String get analysisInProgress;
-
-  /// No description provided for @analysisDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'Through this result, we will tell you what\'s good for hairstyles, makeup, eyebrow grooming, or accessories'**
-  String get analysisDescription;
 
   /// No description provided for @next.
   ///

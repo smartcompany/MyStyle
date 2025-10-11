@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 import '../l10n/app_localizations.dart';
-import '../services/ad_service.dart';
 import '../debug_tools.dart';
 import 'analysis/analysis_screen.dart';
 import 'onboarding/onboarding_screen.dart';
@@ -92,55 +91,13 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
     );
   }
 
-  Widget _buildModeButton({
-    required PhotoMode mode,
-    required IconData icon,
-    required String label,
-  }) {
-    final isSelected = _photoMode == mode;
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          _photoMode = mode;
-          _selectedImage = null; // 모드 변경 시 이미지 초기화
-        });
-      },
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF3B82F6) : Colors.transparent,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              icon,
-              color: isSelected ? Colors.white : const Color(0xFF64748B),
-              size: 20,
-            ),
-            const SizedBox(width: 8),
-            Text(
-              label,
-              style: TextStyle(
-                color: isSelected ? Colors.white : const Color(0xFF64748B),
-                fontSize: 14,
-                fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFFAFAFA),
       appBar: AppBar(
         title: Text(
-          'FaceStyle',
+          AppLocalizations.of(context)!.appTitle,
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w700,
@@ -249,38 +206,6 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
                 ),
                 const SizedBox(height: 24),
 
-                // 얼굴/전신 토글
-                Container(
-                  padding: const EdgeInsets.all(4),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: const Color(0xFFE2E8F0),
-                      width: 1.5,
-                    ),
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: _buildModeButton(
-                          mode: PhotoMode.face,
-                          icon: Icons.face,
-                          label: '얼굴 분석',
-                        ),
-                      ),
-                      Expanded(
-                        child: _buildModeButton(
-                          mode: PhotoMode.fullBody,
-                          icon: Icons.accessibility_new,
-                          label: '전신 분석',
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 20),
-
                 // 스타일링 가이드 카드
                 Container(
                   padding: const EdgeInsets.all(24),
@@ -333,30 +258,15 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 12),
-                      Wrap(
-                        spacing: 8,
-                        runSpacing: 8,
-                        children: [
-                          _buildAnalysisTag(
-                            AppLocalizations.of(context)!.hairstyle,
-                          ),
-                          _buildAnalysisTag(
-                            AppLocalizations.of(context)!.eyebrowCare,
-                          ),
-                          _buildAnalysisTag(
-                            AppLocalizations.of(context)!.glassesRecommendation,
-                          ),
-                          _buildAnalysisTag(
-                            AppLocalizations.of(context)!.hatStyle,
-                          ),
-                          _buildAnalysisTag(
-                            AppLocalizations.of(context)!.earrings,
-                          ),
-                          _buildAnalysisTag(
-                            AppLocalizations.of(context)!.colorPalette,
-                          ),
-                        ],
+                      const SizedBox(height: 16),
+                      Text(
+                        AppLocalizations.of(context)!.analysisDescription,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: const Color(0xFF64748B),
+                          height: 1.6,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ],
                   ),
@@ -547,43 +457,6 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
         child: AspectRatio(
           aspectRatio: 1,
           child: Image.file(_selectedImage!, fit: BoxFit.cover),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildAnalysisTag(String text) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            const Color(0xFF3B82F6).withOpacity(0.08),
-            const Color(0xFF6366F1).withOpacity(0.08),
-          ],
-        ),
-        borderRadius: BorderRadius.circular(25),
-        border: Border.all(
-          color: const Color(0xFF3B82F6).withOpacity(0.2),
-          width: 1,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0xFF3B82F6).withOpacity(0.05),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Text(
-        text,
-        style: const TextStyle(
-          fontSize: 13,
-          color: Color(0xFF1E293B),
-          fontWeight: FontWeight.w600,
-          letterSpacing: -0.1,
         ),
       ),
     );

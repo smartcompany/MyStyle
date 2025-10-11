@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../l10n/app_localizations.dart';
 import '../../providers/weather_provider.dart';
 import '../../providers/style_provider.dart';
 import '../../providers/user_provider.dart';
 import '../../widgets/style_recommendation_card.dart';
 import '../../models/style_recommendation.dart';
 import '../photo/photo_styling_screen.dart';
+import '../settings_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final VoidCallback? onNavigateToCamera;
@@ -54,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: const Color(0xFFFAFAFA),
       appBar: AppBar(
         title: Text(
-          'FaceStyle',
+          AppLocalizations.of(context)!.appTitle,
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w700,
@@ -67,22 +69,24 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
         actions: [
           Container(
-            margin: const EdgeInsets.only(right: 16),
+            margin: const EdgeInsets.only(right: 8),
             decoration: BoxDecoration(
               color: const Color(0xFF1A1A1A).withOpacity(0.05),
               borderRadius: BorderRadius.circular(12),
             ),
             child: IconButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const SettingsScreen(),
+                  ),
+                );
+              },
               icon: const Icon(
                 Icons.settings_outlined,
                 size: 20,
                 color: Color(0xFF1A1A1A),
               ),
-              onPressed: () {
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(const SnackBar(content: Text('설정 화면은 준비 중입니다')));
-              },
             ),
           ),
         ],
