@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
+import 'dart:io';
 import '../../services/ad_service.dart';
 import '../../services/api_service.dart';
-import '../result/result_screen.dart';
 import '../../models/analysis_result.dart';
+import '../../models/photo_analysis.dart';
+import '../result/result_screen.dart';
+import '../result/ai_styling_result_screen.dart';
 import '../../l10n/app_localizations.dart';
 import 'dart:async';
 
 class AnalysisScreen extends StatefulWidget {
   final String imagePath;
+  final String analysisType; // 'face' or 'full_body'
 
-  const AnalysisScreen({super.key, required this.imagePath});
+  const AnalysisScreen({
+    super.key,
+    required this.imagePath,
+    this.analysisType = 'face', // 기본값은 얼굴 분석
+  });
 
   @override
   State<AnalysisScreen> createState() => _AnalysisScreenState();
@@ -22,8 +30,9 @@ class _AnalysisScreenState extends State<AnalysisScreen>
   bool _isAdShowing = false;
   bool _isAnalysisComplete = false;
   bool _isAdCompleted = false;
-  AnalysisResult? _analysisResult;
+  dynamic _analysisResult; // AnalysisResult 또는 PhotoAnalysisResponse
   String? _errorMessage;
+  File? _imageFile;
 
   late AnimationController _sparkleController;
   late AnimationController _pulseController;
@@ -35,6 +44,7 @@ class _AnalysisScreenState extends State<AnalysisScreen>
   @override
   void initState() {
     super.initState();
+    _imageFile = File(widget.imagePath);
     _initializeAnimations();
     _loadAd();
   }
@@ -122,26 +132,59 @@ class _AnalysisScreenState extends State<AnalysisScreen>
   }
 
   Future<void> _startAnalysis() async {
-    if (_isAnalysisComplete) return;
+    if (_isAnalysisComplete || _imageFile == null) return;
 
     try {
-      // 실제 OpenAI API 호출
       final currentLocale = Localizations.localeOf(context);
-      final result = await ApiService().analyzeFace(
-        widget.imagePath,
-        language: currentLocale.languageCode,
-      );
 
-      if (result != null) {
-        setState(() {
-          _analysisResult = result;
-          _isAnalysisComplete = true;
-        });
-        _checkAndNavigateToResult();
+      if (widget.analysisType == 'face') {
+        // 얼굴 분석 - 기존 analyze API 사용
+        final result = await ApiService().analyzeFace(
+          widget.imagePath,
+          language: currentLocale.languageCode,
+        );
+
+        if (result != null) {
+          setState(() {
+            _analysisResult = result;
+            _isAnalysisComplete = true;
+          });
+          _checkAndNavigateToResult();
+        } else {
+          setState(() {
+            _errorMessage = AppLocalizations.of(context)!.analysisFailed;
+          });
+        }
       } else {
-        setState(() {
-          _errorMessage = AppLocalizations.of(context)!.analysisFailed;
-        });
+        // 전신 분석 - analyze-fullbody API 사용
+        final result = await ApiService().analyzeFullBody(
+          widget.imagePath,
+          language: currentLocale.languageCode,
+        );
+
+        if (result != null) {
+          // 전신 분석 결과를 PhotoAnalysisResponse 형태로 변환
+          final convertedResult = PhotoAnalysisResponse(
+            imageUrl: widget.imagePath, // 원본 이미지 경로 사용
+            style: 'full_body',
+            outfitSummary: '전신 분석을 통한 맞춤형 스타일 추천',
+            careTips: [
+              '체형에 맞는 아이템을 선택하세요',
+              '색상 조화를 고려한 코디를 하세요',
+              '상황에 맞는 스타일을 연출하세요',
+            ],
+          );
+
+          setState(() {
+            _analysisResult = convertedResult;
+            _isAnalysisComplete = true;
+          });
+          _checkAndNavigateToResult();
+        } else {
+          setState(() {
+            _errorMessage = '전신 분석에 실패했습니다';
+          });
+        }
       }
     } catch (e) {
       setState(() {
@@ -158,14 +201,28 @@ class _AnalysisScreenState extends State<AnalysisScreen>
   }
 
   void _navigateToResult() {
-    if (!mounted) return;
+    if (!mounted || _analysisResult == null || _imageFile == null) return;
 
-    Navigator.of(context).pushReplacement(
-      PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) =>
-            ResultScreen(analysisResult: _analysisResult!),
-      ),
-    );
+    if (widget.analysisType == 'face') {
+      // 얼굴 분석 결과 - 기존 ResultScreen 사용
+      Navigator.of(context).pushReplacement(
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              ResultScreen(analysisResult: _analysisResult as AnalysisResult),
+        ),
+      );
+    } else {
+      // 전신 분석 결과 - AIStylingResultScreen 사용
+      Navigator.of(context).pushReplacement(
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              AIStylingResultScreen(
+                originalImage: _imageFile!,
+                analysisResult: _analysisResult as PhotoAnalysisResponse,
+              ),
+        ),
+      );
+    }
   }
 
   void _showAdLoadFailedDialog() {

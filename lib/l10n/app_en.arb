@@ -124,5 +124,10 @@
   "languageSettings": "Language Settings",
   "selectLanguage": "Select Language",
   "skip": "Skip",
-  "pleaseWaitLongTime": "It may take a while, please wait."
+  "pleaseWaitLongTime": "It may take a while, please wait.",
+  "home": "Home",
+  "camera": "Camera",
+  "closet": "Closet",
+  "lookbook": "Lookbook",
+  "profile": "Profile"
 }

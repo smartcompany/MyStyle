@@ -387,4 +387,19 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get pleaseWaitLongTime => '시간이 오래 걸릴 수 있으니 기다려 주세요';
+
+  @override
+  String get home => '홈';
+
+  @override
+  String get camera => '카메라';
+
+  @override
+  String get closet => '옷장';
+
+  @override
+  String get lookbook => '룩북';
+
+  @override
+  String get profile => '프로필';
 }

@@ -387,4 +387,19 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get pleaseWaitLongTime => '時間がかかる場合がありますので、お待ちください。';
+
+  @override
+  String get home => 'ホーム';
+
+  @override
+  String get camera => 'カメラ';
+
+  @override
+  String get closet => 'クローゼット';
+
+  @override
+  String get lookbook => 'ルックブック';
+
+  @override
+  String get profile => 'プロフィール';
 }

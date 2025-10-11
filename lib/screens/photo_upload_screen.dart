@@ -16,9 +16,12 @@ class PhotoUploadScreen extends StatefulWidget {
   State<PhotoUploadScreen> createState() => _PhotoUploadScreenState();
 }
 
+enum PhotoMode { face, fullBody }
+
 class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
   File? _selectedImage;
   final ImagePicker _picker = ImagePicker();
+  PhotoMode _photoMode = PhotoMode.face;
 
   @override
   void initState() {
@@ -32,7 +35,10 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
         maxWidth: 800,
         maxHeight: 800,
         imageQuality: 70,
-        preferredCameraDevice: CameraDevice.front, // 셀카 모드로 설정
+        preferredCameraDevice: _photoMode == PhotoMode.face
+            ? CameraDevice
+                  .front // 얼굴: 셀카 모드
+            : CameraDevice.rear, // 전신: 후면 카메라
       );
 
       if (image != null) {
@@ -59,7 +65,10 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
     if (_selectedImage != null) {
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => AnalysisScreen(imagePath: _selectedImage!.path),
+          builder: (context) => AnalysisScreen(
+            imagePath: _selectedImage!.path,
+            analysisType: _photoMode == PhotoMode.face ? 'face' : 'full_body',
+          ),
         ),
       );
     }
@@ -78,6 +87,48 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
           onFinish: () {
             Navigator.of(context).pop();
           },
+        ),
+      ),
+    );
+  }
+
+  Widget _buildModeButton({
+    required PhotoMode mode,
+    required IconData icon,
+    required String label,
+  }) {
+    final isSelected = _photoMode == mode;
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _photoMode = mode;
+          _selectedImage = null; // 모드 변경 시 이미지 초기화
+        });
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        decoration: BoxDecoration(
+          color: isSelected ? const Color(0xFF3B82F6) : Colors.transparent,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              icon,
+              color: isSelected ? Colors.white : const Color(0xFF64748B),
+              size: 20,
+            ),
+            const SizedBox(width: 8),
+            Text(
+              label,
+              style: TextStyle(
+                color: isSelected ? Colors.white : const Color(0xFF64748B),
+                fontSize: 14,
+                fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -187,6 +238,38 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
                     fontWeight: FontWeight.w500,
                   ),
                   textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 24),
+
+                // 얼굴/전신 토글
+                Container(
+                  padding: const EdgeInsets.all(4),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: const Color(0xFFE2E8F0),
+                      width: 1.5,
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: _buildModeButton(
+                          mode: PhotoMode.face,
+                          icon: Icons.face,
+                          label: '얼굴 분석',
+                        ),
+                      ),
+                      Expanded(
+                        child: _buildModeButton(
+                          mode: PhotoMode.fullBody,
+                          icon: Icons.accessibility_new,
+                          label: '전신 분석',
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 20),
 

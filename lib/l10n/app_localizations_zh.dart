@@ -385,4 +385,19 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get pleaseWaitLongTime => '可能需要一些时间，请稍候。';
+
+  @override
+  String get home => '主页';
+
+  @override
+  String get camera => '相机';
+
+  @override
+  String get closet => '衣橱';
+
+  @override
+  String get lookbook => '造型集';
+
+  @override
+  String get profile => '个人资料';
 }

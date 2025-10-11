@@ -108,5 +108,10 @@
   "next": "次へ",
   "showOnboarding": "アプリガイドを見る",
   "skip": "スキップ",
-  "pleaseWaitLongTime": "時間がかかる場合がありますので、お待ちください。"
+  "pleaseWaitLongTime": "時間がかかる場合がありますので、お待ちください。",
+  "home": "ホーム",
+  "camera": "カメラ",
+  "closet": "クローゼット",
+  "lookbook": "ルックブック",
+  "profile": "プロフィール"
 }

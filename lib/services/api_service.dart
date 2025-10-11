@@ -3,13 +3,12 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../models/ad_config.dart';
 import '../models/analysis_result.dart';
+import '../constants/api_constants.dart';
 
 class ApiService {
   static final ApiService _instance = ApiService._internal();
   factory ApiService() => _instance;
   ApiService._internal();
-
-  String _baseUrl = 'https://my-style-server-chi.vercel.app';
 
   AdConfig? _adConfig;
   bool _isConfigLoaded = false;
@@ -20,7 +19,7 @@ class ApiService {
   Future<AdConfig?> getAdConfig() async {
     try {
       final response = await http.get(
-        Uri.parse('$_baseUrl/api/settings'),
+        ApiConstants.settingsUri,
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -46,7 +45,7 @@ class ApiService {
   Future<String?> getRewardedAdUnitId() async {
     try {
       final response = await http.get(
-        Uri.parse('$_baseUrl/api/settings'),
+        ApiConstants.settingsUri,
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -86,7 +85,7 @@ class ApiService {
   Future<String?> getBannerAdUnitId() async {
     try {
       final response = await http.get(
-        Uri.parse('$_baseUrl/api/settings'),
+        ApiConstants.settingsUri,
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -126,7 +125,7 @@ class ApiService {
   Future<String?> getInitialAdUnitId() async {
     try {
       final response = await http.get(
-        Uri.parse('$_baseUrl/api/settings'),
+        ApiConstants.settingsUri,
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -180,12 +179,10 @@ class ApiService {
         throw Exception('이미지 파일이 존재하지 않습니다.');
       }
 
-      final request = http.MultipartRequest(
-        'POST',
-        Uri.parse('$_baseUrl/api/analyze'),
-      );
+      final request = http.MultipartRequest('POST', ApiConstants.analyzeUri);
 
       request.files.add(await http.MultipartFile.fromPath('image', imagePath));
+      request.fields['type'] = 'face'; // 얼굴 분석 타입 추가
 
       // 언어 정보 추가
       if (language != null) {
@@ -197,15 +194,54 @@ class ApiService {
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        print('클라이언트에서 받은 분석 결과: ${jsonEncode(data)}');
+        print('클라이언트에서 받은 얼굴 분석 결과: ${jsonEncode(data)}');
         return AnalysisResult.fromJson(data);
       } else {
         final errorData = jsonDecode(response.body);
-        print('분석 실패 응답: ${jsonEncode(errorData)}');
+        print('얼굴 분석 실패 응답: ${jsonEncode(errorData)}');
         throw Exception('분석 실패: ${errorData['error'] ?? '알 수 없는 오류'}');
       }
     } catch (e) {
       print('얼굴 분석 오류: $e');
+      return null;
+    }
+  }
+
+  // Analyze full body image using OpenAI
+  Future<Map<String, dynamic>?> analyzeFullBody(
+    String imagePath, {
+    String? language,
+  }) async {
+    try {
+      final file = File(imagePath);
+      if (!await file.exists()) {
+        throw Exception('이미지 파일이 존재하지 않습니다.');
+      }
+
+      final request = http.MultipartRequest('POST', ApiConstants.analyzeUri);
+
+      request.files.add(await http.MultipartFile.fromPath('image', imagePath));
+      request.fields['type'] = 'fullbody'; // 전신 분석 타입 추가
+
+      // 언어 정보 추가
+      if (language != null) {
+        request.headers['X-Language'] = language;
+      }
+
+      final streamedResponse = await request.send();
+      final response = await http.Response.fromStream(streamedResponse);
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        print('클라이언트에서 받은 전신 분석 결과: ${jsonEncode(data)}');
+        return data;
+      } else {
+        final errorData = jsonDecode(response.body);
+        print('전신 분석 실패 응답: ${jsonEncode(errorData)}');
+        throw Exception('분석 실패: ${errorData['error'] ?? '알 수 없는 오류'}');
+      }
+    } catch (e) {
+      print('전신 분석 오류: $e');
       return null;
     }
   }

@@ -124,5 +124,10 @@
   "languageSettings": "언어 설정",
   "selectLanguage": "언어 선택",
   "skip": "건너뛰기",
-  "pleaseWaitLongTime": "시간이 오래 걸릴 수 있으니 기다려 주세요"
+  "pleaseWaitLongTime": "시간이 오래 걸릴 수 있으니 기다려 주세요",
+  "home": "홈",
+  "camera": "카메라",
+  "closet": "옷장",
+  "lookbook": "룩북",
+  "profile": "프로필"
 }

@@ -4,11 +4,15 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:kakao_flutter_sdk_common/kakao_flutter_sdk_common.dart';
+import 'package:provider/provider.dart';
 import 'l10n/app_localizations.dart';
 import 'screens/onboarding/onboarding_screen.dart';
-import 'screens/photo_upload_screen.dart';
+import 'screens/main_screen.dart';
 import 'services/ad_service.dart';
 import 'services/api_service.dart';
+import 'providers/weather_provider.dart';
+import 'providers/style_provider.dart';
+import 'providers/user_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,7 +43,16 @@ void main() async {
     javaScriptAppKey: '72c551e200d94727cafb6a5c8ea218ef',
   );
 
-  runApp(const StyleGuideApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => WeatherProvider()),
+        ChangeNotifierProvider(create: (_) => StyleProvider()),
+        ChangeNotifierProvider(create: (_) => UserProvider()),
+      ],
+      child: const StyleGuideApp(),
+    ),
+  );
 }
 
 class StyleGuideApp extends StatelessWidget {
@@ -87,7 +100,7 @@ class OnboardingLauncher extends StatelessWidget {
     return OnboardingScreen(
       onFinish: () {
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const PhotoUploadScreen()),
+          MaterialPageRoute(builder: (context) => const MainScreen()),
         );
       },
     );

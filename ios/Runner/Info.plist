@@ -47,6 +47,10 @@
 	<string>This app needs access to your photo library to analyze your photos for style recommendations.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>This app needs access to your camera to take photos for style analysis.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app needs access to your location to provide weather-based style recommendations.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>This app needs access to your location to provide weather-based style recommendations.</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>ITSEncryptionExportComplianceCode</key>

@@ -393,4 +393,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pleaseWaitLongTime => 'It may take a while, please wait.';
+
+  @override
+  String get home => 'Home';
+
+  @override
+  String get camera => 'Camera';
+
+  @override
+  String get closet => 'Closet';
+
+  @override
+  String get lookbook => 'Lookbook';
+
+  @override
+  String get profile => 'Profile';
 }
