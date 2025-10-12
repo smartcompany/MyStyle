@@ -226,7 +226,6 @@ class ApiService {
 
       request.files.add(await http.MultipartFile.fromPath('image', imagePath));
       request.fields['type'] = 'fullbody'; // 전신 분석 타입 추가
-      request.fields['useDummy'] = 'true'; // 테스트용 더미 데이터 사용
 
       // 언어 정보 추가
       if (language != null) {

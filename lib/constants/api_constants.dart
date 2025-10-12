@@ -2,7 +2,7 @@ class ApiConstants {
   // Our Next.js API Server
   // 프로덕션: https://your-production-domain.vercel.app
   // 개발: http://localhost:3000
-  static const bool useDummy = true;
+  static const bool useDummy = false;
   static const String _apiBaseUrl = 'https://my-style-server-chi.vercel.app';
 
   // Weather Endpoints
