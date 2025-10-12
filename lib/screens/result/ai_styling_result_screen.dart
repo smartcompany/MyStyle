@@ -1,11 +1,13 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:share_plus/share_plus.dart';
 import '../../models/photo_analysis.dart';
+import '../../widgets/common/share_ui.dart';
+import '../../widgets/common/common_ui.dart';
+import '../../l10n/app_localizations.dart';
 
 class AIStylingResultScreen extends StatefulWidget {
   final File originalImage;
-  final PhotoAnalysisResponse analysisResult;
+  final FullBodyAnalysisResponse analysisResult;
 
   const AIStylingResultScreen({
     super.key,
@@ -18,18 +20,14 @@ class AIStylingResultScreen extends StatefulWidget {
 }
 
 class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
-  int _selectedStyleIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('AI 코디 추천 결과'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        actions: [
-          IconButton(icon: const Icon(Icons.share), onPressed: _shareResult),
-          IconButton(icon: const Icon(Icons.download), onPressed: _saveResult),
-        ],
+      appBar: CommonUI.buildShareAppBar(
+        context: context,
+        title: AppLocalizations.of(context)!.aiStylingTitle,
+        onSharePressed: _shareResult,
+        onBackPressed: () => Navigator.of(context).pop(),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -53,6 +51,20 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
 
             // 스타일링 팁
             _buildStylingTipsCard(),
+
+            const SizedBox(height: 24),
+
+            // 공유하기 UI 컴포넌트
+            ShareUI.buildShareSection(
+              context: context,
+              title: 'AI 스타일 분석 결과',
+              description: '나만의 맞춤형 스타일 분석 결과를 친구들과 공유해보세요!',
+              shareText: _generateShareText(),
+              imagePath: widget.originalImage.path,
+              onShareTap: _shareResult,
+            ),
+
+            const SizedBox(height: 24),
           ],
         ),
       ),
@@ -68,7 +80,7 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
           // 원본 이미지
           Container(
             width: double.infinity,
-            height: 200,
+            height: 300,
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(16),
@@ -78,92 +90,165 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(16),
               ),
-              child: Image.file(widget.originalImage, fit: BoxFit.cover),
+              child: Image.file(
+                widget.originalImage,
+                fit: BoxFit.contain,
+                alignment: Alignment.center,
+              ),
             ),
           ),
 
           const SizedBox(height: 16),
 
-          // AI 생성 이미지
+          // 분석 결과 정보
           Container(
             width: double.infinity,
-            height: 200,
             margin: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: const Color(0xFF6C63FF), width: 2),
+              color: Colors.white,
             ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: widget.analysisResult.imageUrl.isNotEmpty
-                  ? Image.network(
-                      widget.analysisResult.imageUrl,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Container(
-                          color: Colors.grey[200],
-                          child: const Center(
-                            child: Icon(
-                              Icons.image_not_supported,
-                              size: 50,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        );
-                      },
-                    )
-                  : Container(
-                      color: Colors.grey[200],
-                      child: const Center(
-                        child: Icon(
-                          Icons.image_not_supported,
-                          size: 50,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ),
-            ),
-          ),
-
-          const SizedBox(height: 16),
-
-          // 액션 버튼들
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Row(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  child: ElevatedButton.icon(
-                    onPressed: _shareResult,
-                    icon: const Icon(Icons.share, size: 18),
-                    label: const Text('공유하기'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF6C63FF),
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
+                // 체형 분석 정보
+                Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF6C63FF).withOpacity(0.1),
                         borderRadius: BorderRadius.circular(8),
                       ),
+                      child: const Icon(
+                        Icons.person_outline,
+                        color: Color(0xFF6C63FF),
+                        size: 20,
+                      ),
                     ),
-                  ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            AppLocalizations.of(context)!.bodyAnalysisResult,
+                            style: Theme.of(context).textTheme.titleMedium
+                                ?.copyWith(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: const Color(0xFF1A1A1A),
+                                ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            '${AppLocalizations.of(context)!.bodyType}: ${_getBodyTypeDisplayName(widget.analysisResult.bodyType)} • ${AppLocalizations.of(context)!.height}: ${_getHeightDisplayName(widget.analysisResult.height)}',
+                            style: Theme.of(context).textTheme.bodyMedium
+                                ?.copyWith(
+                                  fontSize: 15,
+                                  color: const Color(0xFF64748B),
+                                ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            '${AppLocalizations.of(context)!.confidence}: ${widget.analysisResult.confidence}%',
+                            style: Theme.of(context).textTheme.bodySmall
+                                ?.copyWith(
+                                  fontSize: 14,
+                                  color: const Color(0xFF6C63FF),
+                                  fontWeight: FontWeight.w600,
+                                ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: OutlinedButton.icon(
-                    onPressed: _saveResult,
-                    icon: const Icon(Icons.download, size: 18),
-                    label: const Text('저장하기'),
-                    style: OutlinedButton.styleFrom(
-                      foregroundColor: const Color(0xFF6C63FF),
-                      side: const BorderSide(color: Color(0xFF6C63FF)),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
+                const SizedBox(height: 16),
+
+                // 현재 스타일 상세 정보
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF8FAFC),
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: const Color(0xFFE2E8F0)),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // 현재 스타일
+                      if (widget
+                          .analysisResult
+                          .styleAnalysis
+                          .currentStyle
+                          .isNotEmpty)
+                        _buildStyleInfoItem(
+                          AppLocalizations.of(context)!.currentStyleAnalysis,
+                          widget.analysisResult.styleAnalysis.currentStyle,
+                          Icons.style,
+                        ),
+
+                      // 색상 평가
+                      if (widget
+                          .analysisResult
+                          .styleAnalysis
+                          .colorEvaluation
+                          .isNotEmpty)
+                        _buildStyleInfoItem(
+                          '색상 평가',
+                          widget.analysisResult.styleAnalysis.colorEvaluation,
+                          Icons.palette,
+                        ),
+
+                      // 실루엣 분석
+                      if (widget
+                          .analysisResult
+                          .styleAnalysis
+                          .silhouette
+                          .isNotEmpty)
+                        _buildStyleInfoItem(
+                          '실루엣 분석',
+                          widget.analysisResult.styleAnalysis.silhouette,
+                          Icons.accessibility_new,
+                        ),
+
+                      // 모든 정보가 비어있는 경우
+                      if (widget
+                              .analysisResult
+                              .styleAnalysis
+                              .currentStyle
+                              .isEmpty &&
+                          widget
+                              .analysisResult
+                              .styleAnalysis
+                              .colorEvaluation
+                              .isEmpty &&
+                          widget
+                              .analysisResult
+                              .styleAnalysis
+                              .silhouette
+                              .isEmpty)
+                        Text(
+                          AppLocalizations.of(context)!.currentStyleAnalyzing,
+                          style: Theme.of(context).textTheme.bodyMedium
+                              ?.copyWith(
+                                fontSize: 15,
+                                color: const Color(0xFF64748B),
+                                height: 1.4,
+                              ),
+                        ),
+                    ],
                   ),
                 ),
               ],
             ),
           ),
+
+          const SizedBox(height: 16),
         ],
       ),
     );
@@ -181,8 +266,9 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
                 Icon(Icons.wb_sunny, color: Colors.orange[600], size: 24),
                 const SizedBox(width: 8),
                 Text(
-                  '오늘 날씨 맞춤 추천',
+                  '전신 분석을 통한 맞춤형 스타일 추천',
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -190,10 +276,12 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
             ),
             const SizedBox(height: 12),
             Text(
-              widget.analysisResult.outfitSummary,
-              style: Theme.of(
-                context,
-              ).textTheme.bodyMedium?.copyWith(height: 1.5),
+              'AI가 분석한 체형과 현재 스타일을 바탕으로 최적의 패션 아이템과 스타일링 팁을 제공합니다.',
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                fontSize: 16,
+                height: 1.5,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ],
         ),
@@ -213,28 +301,53 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
                 Icon(Icons.checkroom, color: Colors.blue[600], size: 24),
                 const SizedBox(width: 8),
                 Text(
-                  '스타일 정보',
+                  AppLocalizations.of(context)!.recommendedItems,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ],
             ),
+            const SizedBox(height: 16),
+
+            // 상의
+            _buildItemCategory(
+              '상의',
+              widget.analysisResult.recommendations.tops,
+              Icons.checkroom,
+            ),
             const SizedBox(height: 12),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              decoration: BoxDecoration(
-                color: _getStyleColor(widget.analysisResult.style),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Text(
-                widget.analysisResult.style.toUpperCase(),
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12,
-                ),
-              ),
+
+            // 하의
+            _buildItemCategory(
+              '하의',
+              widget.analysisResult.recommendations.bottoms,
+              Icons.accessibility_new,
+            ),
+            const SizedBox(height: 12),
+
+            // 아우터
+            _buildItemCategory(
+              '아우터',
+              widget.analysisResult.recommendations.outerwear,
+              Icons.ac_unit,
+            ),
+            const SizedBox(height: 12),
+
+            // 신발
+            _buildItemCategory(
+              '신발',
+              widget.analysisResult.recommendations.shoes,
+              Icons.directions_walk,
+            ),
+            const SizedBox(height: 12),
+
+            // 액세서리
+            _buildItemCategory(
+              '액세서리',
+              widget.analysisResult.recommendations.accessories,
+              Icons.watch,
             ),
           ],
         ),
@@ -254,40 +367,97 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
                 Icon(Icons.lightbulb, color: Colors.amber[600], size: 24),
                 const SizedBox(width: 8),
                 Text(
-                  '스타일링 팁',
+                  AppLocalizations.of(context)!.stylingTips,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 12),
-            ...widget.analysisResult.careTips.map(
+            ...widget.analysisResult.stylingTips.map(
               (tip) => Padding(
                 padding: const EdgeInsets.only(bottom: 8),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      width: 6,
-                      height: 6,
+                      width: 8,
+                      height: 8,
                       margin: const EdgeInsets.only(top: 6, right: 12),
-                      decoration: const BoxDecoration(
-                        color: Color(0xFF6C63FF),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF6C63FF),
                         shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color(0xFF6C63FF).withOpacity(0.3),
+                            blurRadius: 4,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
                       ),
                     ),
                     Expanded(
                       child: Text(
                         tip,
-                        style: Theme.of(
-                          context,
-                        ).textTheme.bodyMedium?.copyWith(height: 1.4),
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          height: 1.4,
+                          color: const Color(0xFF1A1A1A),
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
+            ),
+            const SizedBox(height: 16),
+
+            // 컬러 팔레트
+            Row(
+              children: [
+                Icon(Icons.palette, color: Colors.purple[600], size: 20),
+                const SizedBox(width: 8),
+                Text(
+                  AppLocalizations.of(context)!.recommendedColors,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: const Color(0xFF1A1A1A),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: widget.analysisResult.colorPalette.recommended
+                  .map(
+                    (color) => Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 6,
+                      ),
+                      decoration: BoxDecoration(
+                        color: _getColorByName(color).withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: _getColorByName(color).withOpacity(0.3),
+                        ),
+                      ),
+                      child: Text(
+                        color,
+                        style: const TextStyle(
+                          color: Color(0xFF1A1A1A),
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
+                  )
+                  .toList(),
             ),
           ],
         ),
@@ -295,37 +465,199 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
     );
   }
 
-  Color _getStyleColor(String style) {
-    switch (style.toLowerCase()) {
-      case 'casual':
-        return const Color(0xFF74B9FF);
-      case 'smart_casual':
-        return const Color(0xFF00B894);
-      case 'date':
-        return const Color(0xFFE84393);
-      case 'outdoor':
-        return const Color(0xFF00B894);
-      case 'business':
-        return const Color(0xFF2D3436);
+  // 스타일 정보 아이템 위젯
+  Widget _buildStyleInfoItem(String title, String content, IconData icon) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(6),
+            decoration: BoxDecoration(
+              color: const Color(0xFF6C63FF).withOpacity(0.1),
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: Icon(icon, size: 16, color: const Color(0xFF6C63FF)),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: const Color(0xFF1A1A1A),
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  content,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontSize: 15,
+                    color: const Color(0xFF64748B),
+                    height: 1.4,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // 아이템 카테고리 위젯
+  Widget _buildItemCategory(
+    String categoryName,
+    List<String> items,
+    IconData icon,
+  ) {
+    if (items.isEmpty) return const SizedBox.shrink();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Icon(icon, size: 16, color: const Color(0xFF6C63FF)),
+            const SizedBox(width: 6),
+            Text(
+              categoryName,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: const Color(0xFF1A1A1A),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 6),
+        Wrap(
+          spacing: 6,
+          runSpacing: 6,
+          children: items
+              .map(
+                (item) => Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF6C63FF).withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: const Color(0xFF6C63FF).withOpacity(0.2),
+                    ),
+                  ),
+                  child: Text(
+                    item,
+                    style: const TextStyle(
+                      color: Color(0xFF6C63FF),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              )
+              .toList(),
+        ),
+      ],
+    );
+  }
+
+  // 체형 타입 표시명
+  String _getBodyTypeDisplayName(String bodyType) {
+    switch (bodyType.toLowerCase()) {
+      case 'rectangle':
+        return '직사각형';
+      case 'hourglass':
+        return '모래시계형';
+      case 'pear':
+        return '배형';
+      case 'apple':
+        return '사과형';
+      case 'inverted_triangle':
+        return '역삼각형';
+      default:
+        return bodyType;
+    }
+  }
+
+  // 키 표시명
+  String _getHeightDisplayName(String height) {
+    switch (height.toLowerCase()) {
+      case 'tall':
+        return '키 큰';
+      case 'medium':
+        return '보통';
+      case 'short':
+        return '키 작은';
+      default:
+        return height;
+    }
+  }
+
+  // 색상명으로 Color 객체 반환
+  Color _getColorByName(String colorName) {
+    switch (colorName.toLowerCase()) {
+      case '네이비':
+        return const Color(0xFF1E3A8A);
+      case '아이보리':
+        return const Color(0xFFFFF8DC);
+      case '카키':
+        return const Color(0xFF9CAF88);
+      case '브라운':
+        return const Color(0xFF8B4513);
+      case '그레이':
+        return const Color(0xFF6B7280);
+      case '블랙':
+        return const Color(0xFF000000);
+      case '화이트':
+        return const Color(0xFFFFFFFF);
+      case '레드':
+        return const Color(0xFFDC2626);
+      case '블루':
+        return const Color(0xFF2563EB);
+      case '그린':
+        return const Color(0xFF16A34A);
       default:
         return const Color(0xFF6C63FF);
     }
   }
 
-  void _shareResult() {
-    Share.share(
-      'AI 스타일링 결과를 확인해보세요!\n\n스타일: ${widget.analysisResult.style}\n설명: ${widget.analysisResult.outfitSummary}',
-      subject: 'AI 스타일링 결과',
-    );
+  String _generateShareText() {
+    return '''
+AI 전신 분석 결과를 확인해보세요!
+
+체형: ${_getBodyTypeDisplayName(widget.analysisResult.bodyType)}
+키: ${_getHeightDisplayName(widget.analysisResult.height)}
+
+현재 스타일 분석:
+${widget.analysisResult.styleAnalysis.currentStyle.isNotEmpty ? '• 현재 스타일: ${widget.analysisResult.styleAnalysis.currentStyle}' : ''}
+${widget.analysisResult.styleAnalysis.colorEvaluation.isNotEmpty ? '• 색상 평가: ${widget.analysisResult.styleAnalysis.colorEvaluation}' : ''}
+${widget.analysisResult.styleAnalysis.silhouette.isNotEmpty ? '• 실루엣 분석: ${widget.analysisResult.styleAnalysis.silhouette}' : ''}
+
+추천 아이템:
+• 상의: ${widget.analysisResult.recommendations.tops.join(', ')}
+• 하의: ${widget.analysisResult.recommendations.bottoms.join(', ')}
+• 아우터: ${widget.analysisResult.recommendations.outerwear.join(', ')}
+
+스타일링 팁:
+${widget.analysisResult.stylingTips.map((tip) => '• $tip').join('\n')}
+
+신뢰도: ${widget.analysisResult.confidence}%
+''';
   }
 
-  void _saveResult() {
-    // TODO: 이미지 저장 기능 구현
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('이미지 저장 기능은 곧 추가될 예정입니다.'),
-        duration: Duration(seconds: 2),
-      ),
+  void _shareResult() {
+    ShareUI.showShareOptionsDialog(
+      context: context,
+      shareText: _generateShareText(),
+      imagePath: widget.originalImage.path,
     );
   }
 }

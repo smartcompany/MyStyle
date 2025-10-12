@@ -116,7 +116,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get shareTitle => 'Share';
 
   @override
-  String get shareWithFriends => 'Share with friends';
+  String get shareWithFriends => 'Share with Friends';
 
   @override
   String get copyText => 'Copy Text';
@@ -395,6 +395,20 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pleaseWaitLongTime => 'It may take a while, please wait.';
 
   @override
+  String get faceAnalysisDescription =>
+      'Through these results, we will tell you what kind of hairstyle, makeup, eyebrow grooming, or accessories would be good for you.';
+
+  @override
+  String get fullBodyAnalysisDescription =>
+      'Through these results, we will tell you what kind of clothing, color combinations, and styling tips would suit your body type.';
+
+  @override
+  String get faceAnalysisTitle => 'AI is analyzing your face...';
+
+  @override
+  String get fullBodyAnalysisTitle => 'AI is analyzing your full body...';
+
+  @override
   String get home => 'Home';
 
   @override
@@ -408,4 +422,86 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profile => 'Profile';
+
+  @override
+  String get aiStylingTitle => 'AI Styling Recommendation Result';
+
+  @override
+  String get faceStylingTitle => 'Face Styling';
+
+  @override
+  String get bodyAnalysisResult => 'Body Analysis Result';
+
+  @override
+  String get currentStyleAnalysis => 'Current Style Analysis';
+
+  @override
+  String get bodyType => 'Body Type';
+
+  @override
+  String get height => 'Height';
+
+  @override
+  String get confidence => 'Confidence';
+
+  @override
+  String get currentStyleAnalyzing => 'Analyzing current style information...';
+
+  @override
+  String get fullBodyStylingRecommendation =>
+      'Personalized style recommendation through full-body analysis';
+
+  @override
+  String get aiAnalyzedBodyAndStyle =>
+      'Based on body type and current style analyzed by AI';
+
+  @override
+  String get recommendedItems => 'Recommended Items';
+
+  @override
+  String get stylingTips => 'Styling Tips';
+
+  @override
+  String get top => 'Tops';
+
+  @override
+  String get bottom => 'Bottoms';
+
+  @override
+  String get outerwear => 'Outerwear';
+
+  @override
+  String get shoes => 'Shoes';
+
+  @override
+  String get accessories => 'Accessories';
+
+  @override
+  String get share => 'Share';
+
+  @override
+  String get styleRecommendationPreparing => 'Preparing style recommendations';
+
+  @override
+  String get aiAnalyzingYourStyle => 'AI is analyzing styles that suit you';
+
+  @override
+  String get todayEdit => 'TODAY\'S EDIT';
+
+  @override
+  String get todayStyleCuration =>
+      'Style curation tailored to today\'s weather';
+
+  @override
+  String get aiStylingPreview => 'AI STYLING PREVIEW';
+
+  @override
+  String get previewStyleWithCharacter =>
+      'Preview the recommended style with a character';
+
+  @override
+  String get likeThisStyle => 'Do you like this style?';
+
+  @override
+  String get tryCoordinatingWithPhoto => 'Try coordinating with your own photo';
 }

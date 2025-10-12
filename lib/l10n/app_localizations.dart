@@ -315,7 +315,7 @@ abstract class AppLocalizations {
   /// No description provided for @shareWithFriends.
   ///
   /// In en, this message translates to:
-  /// **'Share with friends'**
+  /// **'Share with Friends'**
   String get shareWithFriends;
 
   /// No description provided for @copyText.
@@ -858,6 +858,30 @@ abstract class AppLocalizations {
   /// **'It may take a while, please wait.'**
   String get pleaseWaitLongTime;
 
+  /// No description provided for @faceAnalysisDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Through these results, we will tell you what kind of hairstyle, makeup, eyebrow grooming, or accessories would be good for you.'**
+  String get faceAnalysisDescription;
+
+  /// No description provided for @fullBodyAnalysisDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Through these results, we will tell you what kind of clothing, color combinations, and styling tips would suit your body type.'**
+  String get fullBodyAnalysisDescription;
+
+  /// No description provided for @faceAnalysisTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'AI is analyzing your face...'**
+  String get faceAnalysisTitle;
+
+  /// No description provided for @fullBodyAnalysisTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'AI is analyzing your full body...'**
+  String get fullBodyAnalysisTitle;
+
   /// No description provided for @home.
   ///
   /// In en, this message translates to:
@@ -887,6 +911,162 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Profile'**
   String get profile;
+
+  /// No description provided for @aiStylingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Styling Recommendation Result'**
+  String get aiStylingTitle;
+
+  /// No description provided for @faceStylingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Face Styling'**
+  String get faceStylingTitle;
+
+  /// No description provided for @bodyAnalysisResult.
+  ///
+  /// In en, this message translates to:
+  /// **'Body Analysis Result'**
+  String get bodyAnalysisResult;
+
+  /// No description provided for @currentStyleAnalysis.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Style Analysis'**
+  String get currentStyleAnalysis;
+
+  /// No description provided for @bodyType.
+  ///
+  /// In en, this message translates to:
+  /// **'Body Type'**
+  String get bodyType;
+
+  /// No description provided for @height.
+  ///
+  /// In en, this message translates to:
+  /// **'Height'**
+  String get height;
+
+  /// No description provided for @confidence.
+  ///
+  /// In en, this message translates to:
+  /// **'Confidence'**
+  String get confidence;
+
+  /// No description provided for @currentStyleAnalyzing.
+  ///
+  /// In en, this message translates to:
+  /// **'Analyzing current style information...'**
+  String get currentStyleAnalyzing;
+
+  /// No description provided for @fullBodyStylingRecommendation.
+  ///
+  /// In en, this message translates to:
+  /// **'Personalized style recommendation through full-body analysis'**
+  String get fullBodyStylingRecommendation;
+
+  /// No description provided for @aiAnalyzedBodyAndStyle.
+  ///
+  /// In en, this message translates to:
+  /// **'Based on body type and current style analyzed by AI'**
+  String get aiAnalyzedBodyAndStyle;
+
+  /// No description provided for @recommendedItems.
+  ///
+  /// In en, this message translates to:
+  /// **'Recommended Items'**
+  String get recommendedItems;
+
+  /// No description provided for @stylingTips.
+  ///
+  /// In en, this message translates to:
+  /// **'Styling Tips'**
+  String get stylingTips;
+
+  /// No description provided for @top.
+  ///
+  /// In en, this message translates to:
+  /// **'Tops'**
+  String get top;
+
+  /// No description provided for @bottom.
+  ///
+  /// In en, this message translates to:
+  /// **'Bottoms'**
+  String get bottom;
+
+  /// No description provided for @outerwear.
+  ///
+  /// In en, this message translates to:
+  /// **'Outerwear'**
+  String get outerwear;
+
+  /// No description provided for @shoes.
+  ///
+  /// In en, this message translates to:
+  /// **'Shoes'**
+  String get shoes;
+
+  /// No description provided for @accessories.
+  ///
+  /// In en, this message translates to:
+  /// **'Accessories'**
+  String get accessories;
+
+  /// No description provided for @share.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get share;
+
+  /// No description provided for @styleRecommendationPreparing.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing style recommendations'**
+  String get styleRecommendationPreparing;
+
+  /// No description provided for @aiAnalyzingYourStyle.
+  ///
+  /// In en, this message translates to:
+  /// **'AI is analyzing styles that suit you'**
+  String get aiAnalyzingYourStyle;
+
+  /// No description provided for @todayEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'TODAY\'S EDIT'**
+  String get todayEdit;
+
+  /// No description provided for @todayStyleCuration.
+  ///
+  /// In en, this message translates to:
+  /// **'Style curation tailored to today\'s weather'**
+  String get todayStyleCuration;
+
+  /// No description provided for @aiStylingPreview.
+  ///
+  /// In en, this message translates to:
+  /// **'AI STYLING PREVIEW'**
+  String get aiStylingPreview;
+
+  /// No description provided for @previewStyleWithCharacter.
+  ///
+  /// In en, this message translates to:
+  /// **'Preview the recommended style with a character'**
+  String get previewStyleWithCharacter;
+
+  /// No description provided for @likeThisStyle.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you like this style?'**
+  String get likeThisStyle;
+
+  /// No description provided for @tryCoordinatingWithPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Try coordinating with your own photo'**
+  String get tryCoordinatingWithPhoto;
 }
 
 class _AppLocalizationsDelegate

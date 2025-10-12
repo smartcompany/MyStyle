@@ -93,7 +93,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
                 child: const Icon(Icons.style, size: 20),
               ),
-              label: '코디',
+              label: AppLocalizations.of(context)!.home,
             ),
             BottomNavigationBarItem(
               icon: Container(
@@ -114,7 +114,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
                 child: const Icon(Icons.face, size: 20),
               ),
-              label: '페이스',
+              label: AppLocalizations.of(context)!.camera,
             ),
             BottomNavigationBarItem(
               icon: Container(
@@ -135,7 +135,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
                 child: const Icon(Icons.person, size: 20),
               ),
-              label: '프로필',
+              label: AppLocalizations.of(context)!.profile,
             ),
           ],
         ),

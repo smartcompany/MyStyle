@@ -139,8 +139,8 @@ class ShareUI {
                 children: [
                   Icon(Icons.share_rounded, size: 20),
                   const SizedBox(width: 8),
-                  Text(
-                    AppLocalizations.of(context)!.saveAndShare,
+                  const Text(
+                    '공유하기',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                   ),
                 ],

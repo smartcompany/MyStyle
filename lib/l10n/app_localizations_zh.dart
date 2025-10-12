@@ -387,6 +387,19 @@ class AppLocalizationsZh extends AppLocalizations {
   String get pleaseWaitLongTime => '可能需要一些时间，请稍候。';
 
   @override
+  String get faceAnalysisDescription => '通过这些结果，我们将告诉您什么样的发型、化妆、眉毛护理或配饰适合您。';
+
+  @override
+  String get fullBodyAnalysisDescription =>
+      '通过这些结果，我们将告诉您什么样的服装、颜色搭配和造型技巧适合您的体型。';
+
+  @override
+  String get faceAnalysisTitle => 'AI正在分析您的面部...';
+
+  @override
+  String get fullBodyAnalysisTitle => 'AI正在分析您的全身...';
+
+  @override
   String get home => '主页';
 
   @override
@@ -400,4 +413,82 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get profile => '个人资料';
+
+  @override
+  String get aiStylingTitle => 'AI搭配推荐结果';
+
+  @override
+  String get faceStylingTitle => '面部造型';
+
+  @override
+  String get bodyAnalysisResult => '体型分析结果';
+
+  @override
+  String get currentStyleAnalysis => '当前风格分析';
+
+  @override
+  String get bodyType => '体型';
+
+  @override
+  String get height => '身高';
+
+  @override
+  String get confidence => '可信度';
+
+  @override
+  String get currentStyleAnalyzing => '正在分析当前风格信息...';
+
+  @override
+  String get fullBodyStylingRecommendation => '通过全身分析的个性化风格推荐';
+
+  @override
+  String get aiAnalyzedBodyAndStyle => '基于AI分析的体型和当前风格';
+
+  @override
+  String get recommendedItems => '推荐单品';
+
+  @override
+  String get stylingTips => '造型技巧';
+
+  @override
+  String get top => '上衣';
+
+  @override
+  String get bottom => '下装';
+
+  @override
+  String get outerwear => '外套';
+
+  @override
+  String get shoes => '鞋履';
+
+  @override
+  String get accessories => '配饰';
+
+  @override
+  String get share => '分享';
+
+  @override
+  String get styleRecommendationPreparing => '正在准备风格推荐';
+
+  @override
+  String get aiAnalyzingYourStyle => 'AI正在分析适合您的风格';
+
+  @override
+  String get todayEdit => '今日造型';
+
+  @override
+  String get todayStyleCuration => '根据今日天气的风格策划';
+
+  @override
+  String get aiStylingPreview => 'AI造型预览';
+
+  @override
+  String get previewStyleWithCharacter => '用角色预览推荐风格';
+
+  @override
+  String get likeThisStyle => '您喜欢这个风格吗？';
+
+  @override
+  String get tryCoordinatingWithPhoto => '用您的照片尝试搭配';
 }

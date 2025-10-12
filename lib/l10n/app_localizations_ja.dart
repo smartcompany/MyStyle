@@ -389,6 +389,20 @@ class AppLocalizationsJa extends AppLocalizations {
   String get pleaseWaitLongTime => '時間がかかる場合がありますので、お待ちください。';
 
   @override
+  String get faceAnalysisDescription =>
+      'この結果を通して、あなたに似合うヘアスタイル、メイク、眉毛の手入れ、アクセサリーなどをお伝えします。';
+
+  @override
+  String get fullBodyAnalysisDescription =>
+      'この結果を通して、あなたの体型に合う服装、色の組み合わせ、スタイリングのコツなどをお伝えします。';
+
+  @override
+  String get faceAnalysisTitle => 'AIが顔を分析しています...';
+
+  @override
+  String get fullBodyAnalysisTitle => 'AIが全身を分析しています...';
+
+  @override
   String get home => 'ホーム';
 
   @override
@@ -402,4 +416,82 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get profile => 'プロフィール';
+
+  @override
+  String get aiStylingTitle => 'AIコーディネートおすすめ結果';
+
+  @override
+  String get faceStylingTitle => '顔スタイリング';
+
+  @override
+  String get bodyAnalysisResult => '体型分析結果';
+
+  @override
+  String get currentStyleAnalysis => '現在のスタイル分析';
+
+  @override
+  String get bodyType => '体型';
+
+  @override
+  String get height => '身長';
+
+  @override
+  String get confidence => '信頼度';
+
+  @override
+  String get currentStyleAnalyzing => '現在のスタイル情報を分析中...';
+
+  @override
+  String get fullBodyStylingRecommendation => '全身分析によるカスタマイズスタイルおすすめ';
+
+  @override
+  String get aiAnalyzedBodyAndStyle => 'AIが分析した体型と現在のスタイルを基に';
+
+  @override
+  String get recommendedItems => 'おすすめアイテム';
+
+  @override
+  String get stylingTips => 'スタイリングのコツ';
+
+  @override
+  String get top => 'トップス';
+
+  @override
+  String get bottom => 'ボトムス';
+
+  @override
+  String get outerwear => 'アウター';
+
+  @override
+  String get shoes => 'シューズ';
+
+  @override
+  String get accessories => 'アクセサリー';
+
+  @override
+  String get share => '共有';
+
+  @override
+  String get styleRecommendationPreparing => 'スタイルおすすめを準備中です';
+
+  @override
+  String get aiAnalyzingYourStyle => 'AIがあなたに似合うスタイルを分析しています';
+
+  @override
+  String get todayEdit => 'TODAY\'S EDIT';
+
+  @override
+  String get todayStyleCuration => '今日の天気に合わせたスタイルキュレーション';
+
+  @override
+  String get aiStylingPreview => 'AI スタイリングプレビュー';
+
+  @override
+  String get previewStyleWithCharacter => 'おすすめスタイルをキャラクターでプレビュー';
+
+  @override
+  String get likeThisStyle => 'このスタイルはお気に入りですか？';
+
+  @override
+  String get tryCoordinatingWithPhoto => '自分の写真でコーディネートしてみる';
 }

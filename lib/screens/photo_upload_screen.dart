@@ -7,6 +7,7 @@ import '../debug_tools.dart';
 import 'analysis/analysis_screen.dart';
 import 'onboarding/onboarding_screen.dart';
 import 'settings_screen.dart';
+import '../widgets/common/common_ui.dart';
 
 class PhotoUploadScreen extends StatefulWidget {
   const PhotoUploadScreen({super.key});
@@ -95,57 +96,9 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFFAFAFA),
-      appBar: AppBar(
-        title: Text(
-          AppLocalizations.of(context)!.appTitle,
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w700,
-            letterSpacing: 0.5,
-            color: const Color(0xFF1A1A1A),
-          ),
-        ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        centerTitle: true,
-        leading: GestureDetector(
-          onTap: _showOnboarding,
-          child: Container(
-            margin: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: const Color(0xFF1A1A1A).withOpacity(0.05),
-              shape: BoxShape.circle,
-            ),
-            child: const Icon(
-              Icons.help_outline_rounded,
-              size: 16,
-              color: Color(0xFF1A1A1A),
-            ),
-          ),
-        ),
-        actions: [
-          Container(
-            margin: const EdgeInsets.only(right: 8),
-            decoration: BoxDecoration(
-              color: const Color(0xFF1A1A1A).withOpacity(0.05),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: IconButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const SettingsScreen(),
-                  ),
-                );
-              },
-              icon: const Icon(
-                Icons.settings_outlined,
-                size: 20,
-                color: Color(0xFF1A1A1A),
-              ),
-            ),
-          ),
-        ],
+      appBar: CommonUI.buildCustomAppBar(
+        context: context,
+        title: AppLocalizations.of(context)!.appTitle,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),

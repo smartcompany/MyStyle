@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../widgets/common/common_ui.dart';
+import '../../l10n/app_localizations.dart';
 import '../analysis/analysis_screen.dart';
 
 class PhotoStylingScreen extends StatefulWidget {
@@ -79,14 +81,9 @@ class _PhotoStylingScreenState extends State<PhotoStylingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surfaceContainerLowest,
-      appBar: AppBar(
-        title: const Text(
-          'AI 스타일링',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-        ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        centerTitle: true,
+      appBar: CommonUI.buildCustomAppBar(
+        context: context,
+        title: AppLocalizations.of(context)!.faceStylingTitle,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
@@ -179,14 +176,18 @@ class _PhotoStylingScreenState extends State<PhotoStylingScreen> {
                   if (_selectedImage != null) ...[
                     Container(
                       width: double.infinity,
-                      height: 200,
+                      height: 300,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(color: const Color(0xFFE0E0E0)),
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(12),
-                        child: Image.file(_selectedImage!, fit: BoxFit.cover),
+                        child: Image.file(
+                          _selectedImage!,
+                          fit: BoxFit.contain,
+                          alignment: Alignment.center,
+                        ),
                       ),
                     ),
                     const SizedBox(height: 16),

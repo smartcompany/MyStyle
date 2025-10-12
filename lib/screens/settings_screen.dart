@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import '../l10n/app_localizations.dart';
+import '../widgets/common/common_ui.dart';
 import 'privacy_policy_screen.dart';
+import '../l10n/app_localizations.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -9,23 +10,7 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          AppLocalizations.of(context)?.settings ?? 'Settings',
-          style: const TextStyle(
-            fontWeight: FontWeight.w700,
-            fontSize: 24,
-            letterSpacing: -0.5,
-          ),
-        ),
-        backgroundColor: Colors.white,
-        elevation: 0,
-        surfaceTintColor: Colors.transparent,
-        leading: IconButton(
-          onPressed: () => Navigator.of(context).pop(),
-          icon: const Icon(Icons.arrow_back_ios, color: Colors.black87),
-        ),
-      ),
+      appBar: CommonUI.buildSettingsAppBar(context: context),
       body: Container(
         color: const Color(0xFFF8FAFC),
         child: ListView(

@@ -22,7 +22,7 @@ class PhotoAnalysisRequest {
   }
 }
 
-/// 사진 분석 응답 모델
+/// 사진 분석 응답 모델 (기존)
 class PhotoAnalysisResponse {
   final String imageUrl;
   final String style;
@@ -42,6 +42,104 @@ class PhotoAnalysisResponse {
       style: json['style'] as String? ?? 'casual',
       outfitSummary: json['outfit_summary'] as String? ?? '',
       careTips: List<String>.from(json['care_tips'] ?? []),
+    );
+  }
+}
+
+/// 전신 분석 응답 모델 (새로운)
+class FullBodyAnalysisResponse {
+  final String bodyType;
+  final String height;
+  final StyleAnalysis styleAnalysis;
+  final StyleRecommendations recommendations;
+  final ColorPalette colorPalette;
+  final List<String> stylingTips;
+  final int confidence;
+
+  FullBodyAnalysisResponse({
+    required this.bodyType,
+    required this.height,
+    required this.styleAnalysis,
+    required this.recommendations,
+    required this.colorPalette,
+    required this.stylingTips,
+    required this.confidence,
+  });
+
+  factory FullBodyAnalysisResponse.fromJson(Map<String, dynamic> json) {
+    return FullBodyAnalysisResponse(
+      bodyType: json['bodyType'] as String? ?? 'average',
+      height: json['height'] as String? ?? 'medium',
+      styleAnalysis: StyleAnalysis.fromJson(json['styleAnalysis'] ?? {}),
+      recommendations: StyleRecommendations.fromJson(
+        json['recommendations'] ?? {},
+      ),
+      colorPalette: ColorPalette.fromJson(json['colorPalette'] ?? {}),
+      stylingTips: List<String>.from(json['stylingTips'] ?? []),
+      confidence: json['confidence'] as int? ?? 0,
+    );
+  }
+}
+
+/// 스타일 분석 정보
+class StyleAnalysis {
+  final String currentStyle;
+  final String colorEvaluation;
+  final String silhouette;
+
+  StyleAnalysis({
+    required this.currentStyle,
+    required this.colorEvaluation,
+    required this.silhouette,
+  });
+
+  factory StyleAnalysis.fromJson(Map<String, dynamic> json) {
+    return StyleAnalysis(
+      currentStyle: json['currentStyle'] as String? ?? '',
+      colorEvaluation: json['colorEvaluation'] as String? ?? '',
+      silhouette: json['silhouette'] as String? ?? '',
+    );
+  }
+}
+
+/// 스타일 추천
+class StyleRecommendations {
+  final List<String> tops;
+  final List<String> bottoms;
+  final List<String> outerwear;
+  final List<String> shoes;
+  final List<String> accessories;
+
+  StyleRecommendations({
+    required this.tops,
+    required this.bottoms,
+    required this.outerwear,
+    required this.shoes,
+    required this.accessories,
+  });
+
+  factory StyleRecommendations.fromJson(Map<String, dynamic> json) {
+    return StyleRecommendations(
+      tops: List<String>.from(json['tops'] ?? []),
+      bottoms: List<String>.from(json['bottoms'] ?? []),
+      outerwear: List<String>.from(json['outerwear'] ?? []),
+      shoes: List<String>.from(json['shoes'] ?? []),
+      accessories: List<String>.from(json['accessories'] ?? []),
+    );
+  }
+}
+
+/// 컬러 팔레트
+class ColorPalette {
+  final List<String> recommended;
+  final List<String> avoid;
+
+  ColorPalette({required this.recommended, required this.avoid});
+
+  factory ColorPalette.fromJson(Map<String, dynamic> json) {
+    return ColorPalette(
+      recommended: List<String>.from(json['recommended'] ?? []),
+      avoid: List<String>.from(json['avoid'] ?? []),
     );
   }
 }

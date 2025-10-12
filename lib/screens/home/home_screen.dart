@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../l10n/app_localizations.dart';
 import '../../providers/weather_provider.dart';
 import '../../providers/style_provider.dart';
 import '../../providers/user_provider.dart';
 import '../../widgets/style_recommendation_card.dart';
+import '../../widgets/common/common_ui.dart';
 import '../../models/style_recommendation.dart';
 import '../photo/photo_styling_screen.dart';
 import '../settings_screen.dart';
+import '../../l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   final VoidCallback? onNavigateToCamera;
@@ -54,42 +55,14 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFFAFAFA),
-      appBar: AppBar(
-        title: Text(
-          AppLocalizations.of(context)!.appTitle,
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w700,
-            letterSpacing: 0.5,
-            color: const Color(0xFF1A1A1A),
-          ),
-        ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        centerTitle: true,
-        actions: [
-          Container(
-            margin: const EdgeInsets.only(right: 8),
-            decoration: BoxDecoration(
-              color: const Color(0xFF1A1A1A).withOpacity(0.05),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: IconButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const SettingsScreen(),
-                  ),
-                );
-              },
-              icon: const Icon(
-                Icons.settings_outlined,
-                size: 20,
-                color: Color(0xFF1A1A1A),
-              ),
-            ),
-          ),
-        ],
+      appBar: CommonUI.buildCustomAppBar(
+        context: context,
+        title: AppLocalizations.of(context)!.appTitle,
+        onSettingsPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const SettingsScreen()),
+          );
+        },
       ),
       body: Consumer3<WeatherProvider, StyleProvider, UserProvider>(
         builder: (context, weatherProvider, styleProvider, userProvider, child) {
@@ -258,9 +231,16 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             Container(
                               width: 4,
-                              height: 28,
+                              height: 32,
                               decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.secondary,
+                                gradient: const LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    Color(0xFF4A90E2),
+                                    Color(0xFF5BA7F7),
+                                  ],
+                                ),
                                 borderRadius: BorderRadius.circular(2),
                               ),
                             ),
@@ -269,26 +249,24 @@ class _HomeScreenState extends State<HomeScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'TODAY\'S EDIT',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700,
-                                    letterSpacing: 2.0,
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.primary,
+                                  AppLocalizations.of(context)!.todayEdit,
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w800,
+                                    letterSpacing: 1.5,
+                                    color: Color(0xFF1A1A1A),
                                   ),
                                 ),
-                                const SizedBox(height: 2),
+                                const SizedBox(height: 4),
                                 Text(
-                                  '오늘의 날씨에 맞춘 스타일 큐레이션',
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.todayStyleCuration,
                                   style: TextStyle(
-                                    fontSize: 13,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onSurface
-                                        .withValues(alpha: 0.7),
-                                    letterSpacing: 0.3,
+                                    fontSize: 14,
+                                    color: const Color(0xFF64748B),
+                                    letterSpacing: 0.2,
+                                    fontWeight: FontWeight.w500,
                                   ),
                                 ),
                               ],
@@ -309,36 +287,62 @@ class _HomeScreenState extends State<HomeScreen> {
                           )
                         else if (styleProvider.styleRecommendations.isEmpty)
                           Container(
-                            padding: const EdgeInsets.all(40),
+                            padding: const EdgeInsets.all(48),
                             decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.surface,
-                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(24),
                               border: Border.all(
-                                color: Theme.of(context).colorScheme.outline,
+                                color: const Color(0xFFE2E8F0),
                                 width: 1,
                               ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: const Color(
+                                    0xFF4A90E2,
+                                  ).withOpacity(0.08),
+                                  blurRadius: 20,
+                                  offset: const Offset(0, 8),
+                                ),
+                              ],
                             ),
                             child: Center(
                               child: Column(
                                 children: [
-                                  Icon(
-                                    Icons.style_outlined,
-                                    size: 56,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onSurface
-                                        .withValues(alpha: 0.4),
+                                  Container(
+                                    padding: const EdgeInsets.all(20),
+                                    decoration: BoxDecoration(
+                                      color: const Color(
+                                        0xFF4A90E2,
+                                      ).withOpacity(0.1),
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: const Icon(
+                                      Icons.auto_awesome_outlined,
+                                      size: 48,
+                                      color: Color(0xFF4A90E2),
+                                    ),
                                   ),
-                                  const SizedBox(height: 16),
+                                  const SizedBox(height: 20),
                                   Text(
-                                    '스타일 추천을 준비 중입니다',
+                                    AppLocalizations.of(
+                                      context,
+                                    )!.styleRecommendationPreparing,
                                     style: TextStyle(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onSurface
-                                          .withValues(alpha: 0.6),
+                                      color: Color(0xFF64748B),
                                       fontSize: 16,
-                                      letterSpacing: 0.3,
+                                      fontWeight: FontWeight.w600,
+                                      letterSpacing: 0.2,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    AppLocalizations.of(
+                                      context,
+                                    )!.aiAnalyzingYourStyle,
+                                    style: TextStyle(
+                                      color: const Color(0xFF94A3B8),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
                                     ),
                                   ),
                                 ],
@@ -365,14 +369,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       gradient: const LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
-                        colors: [Color(0xFF6C63FF), Color(0xFF4ECDC4)],
+                        colors: [Color(0xFF4A90E2), Color(0xFF5BA7F7)],
                       ),
-                      borderRadius: BorderRadius.circular(24),
+                      borderRadius: BorderRadius.circular(28),
                       boxShadow: [
                         BoxShadow(
-                          color: const Color(0xFF6C63FF).withValues(alpha: 0.2),
-                          blurRadius: 20,
-                          offset: const Offset(0, 10),
+                          color: const Color(0xFF4A90E2).withOpacity(0.25),
+                          blurRadius: 24,
+                          offset: const Offset(0, 12),
                         ),
                       ],
                     ),
@@ -384,38 +388,49 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Row(
                             children: [
                               Container(
-                                padding: const EdgeInsets.all(10),
+                                padding: const EdgeInsets.all(12),
                                 decoration: BoxDecoration(
-                                  color: Colors.white.withValues(alpha: 0.9),
-                                  borderRadius: BorderRadius.circular(12),
+                                  color: Colors.white.withOpacity(0.15),
+                                  borderRadius: BorderRadius.circular(16),
+                                  border: Border.all(
+                                    color: Colors.white.withOpacity(0.2),
+                                    width: 1,
+                                  ),
                                 ),
                                 child: const Icon(
                                   Icons.auto_awesome,
-                                  color: Color(0xFF6C63FF),
+                                  color: Colors.white,
                                   size: 24,
                                 ),
                               ),
                               const SizedBox(width: 16),
-                              const Expanded(
+                              Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'AI STYLING PREVIEW',
+                                      AppLocalizations.of(
+                                        context,
+                                      )!.aiStylingPreview,
                                       style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w700,
-                                        letterSpacing: 2.0,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w800,
+                                        letterSpacing: 1.2,
                                       ),
                                     ),
-                                    SizedBox(height: 4),
+                                    const SizedBox(height: 6),
                                     Text(
-                                      '위 추천 스타일을 캐릭터로 미리보기',
+                                      AppLocalizations.of(
+                                        context,
+                                      )!.previewStyleWithCharacter,
                                       style: TextStyle(
-                                        color: Colors.white70,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w400,
+                                        color: Colors.white.withValues(
+                                          alpha: 0.9,
+                                        ),
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                        letterSpacing: 0.2,
                                       ),
                                     ),
                                   ],
@@ -468,8 +483,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           padding: const EdgeInsets.all(24),
                           child: Column(
                             children: [
-                              const Text(
-                                '이 스타일이 마음에 드시나요?',
+                              Text(
+                                AppLocalizations.of(context)!.likeThisStyle,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
@@ -520,22 +535,25 @@ class _HomeScreenState extends State<HomeScreen> {
                                   },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.white,
-                                    foregroundColor: const Color(0xFF6C63FF),
+                                    foregroundColor: const Color(0xFF4A90E2),
                                     elevation: 0,
                                     padding: const EdgeInsets.symmetric(
-                                      vertical: 18,
+                                      vertical: 20,
                                     ),
                                     shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(16),
+                                      borderRadius: BorderRadius.circular(20),
                                     ),
+                                    shadowColor: Colors.white.withOpacity(0.3),
                                   ),
                                   icon: const Icon(Icons.camera_alt, size: 20),
-                                  label: const Text(
-                                    '내 사진으로 직접 코디해보기',
+                                  label: Text(
+                                    AppLocalizations.of(
+                                      context,
+                                    )!.tryCoordinatingWithPhoto,
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w700,
-                                      letterSpacing: 0.5,
+                                      letterSpacing: 0.3,
                                     ),
                                   ),
                                 ),
@@ -725,8 +743,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       .map(
                         (item) => Container(
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 6,
-                            vertical: 2,
+                            horizontal: 8,
+                            vertical: 4,
                           ),
                           decoration: BoxDecoration(
                             color: Colors.white.withValues(alpha: 0.2),
@@ -736,8 +754,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             item,
                             style: const TextStyle(
                               color: Colors.white,
-                              fontSize: 10,
-                              fontWeight: FontWeight.w500,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),

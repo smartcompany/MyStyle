@@ -163,20 +163,11 @@ class _AnalysisScreenState extends State<AnalysisScreen>
         );
 
         if (result != null) {
-          // 전신 분석 결과를 PhotoAnalysisResponse 형태로 변환
-          final convertedResult = PhotoAnalysisResponse(
-            imageUrl: widget.imagePath, // 원본 이미지 경로 사용
-            style: 'full_body',
-            outfitSummary: '전신 분석을 통한 맞춤형 스타일 추천',
-            careTips: [
-              '체형에 맞는 아이템을 선택하세요',
-              '색상 조화를 고려한 코디를 하세요',
-              '상황에 맞는 스타일을 연출하세요',
-            ],
-          );
+          // 전신 분석 결과를 FullBodyAnalysisResponse로 파싱
+          final fullBodyResult = FullBodyAnalysisResponse.fromJson(result);
 
           setState(() {
-            _analysisResult = convertedResult;
+            _analysisResult = fullBodyResult;
             _isAnalysisComplete = true;
           });
           _checkAndNavigateToResult();
@@ -218,7 +209,7 @@ class _AnalysisScreenState extends State<AnalysisScreen>
           pageBuilder: (context, animation, secondaryAnimation) =>
               AIStylingResultScreen(
                 originalImage: _imageFile!,
-                analysisResult: _analysisResult as PhotoAnalysisResponse,
+                analysisResult: _analysisResult as FullBodyAnalysisResponse,
               ),
         ),
       );
@@ -406,7 +397,13 @@ class _AnalysisScreenState extends State<AnalysisScreen>
                       // 제목
                       Text(
                         _isAdCompleted
-                            ? AppLocalizations.of(context)!.aiAnalyzing
+                            ? (widget.analysisType == 'face'
+                                  ? AppLocalizations.of(
+                                      context,
+                                    )!.faceAnalysisTitle
+                                  : AppLocalizations.of(
+                                      context,
+                                    )!.fullBodyAnalysisTitle)
                             : AppLocalizations.of(context)!.aiStyleAnalysis,
                         style: const TextStyle(
                           color: Colors.white,
@@ -446,7 +443,13 @@ class _AnalysisScreenState extends State<AnalysisScreen>
                             ),
                           ),
                           child: Text(
-                            AppLocalizations.of(context)!.analysisDescription,
+                            widget.analysisType == 'face'
+                                ? AppLocalizations.of(
+                                    context,
+                                  )!.faceAnalysisDescription
+                                : AppLocalizations.of(
+                                    context,
+                                  )!.fullBodyAnalysisDescription,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 16,
