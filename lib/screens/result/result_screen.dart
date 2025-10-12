@@ -7,6 +7,7 @@ import '../../widgets/common/share_ui.dart';
 import '../photo_upload_screen.dart';
 import '../settings_screen.dart';
 import '../../l10n/app_localizations.dart';
+import '../../widgets/common/common_ui.dart';
 
 class ResultScreen extends StatefulWidget {
   final AnalysisResult analysisResult;
@@ -68,39 +69,9 @@ class _ResultScreenState extends State<ResultScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
-      appBar: AppBar(
-        title: Text(
-          AppLocalizations.of(context)!.styleAnalysisResult,
-          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
-        ),
-        backgroundColor: Colors.white,
-        elevation: 0,
-        surfaceTintColor: Colors.transparent,
-        leading: IconButton(
-          onPressed: () => Navigator.of(context).pop(),
-          icon: const Icon(Icons.arrow_back_ios, color: Colors.black87),
-        ),
-        actions: [
-          Container(
-            margin: const EdgeInsets.only(right: 8),
-            decoration: BoxDecoration(
-              color: Colors.blue.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: IconButton(
-              onPressed: _shareResult,
-              icon: const Icon(Icons.share, color: Colors.blue),
-            ),
-          ),
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const SettingsScreen()),
-              );
-            },
-            icon: const Icon(Icons.settings_outlined, color: Colors.black87),
-          ),
-        ],
+      appBar: CommonUI.buildCustomAppBar(
+        context: context,
+        title: AppLocalizations.of(context)!.styleAnalysisResult,
       ),
       body: FadeTransition(
         opacity: _fadeAnimation,
