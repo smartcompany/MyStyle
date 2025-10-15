@@ -177,7 +177,7 @@ abstract class AppLocalizations {
   /// No description provided for @selectFromGallery.
   ///
   /// In en, this message translates to:
-  /// **'Select from Gallery'**
+  /// **'Gallery'**
   String get selectFromGallery;
 
   /// No description provided for @retakePhoto.
@@ -1067,6 +1067,432 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Try coordinating with your own photo'**
   String get tryCoordinatingWithPhoto;
+
+  /// No description provided for @photoUpload.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo Upload'**
+  String get photoUpload;
+
+  /// No description provided for @takeWithCamera.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera'**
+  String get takeWithCamera;
+
+  /// No description provided for @loadingWeatherInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading weather information...'**
+  String get loadingWeatherInfo;
+
+  /// No description provided for @apiTest.
+  ///
+  /// In en, this message translates to:
+  /// **'API Test'**
+  String get apiTest;
+
+  /// No description provided for @apiTestFeatures.
+  ///
+  /// In en, this message translates to:
+  /// **'API Test Features:'**
+  String get apiTestFeatures;
+
+  /// No description provided for @serverConnectionCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'• Server connection status check'**
+  String get serverConnectionCheck;
+
+  /// No description provided for @analysisApiTest.
+  ///
+  /// In en, this message translates to:
+  /// **'• Analysis API response test'**
+  String get analysisApiTest;
+
+  /// No description provided for @settingsApiTest.
+  ///
+  /// In en, this message translates to:
+  /// **'• Settings API response test'**
+  String get settingsApiTest;
+
+  /// No description provided for @featureInDevelopment.
+  ///
+  /// In en, this message translates to:
+  /// **'This feature is under development.'**
+  String get featureInDevelopment;
+
+  /// No description provided for @close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get close;
+
+  /// No description provided for @adTest.
+  ///
+  /// In en, this message translates to:
+  /// **'Ad Test'**
+  String get adTest;
+
+  /// No description provided for @adTestFeatures.
+  ///
+  /// In en, this message translates to:
+  /// **'Ad Test Features:'**
+  String get adTestFeatures;
+
+  /// No description provided for @rewardAdLoadTest.
+  ///
+  /// In en, this message translates to:
+  /// **'• Reward ad load test'**
+  String get rewardAdLoadTest;
+
+  /// No description provided for @interstitialAdLoadTest.
+  ///
+  /// In en, this message translates to:
+  /// **'• Interstitial ad load test'**
+  String get interstitialAdLoadTest;
+
+  /// No description provided for @adDisplayTest.
+  ///
+  /// In en, this message translates to:
+  /// **'• Ad display test'**
+  String get adDisplayTest;
+
+  /// No description provided for @tops.
+  ///
+  /// In en, this message translates to:
+  /// **'Tops'**
+  String get tops;
+
+  /// No description provided for @bottoms.
+  ///
+  /// In en, this message translates to:
+  /// **'Bottoms'**
+  String get bottoms;
+
+  /// No description provided for @rectangle.
+  ///
+  /// In en, this message translates to:
+  /// **'Rectangle'**
+  String get rectangle;
+
+  /// No description provided for @hourglass.
+  ///
+  /// In en, this message translates to:
+  /// **'Hourglass'**
+  String get hourglass;
+
+  /// No description provided for @pear.
+  ///
+  /// In en, this message translates to:
+  /// **'Pear'**
+  String get pear;
+
+  /// No description provided for @apple.
+  ///
+  /// In en, this message translates to:
+  /// **'Apple'**
+  String get apple;
+
+  /// No description provided for @invertedTriangle.
+  ///
+  /// In en, this message translates to:
+  /// **'Inverted Triangle'**
+  String get invertedTriangle;
+
+  /// No description provided for @medium.
+  ///
+  /// In en, this message translates to:
+  /// **'Medium'**
+  String get medium;
+
+  /// No description provided for @navy.
+  ///
+  /// In en, this message translates to:
+  /// **'Navy'**
+  String get navy;
+
+  /// No description provided for @ivory.
+  ///
+  /// In en, this message translates to:
+  /// **'Ivory'**
+  String get ivory;
+
+  /// No description provided for @khaki.
+  ///
+  /// In en, this message translates to:
+  /// **'Khaki'**
+  String get khaki;
+
+  /// No description provided for @brown.
+  ///
+  /// In en, this message translates to:
+  /// **'Brown'**
+  String get brown;
+
+  /// No description provided for @gray.
+  ///
+  /// In en, this message translates to:
+  /// **'Gray'**
+  String get gray;
+
+  /// No description provided for @black.
+  ///
+  /// In en, this message translates to:
+  /// **'Black'**
+  String get black;
+
+  /// No description provided for @white.
+  ///
+  /// In en, this message translates to:
+  /// **'White'**
+  String get white;
+
+  /// No description provided for @red.
+  ///
+  /// In en, this message translates to:
+  /// **'Red'**
+  String get red;
+
+  /// No description provided for @blue.
+  ///
+  /// In en, this message translates to:
+  /// **'Blue'**
+  String get blue;
+
+  /// No description provided for @green.
+  ///
+  /// In en, this message translates to:
+  /// **'Green'**
+  String get green;
+
+  /// No description provided for @slim.
+  ///
+  /// In en, this message translates to:
+  /// **'Slim'**
+  String get slim;
+
+  /// No description provided for @athletic.
+  ///
+  /// In en, this message translates to:
+  /// **'Athletic'**
+  String get athletic;
+
+  /// No description provided for @curvy.
+  ///
+  /// In en, this message translates to:
+  /// **'Curvy'**
+  String get curvy;
+
+  /// No description provided for @coolTone.
+  ///
+  /// In en, this message translates to:
+  /// **'Cool Tone'**
+  String get coolTone;
+
+  /// No description provided for @warmTone.
+  ///
+  /// In en, this message translates to:
+  /// **'Warm Tone'**
+  String get warmTone;
+
+  /// No description provided for @coolLook.
+  ///
+  /// In en, this message translates to:
+  /// **'Cool Look'**
+  String get coolLook;
+
+  /// No description provided for @lightClothingRecommendation.
+  ///
+  /// In en, this message translates to:
+  /// **'Light clothing recommended'**
+  String get lightClothingRecommendation;
+
+  /// No description provided for @shortSleeve.
+  ///
+  /// In en, this message translates to:
+  /// **'Short Sleeve'**
+  String get shortSleeve;
+
+  /// No description provided for @shorts.
+  ///
+  /// In en, this message translates to:
+  /// **'Shorts'**
+  String get shorts;
+
+  /// No description provided for @sandals.
+  ///
+  /// In en, this message translates to:
+  /// **'Sandals'**
+  String get sandals;
+
+  /// No description provided for @lightColors.
+  ///
+  /// In en, this message translates to:
+  /// **'Light Colors'**
+  String get lightColors;
+
+  /// No description provided for @moderateLook.
+  ///
+  /// In en, this message translates to:
+  /// **'Moderate Look'**
+  String get moderateLook;
+
+  /// No description provided for @moderateWarmClothingRecommendation.
+  ///
+  /// In en, this message translates to:
+  /// **'Moderately warm clothing recommended'**
+  String get moderateWarmClothingRecommendation;
+
+  /// No description provided for @longSleeve.
+  ///
+  /// In en, this message translates to:
+  /// **'Long Sleeve'**
+  String get longSleeve;
+
+  /// No description provided for @longPants.
+  ///
+  /// In en, this message translates to:
+  /// **'Long Pants'**
+  String get longPants;
+
+  /// No description provided for @sneakers.
+  ///
+  /// In en, this message translates to:
+  /// **'Sneakers'**
+  String get sneakers;
+
+  /// No description provided for @beige.
+  ///
+  /// In en, this message translates to:
+  /// **'Beige'**
+  String get beige;
+
+  /// No description provided for @warmLook.
+  ///
+  /// In en, this message translates to:
+  /// **'Warm Look'**
+  String get warmLook;
+
+  /// No description provided for @warmClothingRecommendation.
+  ///
+  /// In en, this message translates to:
+  /// **'Warm clothing recommended'**
+  String get warmClothingRecommendation;
+
+  /// No description provided for @padding.
+  ///
+  /// In en, this message translates to:
+  /// **'Padding'**
+  String get padding;
+
+  /// No description provided for @coat.
+  ///
+  /// In en, this message translates to:
+  /// **'Coat'**
+  String get coat;
+
+  /// No description provided for @scarf.
+  ///
+  /// In en, this message translates to:
+  /// **'Scarf'**
+  String get scarf;
+
+  /// No description provided for @darkTones.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark Tones'**
+  String get darkTones;
+
+  /// No description provided for @recommendedStyle.
+  ///
+  /// In en, this message translates to:
+  /// **'Recommended Style'**
+  String get recommendedStyle;
+
+  /// No description provided for @weatherRecommendation.
+  ///
+  /// In en, this message translates to:
+  /// **'Weather Recommendation'**
+  String get weatherRecommendation;
+
+  /// No description provided for @selectPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Photo'**
+  String get selectPhoto;
+
+  /// No description provided for @selectPhotoForAI.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a photo for AI to analyze'**
+  String get selectPhotoForAI;
+
+  /// No description provided for @analyzing.
+  ///
+  /// In en, this message translates to:
+  /// **'Analyzing...'**
+  String get analyzing;
+
+  /// No description provided for @aiStyleAnalysisStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start AI Style Analysis'**
+  String get aiStyleAnalysisStart;
+
+  /// No description provided for @recommended.
+  ///
+  /// In en, this message translates to:
+  /// **'Recommended'**
+  String get recommended;
+
+  /// No description provided for @colorEvaluation.
+  ///
+  /// In en, this message translates to:
+  /// **'Color Evaluation'**
+  String get colorEvaluation;
+
+  /// No description provided for @silhouetteAnalysis.
+  ///
+  /// In en, this message translates to:
+  /// **'Silhouette Analysis'**
+  String get silhouetteAnalysis;
+
+  /// No description provided for @fullBodyAnalysisCustomStyle.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom Style Recommendation through Full Body Analysis'**
+  String get fullBodyAnalysisCustomStyle;
+
+  /// No description provided for @aiAnalyzedBodyStyleRecommendation.
+  ///
+  /// In en, this message translates to:
+  /// **'Based on AI-analyzed body type and current style, we provide optimal fashion items and styling tips.'**
+  String get aiAnalyzedBodyStyleRecommendation;
+
+  /// No description provided for @tall.
+  ///
+  /// In en, this message translates to:
+  /// **'Tall'**
+  String get tall;
+
+  /// No description provided for @short.
+  ///
+  /// In en, this message translates to:
+  /// **'Short'**
+  String get short;
+
+  /// No description provided for @aiStyleAnalysisResult.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Style Analysis Result'**
+  String get aiStyleAnalysisResult;
+
+  /// No description provided for @sharePersonalizedStyleAnalysis.
+  ///
+  /// In en, this message translates to:
+  /// **'Share your personalized style analysis results with friends!'**
+  String get sharePersonalizedStyleAnalysis;
 }
 
 class _AppLocalizationsDelegate

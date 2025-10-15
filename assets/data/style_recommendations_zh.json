@@ -1,0 +1,124 @@
+{
+  "recommendations": [
+    {
+      "id": "hot_sunny",
+      "title": "凉爽夏日造型",
+      "description": "推荐轻质无袖或短袖",
+      "clothingItems": ["无袖", "短袖", "短裤", "裙子", "凉鞋"],
+      "colors": ["白色", "蓝色", "浅色"],
+      "category": "casual",
+      "weatherType": "sunny",
+      "temperature": 30.0,
+      "confidence": 85,
+      "conditions": {
+        "temperature": { "min": 30, "max": 50 },
+        "weather": ["Clear", "Sunny"]
+      }
+    },
+    {
+      "id": "warm_sunny",
+      "title": "舒适春秋造型",
+      "description": "推荐轻薄长袖或薄外套",
+      "clothingItems": ["长袖", "短裤", "轻薄外套", "运动鞋"],
+      "colors": ["米色", "灰色", "粉彩色调"],
+      "category": "casual",
+      "weatherType": "sunny",
+      "temperature": 25.0,
+      "confidence": 80,
+      "conditions": {
+        "temperature": { "min": 20, "max": 29 },
+        "weather": ["Clear", "Sunny"]
+      }
+    },
+    {
+      "id": "warm_cloudy",
+      "title": "阴天造型",
+      "description": "用层次搭配创造对比",
+      "clothingItems": ["长袖", "开衫", "长裤", "运动鞋"],
+      "colors": ["灰色", "米色", "中性色调"],
+      "category": "casual",
+      "weatherType": "cloudy",
+      "temperature": 22.0,
+      "confidence": 75,
+      "conditions": {
+        "temperature": { "min": 20, "max": 29 },
+        "weather": ["Clouds", "Overcast"]
+      }
+    },
+    {
+      "id": "cool_cloudy",
+      "title": "温暖秋日造型",
+      "description": "添加夹克或开衫",
+      "clothingItems": ["长袖", "长裤", "夹克", "开衫", "靴子"],
+      "colors": ["棕色", "橙色", "暖色调"],
+      "category": "casual",
+      "weatherType": "cloudy",
+      "temperature": 15.0,
+      "confidence": 85,
+      "conditions": {
+        "temperature": { "min": 10, "max": 19 },
+        "weather": ["Clouds", "Overcast"]
+      }
+    },
+    {
+      "id": "cold_cloudy",
+      "title": "温暖冬日造型",
+      "description": "推荐羽绒服或外套",
+      "clothingItems": ["羽绒服", "外套", "长裤", "围巾", "手套"],
+      "colors": ["黑色", "海军蓝", "深色调"],
+      "category": "casual",
+      "weatherType": "cloudy",
+      "temperature": 5.0,
+      "confidence": 90,
+      "conditions": {
+        "temperature": { "min": 0, "max": 9 },
+        "weather": ["Clouds", "Overcast"]
+      }
+    },
+    {
+      "id": "very_cold_snowy",
+      "title": "极暖冬日造型",
+      "description": "需要厚羽绒服和冬季配饰",
+      "clothingItems": ["厚羽绒服", "毛靴", "围巾", "手套", "帽子"],
+      "colors": ["黑色", "深灰色", "暖色调"],
+      "category": "casual",
+      "weatherType": "snowy",
+      "temperature": -5.0,
+      "confidence": 95,
+      "conditions": {
+        "temperature": { "min": -20, "max": -1 },
+        "weather": ["Snow", "Rain", "Drizzle"]
+      }
+    },
+    {
+      "id": "warm_rainy",
+      "title": "雨天造型",
+      "description": "准备雨衣或防水夹克",
+      "clothingItems": ["雨衣", "防水夹克", "长裤", "靴子", "雨伞"],
+      "colors": ["黄色", "透明", "亮色"],
+      "category": "casual",
+      "weatherType": "rainy",
+      "temperature": 18.0,
+      "confidence": 90,
+      "conditions": {
+        "temperature": { "min": 15, "max": 25 },
+        "weather": ["Rain", "Drizzle", "Thunderstorm"]
+      }
+    },
+    {
+      "id": "cool_rainy",
+      "title": "寒冷雨天造型",
+      "description": "防水夹克与保暖衣物搭配",
+      "clothingItems": ["防水夹克", "毛衣", "长裤", "靴子", "雨伞"],
+      "colors": ["深蓝", "灰色", "深色调"],
+      "category": "casual",
+      "weatherType": "rainy",
+      "temperature": 12.0,
+      "confidence": 88,
+      "conditions": {
+        "temperature": { "min": 5, "max": 14 },
+        "weather": ["Rain", "Drizzle", "Thunderstorm"]
+      }
+    }
+  ]
+}

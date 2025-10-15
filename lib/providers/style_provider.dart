@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import '../models/style_recommendation.dart';
 import '../models/weather.dart';
 import '../models/user_preferences.dart';
@@ -21,6 +22,7 @@ class StyleProvider with ChangeNotifier {
   Future<void> getRecommendations({
     required Weather weather,
     required UserPreferences preferences,
+    required BuildContext context,
   }) async {
     _setLoading(true);
     _clearError();
@@ -30,6 +32,7 @@ class StyleProvider with ChangeNotifier {
         _styleService.getStyleRecommendations(
           weather: weather,
           preferences: preferences,
+          context: context,
         ),
         _styleService.getActivityRecommendations(
           weather: weather,
@@ -51,8 +54,13 @@ class StyleProvider with ChangeNotifier {
   Future<void> refreshRecommendations({
     required Weather weather,
     required UserPreferences preferences,
+    required BuildContext context,
   }) async {
-    await getRecommendations(weather: weather, preferences: preferences);
+    await getRecommendations(
+      weather: weather,
+      preferences: preferences,
+      context: context,
+    );
   }
 
   void _setLoading(bool loading) {

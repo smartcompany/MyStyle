@@ -47,7 +47,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get takePhoto => 'Take Photo';
 
   @override
-  String get selectFromGallery => 'Select from Gallery';
+  String get selectFromGallery => 'Gallery';
 
   @override
   String get retakePhoto => 'Retake Photo';
@@ -504,4 +504,221 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tryCoordinatingWithPhoto => 'Try coordinating with your own photo';
+
+  @override
+  String get photoUpload => 'Photo Upload';
+
+  @override
+  String get takeWithCamera => 'Camera';
+
+  @override
+  String get loadingWeatherInfo => 'Loading weather information...';
+
+  @override
+  String get apiTest => 'API Test';
+
+  @override
+  String get apiTestFeatures => 'API Test Features:';
+
+  @override
+  String get serverConnectionCheck => '• Server connection status check';
+
+  @override
+  String get analysisApiTest => '• Analysis API response test';
+
+  @override
+  String get settingsApiTest => '• Settings API response test';
+
+  @override
+  String get featureInDevelopment => 'This feature is under development.';
+
+  @override
+  String get close => 'Close';
+
+  @override
+  String get adTest => 'Ad Test';
+
+  @override
+  String get adTestFeatures => 'Ad Test Features:';
+
+  @override
+  String get rewardAdLoadTest => '• Reward ad load test';
+
+  @override
+  String get interstitialAdLoadTest => '• Interstitial ad load test';
+
+  @override
+  String get adDisplayTest => '• Ad display test';
+
+  @override
+  String get tops => 'Tops';
+
+  @override
+  String get bottoms => 'Bottoms';
+
+  @override
+  String get rectangle => 'Rectangle';
+
+  @override
+  String get hourglass => 'Hourglass';
+
+  @override
+  String get pear => 'Pear';
+
+  @override
+  String get apple => 'Apple';
+
+  @override
+  String get invertedTriangle => 'Inverted Triangle';
+
+  @override
+  String get medium => 'Medium';
+
+  @override
+  String get navy => 'Navy';
+
+  @override
+  String get ivory => 'Ivory';
+
+  @override
+  String get khaki => 'Khaki';
+
+  @override
+  String get brown => 'Brown';
+
+  @override
+  String get gray => 'Gray';
+
+  @override
+  String get black => 'Black';
+
+  @override
+  String get white => 'White';
+
+  @override
+  String get red => 'Red';
+
+  @override
+  String get blue => 'Blue';
+
+  @override
+  String get green => 'Green';
+
+  @override
+  String get slim => 'Slim';
+
+  @override
+  String get athletic => 'Athletic';
+
+  @override
+  String get curvy => 'Curvy';
+
+  @override
+  String get coolTone => 'Cool Tone';
+
+  @override
+  String get warmTone => 'Warm Tone';
+
+  @override
+  String get coolLook => 'Cool Look';
+
+  @override
+  String get lightClothingRecommendation => 'Light clothing recommended';
+
+  @override
+  String get shortSleeve => 'Short Sleeve';
+
+  @override
+  String get shorts => 'Shorts';
+
+  @override
+  String get sandals => 'Sandals';
+
+  @override
+  String get lightColors => 'Light Colors';
+
+  @override
+  String get moderateLook => 'Moderate Look';
+
+  @override
+  String get moderateWarmClothingRecommendation =>
+      'Moderately warm clothing recommended';
+
+  @override
+  String get longSleeve => 'Long Sleeve';
+
+  @override
+  String get longPants => 'Long Pants';
+
+  @override
+  String get sneakers => 'Sneakers';
+
+  @override
+  String get beige => 'Beige';
+
+  @override
+  String get warmLook => 'Warm Look';
+
+  @override
+  String get warmClothingRecommendation => 'Warm clothing recommended';
+
+  @override
+  String get padding => 'Padding';
+
+  @override
+  String get coat => 'Coat';
+
+  @override
+  String get scarf => 'Scarf';
+
+  @override
+  String get darkTones => 'Dark Tones';
+
+  @override
+  String get recommendedStyle => 'Recommended Style';
+
+  @override
+  String get weatherRecommendation => 'Weather Recommendation';
+
+  @override
+  String get selectPhoto => 'Select Photo';
+
+  @override
+  String get selectPhotoForAI => 'Please select a photo for AI to analyze';
+
+  @override
+  String get analyzing => 'Analyzing...';
+
+  @override
+  String get aiStyleAnalysisStart => 'Start AI Style Analysis';
+
+  @override
+  String get recommended => 'Recommended';
+
+  @override
+  String get colorEvaluation => 'Color Evaluation';
+
+  @override
+  String get silhouetteAnalysis => 'Silhouette Analysis';
+
+  @override
+  String get fullBodyAnalysisCustomStyle =>
+      'Custom Style Recommendation through Full Body Analysis';
+
+  @override
+  String get aiAnalyzedBodyStyleRecommendation =>
+      'Based on AI-analyzed body type and current style, we provide optimal fashion items and styling tips.';
+
+  @override
+  String get tall => 'Tall';
+
+  @override
+  String get short => 'Short';
+
+  @override
+  String get aiStyleAnalysisResult => 'AI Style Analysis Result';
+
+  @override
+  String get sharePersonalizedStyleAnalysis =>
+      'Share your personalized style analysis results with friends!';
 }

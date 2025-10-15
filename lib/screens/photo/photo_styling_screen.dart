@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../widgets/common/common_ui.dart';
 import '../../l10n/app_localizations.dart';
+import '../../widgets/common/common_ui.dart';
 import '../analysis/analysis_screen.dart';
 
 class PhotoStylingScreen extends StatefulWidget {
@@ -106,9 +106,9 @@ class _PhotoStylingScreenState extends State<PhotoStylingScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      '추천 스타일',
-                      style: TextStyle(
+                    Text(
+                      AppLocalizations.of(context)!.recommendedStyle,
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
@@ -126,7 +126,7 @@ class _PhotoStylingScreenState extends State<PhotoStylingScreen> {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      '${widget.recommendationData!['temperature']?.round() ?? 25}°C 날씨 추천',
+                      '${widget.recommendationData!['temperature']?.round() ?? 25}°C ${AppLocalizations.of(context)!.weatherRecommendation}',
                       style: const TextStyle(
                         color: Colors.white70,
                         fontSize: 14,
@@ -157,18 +157,21 @@ class _PhotoStylingScreenState extends State<PhotoStylingScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    '사진 선택',
-                    style: TextStyle(
+                  Text(
+                    AppLocalizations.of(context)!.selectPhoto,
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
                       color: Color(0xFF1A1A1A),
                     ),
                   ),
                   const SizedBox(height: 8),
-                  const Text(
-                    'AI가 분석할 사진을 선택해주세요',
-                    style: TextStyle(fontSize: 14, color: Color(0xFF6C6C6C)),
+                  Text(
+                    AppLocalizations.of(context)!.selectPhotoForAI,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Color(0xFF6C6C6C),
+                    ),
                   ),
                   const SizedBox(height: 20),
 
@@ -197,23 +200,33 @@ class _PhotoStylingScreenState extends State<PhotoStylingScreen> {
                           child: OutlinedButton.icon(
                             onPressed: () => _pickImage(ImageSource.camera),
                             icon: const Icon(Icons.camera_alt, size: 18),
-                            label: const Text('다시 촬영'),
+                            label: Text(
+                              AppLocalizations.of(context)!.retakePhoto,
+                            ),
                             style: OutlinedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(vertical: 12),
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 12,
+                                horizontal: 16,
+                              ),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
                             ),
                           ),
                         ),
-                        const SizedBox(width: 12),
+                        const SizedBox(width: 16),
                         Expanded(
                           child: OutlinedButton.icon(
                             onPressed: () => _pickImage(ImageSource.gallery),
                             icon: const Icon(Icons.photo_library, size: 18),
-                            label: const Text('갤러리에서 선택'),
+                            label: Text(
+                              AppLocalizations.of(context)!.selectFromGallery,
+                            ),
                             style: OutlinedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(vertical: 12),
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 12,
+                                horizontal: 16,
+                              ),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
@@ -229,27 +242,37 @@ class _PhotoStylingScreenState extends State<PhotoStylingScreen> {
                           child: ElevatedButton.icon(
                             onPressed: () => _pickImage(ImageSource.camera),
                             icon: const Icon(Icons.camera_alt, size: 20),
-                            label: const Text('카메라로 촬영'),
+                            label: Text(
+                              AppLocalizations.of(context)!.takeWithCamera,
+                            ),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFF6C63FF),
                               foregroundColor: Colors.white,
-                              padding: const EdgeInsets.symmetric(vertical: 16),
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 16,
+                                horizontal: 20,
+                              ),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
                               ),
                             ),
                           ),
                         ),
-                        const SizedBox(width: 12),
+                        const SizedBox(width: 16),
                         Expanded(
                           child: ElevatedButton.icon(
                             onPressed: () => _pickImage(ImageSource.gallery),
                             icon: const Icon(Icons.photo_library, size: 20),
-                            label: const Text('갤러리에서 선택'),
+                            label: Text(
+                              AppLocalizations.of(context)!.selectFromGallery,
+                            ),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFF4ECDC4),
                               foregroundColor: Colors.white,
-                              padding: const EdgeInsets.symmetric(vertical: 16),
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 16,
+                                horizontal: 20,
+                              ),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
                               ),
@@ -284,7 +307,9 @@ class _PhotoStylingScreenState extends State<PhotoStylingScreen> {
                         )
                       : const Icon(Icons.auto_awesome, size: 20),
                   label: Text(
-                    _isAnalyzing ? '분석 중...' : 'AI 스타일 분석 시작',
+                    _isAnalyzing
+                        ? AppLocalizations.of(context)!.analyzing
+                        : AppLocalizations.of(context)!.aiStyleAnalysisStart,
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w700,

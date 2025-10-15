@@ -188,7 +188,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get goBack => '돌아가기';
 
   @override
-  String get retry => '재시도';
+  String get retry => '다시 시도';
 
   @override
   String get faceShape => '얼굴형';
@@ -460,7 +460,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get bottom => '하의';
 
   @override
-  String get outerwear => '외투';
+  String get outerwear => '아우터';
 
   @override
   String get shoes => '신발';
@@ -494,4 +494,219 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get tryCoordinatingWithPhoto => '내 사진으로 직접 코디해보기';
+
+  @override
+  String get photoUpload => '사진 업로드';
+
+  @override
+  String get takeWithCamera => '카메라로 촬영';
+
+  @override
+  String get loadingWeatherInfo => '날씨 정보를 불러오는 중...';
+
+  @override
+  String get apiTest => 'API 테스트';
+
+  @override
+  String get apiTestFeatures => 'API 테스트 기능:';
+
+  @override
+  String get serverConnectionCheck => '• 서버 연결 상태 확인';
+
+  @override
+  String get analysisApiTest => '• 분석 API 응답 테스트';
+
+  @override
+  String get settingsApiTest => '• 설정 API 응답 테스트';
+
+  @override
+  String get featureInDevelopment => '이 기능은 개발 중입니다.';
+
+  @override
+  String get close => '닫기';
+
+  @override
+  String get adTest => '광고 테스트';
+
+  @override
+  String get adTestFeatures => '광고 테스트 기능:';
+
+  @override
+  String get rewardAdLoadTest => '• 리워드 광고 로드 테스트';
+
+  @override
+  String get interstitialAdLoadTest => '• 인터스티셜 광고 로드 테스트';
+
+  @override
+  String get adDisplayTest => '• 광고 표시 테스트';
+
+  @override
+  String get tops => '상의';
+
+  @override
+  String get bottoms => '하의';
+
+  @override
+  String get rectangle => '직사각형';
+
+  @override
+  String get hourglass => '모래시계형';
+
+  @override
+  String get pear => '배형';
+
+  @override
+  String get apple => '사과형';
+
+  @override
+  String get invertedTriangle => '역삼각형';
+
+  @override
+  String get medium => '보통';
+
+  @override
+  String get navy => '네이비';
+
+  @override
+  String get ivory => '아이보리';
+
+  @override
+  String get khaki => '카키';
+
+  @override
+  String get brown => '브라운';
+
+  @override
+  String get gray => '그레이';
+
+  @override
+  String get black => '블랙';
+
+  @override
+  String get white => '화이트';
+
+  @override
+  String get red => '레드';
+
+  @override
+  String get blue => '블루';
+
+  @override
+  String get green => '그린';
+
+  @override
+  String get slim => '슬림';
+
+  @override
+  String get athletic => '운동체형';
+
+  @override
+  String get curvy => '곡선형';
+
+  @override
+  String get coolTone => '쿨톤';
+
+  @override
+  String get warmTone => '웜톤';
+
+  @override
+  String get coolLook => '시원한 룩';
+
+  @override
+  String get lightClothingRecommendation => '가벼운 옷을 추천해요';
+
+  @override
+  String get shortSleeve => '반팔';
+
+  @override
+  String get shorts => '반바지';
+
+  @override
+  String get sandals => '샌들';
+
+  @override
+  String get lightColors => '연한 색상';
+
+  @override
+  String get moderateLook => '적당한 룩';
+
+  @override
+  String get moderateWarmClothingRecommendation => '적당히 따뜻한 옷을 추천해요';
+
+  @override
+  String get longSleeve => '긴팔';
+
+  @override
+  String get longPants => '긴바지';
+
+  @override
+  String get sneakers => '스니커즈';
+
+  @override
+  String get beige => '베이지';
+
+  @override
+  String get warmLook => '따뜻한 룩';
+
+  @override
+  String get warmClothingRecommendation => '따뜻한 옷을 추천해요';
+
+  @override
+  String get padding => '패딩';
+
+  @override
+  String get coat => '코트';
+
+  @override
+  String get scarf => '목도리';
+
+  @override
+  String get darkTones => '어두운 톤';
+
+  @override
+  String get recommendedStyle => '추천 스타일';
+
+  @override
+  String get weatherRecommendation => '날씨 추천';
+
+  @override
+  String get selectPhoto => '사진 선택';
+
+  @override
+  String get selectPhotoForAI => 'AI가 분석할 사진을 선택해주세요';
+
+  @override
+  String get analyzing => '분석 중...';
+
+  @override
+  String get aiStyleAnalysisStart => 'AI 스타일 분석 시작';
+
+  @override
+  String get recommended => '추천';
+
+  @override
+  String get colorEvaluation => '색상 평가';
+
+  @override
+  String get silhouetteAnalysis => '실루엣 분석';
+
+  @override
+  String get fullBodyAnalysisCustomStyle => '전신 분석을 통한 맞춤형 스타일 추천';
+
+  @override
+  String get aiAnalyzedBodyStyleRecommendation =>
+      'AI가 분석한 체형과 현재 스타일을 바탕으로 최적의 패션 아이템과 스타일링 팁을 제공합니다.';
+
+  @override
+  String get tall => '키 큰';
+
+  @override
+  String get short => '키 작은';
+
+  @override
+  String get aiStyleAnalysisResult => 'AI 스타일 분석 결과';
+
+  @override
+  String get sharePersonalizedStyleAnalysis =>
+      '나만의 맞춤형 스타일 분석 결과를 친구들과 공유해보세요!';
 }

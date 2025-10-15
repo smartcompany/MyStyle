@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../constants/app_routes.dart';
-import '../../constants/app_theme.dart';
+import '../../l10n/app_localizations.dart';
 import '../../widgets/common/app_button.dart';
+import '../../constants/app_theme.dart';
 
 class PhotoUploadScreen extends StatefulWidget {
   const PhotoUploadScreen({super.key});
@@ -102,7 +103,7 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen>
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('사진 업로드'),
+        title: Text(AppLocalizations.of(context)!.photoUpload),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),

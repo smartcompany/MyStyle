@@ -463,7 +463,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get outerwear => 'アウター';
 
   @override
-  String get shoes => 'シューズ';
+  String get shoes => '靴';
 
   @override
   String get accessories => 'アクセサリー';
@@ -494,4 +494,218 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get tryCoordinatingWithPhoto => '自分の写真でコーディネートしてみる';
+
+  @override
+  String get photoUpload => '写真アップロード';
+
+  @override
+  String get takeWithCamera => 'カメラで撮影';
+
+  @override
+  String get loadingWeatherInfo => '天気情報を読み込み中...';
+
+  @override
+  String get apiTest => 'APIテスト';
+
+  @override
+  String get apiTestFeatures => 'APIテスト機能:';
+
+  @override
+  String get serverConnectionCheck => '• サーバー接続状態確認';
+
+  @override
+  String get analysisApiTest => '• 分析API応答テスト';
+
+  @override
+  String get settingsApiTest => '• 設定API応答テスト';
+
+  @override
+  String get featureInDevelopment => 'この機能は開発中です。';
+
+  @override
+  String get close => '閉じる';
+
+  @override
+  String get adTest => '広告テスト';
+
+  @override
+  String get adTestFeatures => '広告テスト機能:';
+
+  @override
+  String get rewardAdLoadTest => '• リワード広告読み込みテスト';
+
+  @override
+  String get interstitialAdLoadTest => '• インタースティシャル広告読み込みテスト';
+
+  @override
+  String get adDisplayTest => '• 広告表示テスト';
+
+  @override
+  String get tops => 'トップス';
+
+  @override
+  String get bottoms => 'ボトムス';
+
+  @override
+  String get rectangle => '長方形';
+
+  @override
+  String get hourglass => '砂時計型';
+
+  @override
+  String get pear => '洋ナシ型';
+
+  @override
+  String get apple => 'リンゴ型';
+
+  @override
+  String get invertedTriangle => '逆三角形';
+
+  @override
+  String get medium => '普通';
+
+  @override
+  String get navy => 'ネイビー';
+
+  @override
+  String get ivory => 'アイボリー';
+
+  @override
+  String get khaki => 'カーキ';
+
+  @override
+  String get brown => 'ブラウン';
+
+  @override
+  String get gray => 'グレー';
+
+  @override
+  String get black => 'ブラック';
+
+  @override
+  String get white => 'ホワイト';
+
+  @override
+  String get red => 'レッド';
+
+  @override
+  String get blue => 'ブルー';
+
+  @override
+  String get green => 'グリーン';
+
+  @override
+  String get slim => 'スリム';
+
+  @override
+  String get athletic => 'アスリート体型';
+
+  @override
+  String get curvy => 'カーブ型';
+
+  @override
+  String get coolTone => 'クールトーン';
+
+  @override
+  String get warmTone => 'ウォームトーン';
+
+  @override
+  String get coolLook => '涼しいルック';
+
+  @override
+  String get lightClothingRecommendation => '軽い服装をおすすめします';
+
+  @override
+  String get shortSleeve => '半袖';
+
+  @override
+  String get shorts => 'ショーツ';
+
+  @override
+  String get sandals => 'サンダル';
+
+  @override
+  String get lightColors => '明るい色';
+
+  @override
+  String get moderateLook => '適度なルック';
+
+  @override
+  String get moderateWarmClothingRecommendation => '適度に暖かい服装をおすすめします';
+
+  @override
+  String get longSleeve => '長袖';
+
+  @override
+  String get longPants => '長ズボン';
+
+  @override
+  String get sneakers => 'スニーカー';
+
+  @override
+  String get beige => 'ベージュ';
+
+  @override
+  String get warmLook => '暖かいルック';
+
+  @override
+  String get warmClothingRecommendation => '暖かい服装をおすすめします';
+
+  @override
+  String get padding => 'パディング';
+
+  @override
+  String get coat => 'コート';
+
+  @override
+  String get scarf => 'スカーフ';
+
+  @override
+  String get darkTones => 'ダークトーン';
+
+  @override
+  String get recommendedStyle => 'おすすめスタイル';
+
+  @override
+  String get weatherRecommendation => '天気おすすめ';
+
+  @override
+  String get selectPhoto => '写真選択';
+
+  @override
+  String get selectPhotoForAI => 'AIが分析する写真を選択してください';
+
+  @override
+  String get analyzing => '分析中...';
+
+  @override
+  String get aiStyleAnalysisStart => 'AIスタイル分析開始';
+
+  @override
+  String get recommended => 'おすすめ';
+
+  @override
+  String get colorEvaluation => '色評価';
+
+  @override
+  String get silhouetteAnalysis => 'シルエット分析';
+
+  @override
+  String get fullBodyAnalysisCustomStyle => '全身分析によるカスタムスタイル推奨';
+
+  @override
+  String get aiAnalyzedBodyStyleRecommendation =>
+      'AIが分析した体型と現在のスタイルを基に、最適なファッションアイテムとスタイリングのコツを提供します。';
+
+  @override
+  String get tall => '背が高い';
+
+  @override
+  String get short => '背が低い';
+
+  @override
+  String get aiStyleAnalysisResult => 'AIスタイル分析結果';
+
+  @override
+  String get sharePersonalizedStyleAnalysis => 'あなただけのカスタムスタイル分析結果を友達と共有しましょう！';
 }

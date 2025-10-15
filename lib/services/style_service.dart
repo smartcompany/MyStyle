@@ -1,7 +1,9 @@
 import '../models/style_recommendation.dart';
 import '../models/weather.dart';
 import '../models/user_preferences.dart';
+import '../l10n/app_localizations.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
 import 'dart:convert';
 
 class StyleService {
@@ -10,11 +12,13 @@ class StyleService {
   Future<List<StyleRecommendation>> getStyleRecommendations({
     required Weather weather,
     required UserPreferences preferences,
+    required BuildContext context,
   }) async {
     // JSON 파일에서 스타일 추천 데이터 로드
     final recommendation = await _getLocalStyleRecommendations(
       weather,
       preferences,
+      context,
     );
     return recommendation != null ? [recommendation] : [];
   }
@@ -31,12 +35,33 @@ class StyleService {
   Future<StyleRecommendation?> _getLocalStyleRecommendations(
     Weather weather,
     UserPreferences preferences,
+    BuildContext context,
   ) async {
     try {
+      // 현재 언어 설정에 따라 적절한 JSON 파일 로드
+      final currentLocale = Localizations.localeOf(context);
+      final languageCode = currentLocale.languageCode;
+
+      // 언어별 JSON 파일 경로 결정
+      String jsonFileName;
+      switch (languageCode) {
+        case 'ko':
+          jsonFileName = 'assets/data/style_recommendations_ko.json';
+          break;
+        case 'ja':
+          jsonFileName = 'assets/data/style_recommendations_ja.json';
+          break;
+        case 'zh':
+          jsonFileName = 'assets/data/style_recommendations_zh.json';
+          break;
+        case 'en':
+        default:
+          jsonFileName = 'assets/data/style_recommendations_en.json';
+          break;
+      }
+
       // JSON 파일 로드
-      final String jsonString = await rootBundle.loadString(
-        'assets/data/style_recommendations.json',
-      );
+      final String jsonString = await rootBundle.loadString(jsonFileName);
       final Map<String, dynamic> jsonData = json.decode(jsonString);
       final List<dynamic> recommendations = jsonData['recommendations'];
 
@@ -75,22 +100,27 @@ class StyleService {
       }
 
       // 매칭되는 조건이 없으면 기본 추천 반환
-      return _getDefaultRecommendation(weather);
+      return _getDefaultRecommendation(weather, context);
     } catch (e) {
       print('스타일 추천 로드 오류: $e');
-      return _getDefaultRecommendation(weather);
+      return _getDefaultRecommendation(weather, context);
     }
   }
 
-  StyleRecommendation _getDefaultRecommendation(Weather weather) {
+  StyleRecommendation _getDefaultRecommendation(
+    Weather weather,
+    BuildContext context,
+  ) {
+    final l10n = AppLocalizations.of(context)!;
+
     // 기본 추천 (온도 기반)
     if (weather.temperature >= 25) {
       return StyleRecommendation(
         id: 'default_hot',
-        title: '시원한 룩',
-        description: '가벼운 옷을 추천해요',
-        clothingItems: ['반팔', '반바지', '샌들'],
-        colors: ['흰색', '연한 색상'],
+        title: l10n.coolLook,
+        description: l10n.lightClothingRecommendation,
+        clothingItems: [l10n.shortSleeve, l10n.shorts, l10n.sandals],
+        colors: [l10n.white, l10n.lightColors],
         category: StyleCategory.casual,
         weatherType: WeatherType.sunny,
         temperature: weather.temperature,
@@ -100,10 +130,10 @@ class StyleService {
     } else if (weather.temperature >= 15) {
       return StyleRecommendation(
         id: 'default_mild',
-        title: '적당한 룩',
-        description: '적당히 따뜻한 옷을 추천해요',
-        clothingItems: ['긴팔', '긴바지', '스니커즈'],
-        colors: ['베이지', '회색'],
+        title: l10n.moderateLook,
+        description: l10n.moderateWarmClothingRecommendation,
+        clothingItems: [l10n.longSleeve, l10n.longPants, l10n.sneakers],
+        colors: [l10n.beige, l10n.gray],
         category: StyleCategory.casual,
         weatherType: WeatherType.cloudy,
         temperature: weather.temperature,
@@ -113,10 +143,10 @@ class StyleService {
     } else {
       return StyleRecommendation(
         id: 'default_cold',
-        title: '따뜻한 룩',
-        description: '따뜻한 옷을 추천해요',
-        clothingItems: ['패딩', '코트', '목도리'],
-        colors: ['검은색', '어두운 톤'],
+        title: l10n.warmLook,
+        description: l10n.warmClothingRecommendation,
+        clothingItems: [l10n.padding, l10n.coat, l10n.scarf],
+        colors: [l10n.black, l10n.darkTones],
         category: StyleCategory.casual,
         weatherType: WeatherType.cloudy,
         temperature: weather.temperature,

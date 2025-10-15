@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/style_recommendation.dart';
+import '../l10n/app_localizations.dart';
 
 class StyleRecommendationCard extends StatelessWidget {
   final StyleRecommendation recommendation;
@@ -178,7 +179,7 @@ class StyleRecommendationCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Text(
-                    '${recommendation.confidence}% 추천',
+                    '${recommendation.confidence}% ${AppLocalizations.of(context)!.recommended}',
                     style: const TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,

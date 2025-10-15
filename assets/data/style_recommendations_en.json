@@ -1,0 +1,124 @@
+{
+  "recommendations": [
+    {
+      "id": "hot_sunny",
+      "title": "Cool Summer Look",
+      "description": "Light sleeveless or short sleeves recommended",
+      "clothingItems": ["Sleeveless", "Short Sleeve", "Shorts", "Skirt", "Sandals"],
+      "colors": ["White", "Blue", "Light Colors"],
+      "category": "casual",
+      "weatherType": "sunny",
+      "temperature": 30.0,
+      "confidence": 85,
+      "conditions": {
+        "temperature": { "min": 30, "max": 50 },
+        "weather": ["Clear", "Sunny"]
+      }
+    },
+    {
+      "id": "warm_sunny",
+      "title": "Comfortable Spring/Fall Look",
+      "description": "Light long sleeves or thin outerwear recommended",
+      "clothingItems": ["Long Sleeve", "Shorts", "Light Jacket", "Sneakers"],
+      "colors": ["Beige", "Gray", "Pastel Tones"],
+      "category": "casual",
+      "weatherType": "sunny",
+      "temperature": 25.0,
+      "confidence": 80,
+      "conditions": {
+        "temperature": { "min": 20, "max": 29 },
+        "weather": ["Clear", "Sunny"]
+      }
+    },
+    {
+      "id": "warm_cloudy",
+      "title": "Cloudy Day Look",
+      "description": "Create contrast with layering",
+      "clothingItems": ["Long Sleeve", "Cardigan", "Long Pants", "Sneakers"],
+      "colors": ["Gray", "Beige", "Neutral Tones"],
+      "category": "casual",
+      "weatherType": "cloudy",
+      "temperature": 22.0,
+      "confidence": 75,
+      "conditions": {
+        "temperature": { "min": 20, "max": 29 },
+        "weather": ["Clouds", "Overcast"]
+      }
+    },
+    {
+      "id": "cool_cloudy",
+      "title": "Warm Fall Look",
+      "description": "Add a jumper or cardigan",
+      "clothingItems": ["Long Sleeve", "Long Pants", "Jumper", "Cardigan", "Boots"],
+      "colors": ["Brown", "Orange", "Warm Tones"],
+      "category": "casual",
+      "weatherType": "cloudy",
+      "temperature": 15.0,
+      "confidence": 85,
+      "conditions": {
+        "temperature": { "min": 10, "max": 19 },
+        "weather": ["Clouds", "Overcast"]
+      }
+    },
+    {
+      "id": "cold_cloudy",
+      "title": "Warm Winter Look",
+      "description": "Padding or coat recommended",
+      "clothingItems": ["Padding", "Coat", "Long Pants", "Scarf", "Gloves"],
+      "colors": ["Black", "Navy", "Dark Tones"],
+      "category": "casual",
+      "weatherType": "cloudy",
+      "temperature": 5.0,
+      "confidence": 90,
+      "conditions": {
+        "temperature": { "min": 0, "max": 9 },
+        "weather": ["Clouds", "Overcast"]
+      }
+    },
+    {
+      "id": "very_cold_snowy",
+      "title": "Very Warm Winter Look",
+      "description": "Thick padding and winter accessories needed",
+      "clothingItems": ["Thick Padding", "Fur Boots", "Scarf", "Gloves", "Hat"],
+      "colors": ["Black", "Dark Gray", "Warm Tones"],
+      "category": "casual",
+      "weatherType": "snowy",
+      "temperature": -5.0,
+      "confidence": 95,
+      "conditions": {
+        "temperature": { "min": -20, "max": -1 },
+        "weather": ["Snow", "Rain", "Drizzle"]
+      }
+    },
+    {
+      "id": "warm_rainy",
+      "title": "Rainy Day Look",
+      "description": "Prepare raincoat or waterproof jacket",
+      "clothingItems": ["Raincoat", "Waterproof Jacket", "Long Pants", "Boots", "Umbrella"],
+      "colors": ["Yellow", "Transparent", "Bright Colors"],
+      "category": "casual",
+      "weatherType": "rainy",
+      "temperature": 18.0,
+      "confidence": 90,
+      "conditions": {
+        "temperature": { "min": 15, "max": 25 },
+        "weather": ["Rain", "Drizzle", "Thunderstorm"]
+      }
+    },
+    {
+      "id": "cool_rainy",
+      "title": "Cold Rainy Day Look",
+      "description": "Combine waterproof jacket with warm clothes",
+      "clothingItems": ["Waterproof Jacket", "Sweater", "Long Pants", "Boots", "Umbrella"],
+      "colors": ["Dark Blue", "Gray", "Dark Tones"],
+      "category": "casual",
+      "weatherType": "rainy",
+      "temperature": 12.0,
+      "confidence": 88,
+      "conditions": {
+        "temperature": { "min": 5, "max": 14 },
+        "weather": ["Rain", "Drizzle", "Thunderstorm"]
+      }
+    }
+  ]
+}

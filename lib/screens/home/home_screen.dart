@@ -3,12 +3,12 @@ import 'package:provider/provider.dart';
 import '../../providers/weather_provider.dart';
 import '../../providers/style_provider.dart';
 import '../../providers/user_provider.dart';
-import '../../widgets/style_recommendation_card.dart';
 import '../../widgets/common/common_ui.dart';
+import '../../widgets/style_recommendation_card.dart';
+import '../../l10n/app_localizations.dart';
 import '../../models/style_recommendation.dart';
 import '../photo/photo_styling_screen.dart';
 import '../settings_screen.dart';
-import '../../l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   final VoidCallback? onNavigateToCamera;
@@ -47,6 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
       await styleProvider.getRecommendations(
         weather: weatherProvider.currentWeather!,
         preferences: userProvider.preferences,
+        context: context,
       );
     }
   }
@@ -85,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () => _initializeData(),
-                    child: const Text('다시 시도'),
+                    child: Text(AppLocalizations.of(context)!.retry),
                   ),
                 ],
               ),
@@ -93,7 +94,9 @@ class _HomeScreenState extends State<HomeScreen> {
           }
 
           if (weatherProvider.currentWeather == null) {
-            return const Center(child: Text('날씨 정보를 불러오는 중...'));
+            return Center(
+              child: Text(AppLocalizations.of(context)!.loadingWeatherInfo),
+            );
           }
 
           return RefreshIndicator(
@@ -103,6 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 await styleProvider.getRecommendations(
                   weather: weatherProvider.currentWeather!,
                   preferences: userProvider.preferences,
+                  context: context,
                 );
               }
             },
@@ -442,7 +446,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                         // 캐릭터 미리보기 영역
                         Container(
-                          height: 200,
+                          height: 230,
                           margin: const EdgeInsets.symmetric(horizontal: 24),
                           decoration: BoxDecoration(
                             color: Colors.white.withValues(alpha: 0.05),
@@ -539,6 +543,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     elevation: 0,
                                     padding: const EdgeInsets.symmetric(
                                       vertical: 20,
+                                      horizontal: 24,
                                     ),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(20),
@@ -555,6 +560,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                       fontWeight: FontWeight.w700,
                                       letterSpacing: 0.3,
                                     ),
+                                    textAlign: TextAlign.center,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
                               ),
@@ -724,16 +732,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 6),
                 Text(
-                  '${recommendation.temperature.round()}°C 날씨 추천',
+                  '${recommendation.temperature.round()}°C ${AppLocalizations.of(context)!.weatherRecommendation}',
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
                   ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 8),
                 // 주요 아이템들
                 Wrap(
                   spacing: 4,
@@ -757,6 +767,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
                             ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                       )

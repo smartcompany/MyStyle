@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import '../../models/photo_analysis.dart';
-import '../../widgets/common/share_ui.dart';
-import '../../widgets/common/common_ui.dart';
 import '../../l10n/app_localizations.dart';
+import '../../widgets/common/common_ui.dart';
+import '../../widgets/common/share_ui.dart';
 import '../../constants/font_constants.dart';
 
 class AIStylingResultScreen extends StatefulWidget {
@@ -58,8 +58,10 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
             // 공유하기 UI 컴포넌트
             ShareUI.buildShareSection(
               context: context,
-              title: 'AI 스타일 분석 결과',
-              description: '나만의 맞춤형 스타일 분석 결과를 친구들과 공유해보세요!',
+              title: AppLocalizations.of(context)!.aiStyleAnalysisResult,
+              description: AppLocalizations.of(
+                context,
+              )!.sharePersonalizedStyleAnalysis,
               shareText: _generateShareText(),
               imagePath: widget.originalImage.path,
               onShareTap: _shareResult,
@@ -200,7 +202,7 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
                           .colorEvaluation
                           .isNotEmpty)
                         _buildStyleInfoItem(
-                          '색상 평가',
+                          AppLocalizations.of(context)!.colorEvaluation,
                           widget.analysisResult.styleAnalysis.colorEvaluation,
                           Icons.palette,
                         ),
@@ -212,7 +214,7 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
                           .silhouette
                           .isNotEmpty)
                         _buildStyleInfoItem(
-                          '실루엣 분석',
+                          AppLocalizations.of(context)!.silhouetteAnalysis,
                           widget.analysisResult.styleAnalysis.silhouette,
                           Icons.accessibility_new,
                         ),
@@ -262,22 +264,34 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(Icons.wb_sunny, color: Colors.orange[600], size: 24),
-                const SizedBox(width: 8),
-                Text(
-                  '전신 분석을 통한 맞춤형 스타일 추천',
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontSize: FontConstants.aiResultSectionTitle,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Row(
+                  children: [
+                    Icon(Icons.wb_sunny, color: Colors.orange[600], size: 24),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        AppLocalizations.of(
+                          context,
+                        )!.fullBodyAnalysisCustomStyle,
+                        style: Theme.of(context).textTheme.titleMedium
+                            ?.copyWith(
+                              fontSize: FontConstants.aiResultSectionTitle,
+                              fontWeight: FontWeight.bold,
+                            ),
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
             const SizedBox(height: 12),
             Text(
-              'AI가 분석한 체형과 현재 스타일을 바탕으로 최적의 패션 아이템과 스타일링 팁을 제공합니다.',
+              AppLocalizations.of(context)!.aiAnalyzedBodyStyleRecommendation,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 fontSize: FontConstants.aiResultDetailText,
                 height: 1.5,
@@ -314,7 +328,7 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
 
             // 상의
             _buildItemCategory(
-              '상의',
+              AppLocalizations.of(context)!.tops,
               widget.analysisResult.recommendations.tops,
               Icons.checkroom,
             ),
@@ -322,7 +336,7 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
 
             // 하의
             _buildItemCategory(
-              '하의',
+              AppLocalizations.of(context)!.bottoms,
               widget.analysisResult.recommendations.bottoms,
               Icons.accessibility_new,
             ),
@@ -330,7 +344,7 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
 
             // 아우터
             _buildItemCategory(
-              '아우터',
+              AppLocalizations.of(context)!.outerwear,
               widget.analysisResult.recommendations.outerwear,
               Icons.ac_unit,
             ),
@@ -338,7 +352,7 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
 
             // 신발
             _buildItemCategory(
-              '신발',
+              AppLocalizations.of(context)!.shoes,
               widget.analysisResult.recommendations.shoes,
               Icons.directions_walk,
             ),
@@ -346,7 +360,7 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
 
             // 액세서리
             _buildItemCategory(
-              '액세서리',
+              AppLocalizations.of(context)!.accessories,
               widget.analysisResult.recommendations.accessories,
               Icons.watch,
             ),
@@ -574,15 +588,15 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
   String _getBodyTypeDisplayName(String bodyType) {
     switch (bodyType.toLowerCase()) {
       case 'rectangle':
-        return '직사각형';
+        return AppLocalizations.of(context)!.rectangle;
       case 'hourglass':
-        return '모래시계형';
+        return AppLocalizations.of(context)!.hourglass;
       case 'pear':
-        return '배형';
+        return AppLocalizations.of(context)!.pear;
       case 'apple':
-        return '사과형';
+        return AppLocalizations.of(context)!.apple;
       case 'inverted_triangle':
-        return '역삼각형';
+        return AppLocalizations.of(context)!.invertedTriangle;
       default:
         return bodyType;
     }
@@ -592,11 +606,11 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
   String _getHeightDisplayName(String height) {
     switch (height.toLowerCase()) {
       case 'tall':
-        return '키 큰';
+        return AppLocalizations.of(context)!.tall;
       case 'medium':
-        return '보통';
+        return AppLocalizations.of(context)!.medium;
       case 'short':
-        return '키 작은';
+        return AppLocalizations.of(context)!.short;
       default:
         return height;
     }

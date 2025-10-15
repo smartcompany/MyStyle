@@ -48,7 +48,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get selectFromGallery => '从相册选择';
 
   @override
-  String get retakePhoto => '重新拍照';
+  String get retakePhoto => '重新拍摄';
 
   @override
   String get startAnalysis => '开始分析';
@@ -460,7 +460,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get outerwear => '外套';
 
   @override
-  String get shoes => '鞋履';
+  String get shoes => '鞋子';
 
   @override
   String get accessories => '配饰';
@@ -491,4 +491,218 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get tryCoordinatingWithPhoto => '用您的照片尝试搭配';
+
+  @override
+  String get photoUpload => '照片上传';
+
+  @override
+  String get takeWithCamera => '用相机拍摄';
+
+  @override
+  String get loadingWeatherInfo => '正在加载天气信息...';
+
+  @override
+  String get apiTest => 'API测试';
+
+  @override
+  String get apiTestFeatures => 'API测试功能:';
+
+  @override
+  String get serverConnectionCheck => '• 服务器连接状态检查';
+
+  @override
+  String get analysisApiTest => '• 分析API响应测试';
+
+  @override
+  String get settingsApiTest => '• 设置API响应测试';
+
+  @override
+  String get featureInDevelopment => '此功能正在开发中。';
+
+  @override
+  String get close => '关闭';
+
+  @override
+  String get adTest => '广告测试';
+
+  @override
+  String get adTestFeatures => '广告测试功能:';
+
+  @override
+  String get rewardAdLoadTest => '• 奖励广告加载测试';
+
+  @override
+  String get interstitialAdLoadTest => '• 插屏广告加载测试';
+
+  @override
+  String get adDisplayTest => '• 广告显示测试';
+
+  @override
+  String get tops => '上衣';
+
+  @override
+  String get bottoms => '下装';
+
+  @override
+  String get rectangle => '长方形';
+
+  @override
+  String get hourglass => '沙漏型';
+
+  @override
+  String get pear => '梨型';
+
+  @override
+  String get apple => '苹果型';
+
+  @override
+  String get invertedTriangle => '倒三角形';
+
+  @override
+  String get medium => '中等';
+
+  @override
+  String get navy => '海军蓝';
+
+  @override
+  String get ivory => '象牙白';
+
+  @override
+  String get khaki => '卡其色';
+
+  @override
+  String get brown => '棕色';
+
+  @override
+  String get gray => '灰色';
+
+  @override
+  String get black => '黑色';
+
+  @override
+  String get white => '白色';
+
+  @override
+  String get red => '红色';
+
+  @override
+  String get blue => '蓝色';
+
+  @override
+  String get green => '绿色';
+
+  @override
+  String get slim => '苗条';
+
+  @override
+  String get athletic => '运动型';
+
+  @override
+  String get curvy => '曲线型';
+
+  @override
+  String get coolTone => '冷色调';
+
+  @override
+  String get warmTone => '暖色调';
+
+  @override
+  String get coolLook => '凉爽造型';
+
+  @override
+  String get lightClothingRecommendation => '推荐轻便服装';
+
+  @override
+  String get shortSleeve => '短袖';
+
+  @override
+  String get shorts => '短裤';
+
+  @override
+  String get sandals => '凉鞋';
+
+  @override
+  String get lightColors => '浅色';
+
+  @override
+  String get moderateLook => '适中造型';
+
+  @override
+  String get moderateWarmClothingRecommendation => '推荐适度保暖服装';
+
+  @override
+  String get longSleeve => '长袖';
+
+  @override
+  String get longPants => '长裤';
+
+  @override
+  String get sneakers => '运动鞋';
+
+  @override
+  String get beige => '米色';
+
+  @override
+  String get warmLook => '温暖造型';
+
+  @override
+  String get warmClothingRecommendation => '推荐保暖服装';
+
+  @override
+  String get padding => '羽绒服';
+
+  @override
+  String get coat => '外套';
+
+  @override
+  String get scarf => '围巾';
+
+  @override
+  String get darkTones => '深色调';
+
+  @override
+  String get recommendedStyle => '推荐风格';
+
+  @override
+  String get weatherRecommendation => '天气推荐';
+
+  @override
+  String get selectPhoto => '选择照片';
+
+  @override
+  String get selectPhotoForAI => '请选择AI要分析的照片';
+
+  @override
+  String get analyzing => '分析中...';
+
+  @override
+  String get aiStyleAnalysisStart => '开始AI风格分析';
+
+  @override
+  String get recommended => '推荐';
+
+  @override
+  String get colorEvaluation => '颜色评估';
+
+  @override
+  String get silhouetteAnalysis => '轮廓分析';
+
+  @override
+  String get fullBodyAnalysisCustomStyle => '通过全身分析的定制风格推荐';
+
+  @override
+  String get aiAnalyzedBodyStyleRecommendation =>
+      '基于AI分析的体型和当前风格，我们提供最佳的时尚单品和造型技巧。';
+
+  @override
+  String get tall => '高个子';
+
+  @override
+  String get short => '矮个子';
+
+  @override
+  String get aiStyleAnalysisResult => 'AI风格分析结果';
+
+  @override
+  String get sharePersonalizedStyleAnalysis => '与朋友分享您的个性化风格分析结果！';
 }

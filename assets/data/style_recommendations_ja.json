@@ -1,0 +1,124 @@
+{
+  "recommendations": [
+    {
+      "id": "hot_sunny",
+      "title": "涼しい夏ルック",
+      "description": "軽い素材のノースリーブや半袖をおすすめします",
+      "clothingItems": ["ノースリーブ", "半袖", "ショーツ", "スカート", "サンダル"],
+      "colors": ["白", "青", "明るい色"],
+      "category": "casual",
+      "weatherType": "sunny",
+      "temperature": 30.0,
+      "confidence": 85,
+      "conditions": {
+        "temperature": { "min": 30, "max": 50 },
+        "weather": ["Clear", "Sunny"]
+      }
+    },
+    {
+      "id": "warm_sunny",
+      "title": "快適な春・秋ルック",
+      "description": "軽い長袖や薄いアウターをおすすめします",
+      "clothingItems": ["長袖", "ショーツ", "軽いジャケット", "スニーカー"],
+      "colors": ["ベージュ", "グレー", "パステルトーン"],
+      "category": "casual",
+      "weatherType": "sunny",
+      "temperature": 25.0,
+      "confidence": 80,
+      "conditions": {
+        "temperature": { "min": 20, "max": 29 },
+        "weather": ["Clear", "Sunny"]
+      }
+    },
+    {
+      "id": "warm_cloudy",
+      "title": "曇りの日ルック",
+      "description": "レイヤリングでコントラストを作りましょう",
+      "clothingItems": ["長袖", "カーディガン", "長ズボン", "スニーカー"],
+      "colors": ["グレー", "ベージュ", "ニュートラルトーン"],
+      "category": "casual",
+      "weatherType": "cloudy",
+      "temperature": 22.0,
+      "confidence": 75,
+      "conditions": {
+        "temperature": { "min": 20, "max": 29 },
+        "weather": ["Clouds", "Overcast"]
+      }
+    },
+    {
+      "id": "cool_cloudy",
+      "title": "暖かい秋ルック",
+      "description": "ジャンパーやカーディガンを追加してみてください",
+      "clothingItems": ["長袖", "長ズボン", "ジャンパー", "カーディガン", "ブーツ"],
+      "colors": ["ブラウン", "オレンジ", "ウォームトーン"],
+      "category": "casual",
+      "weatherType": "cloudy",
+      "temperature": 15.0,
+      "confidence": 85,
+      "conditions": {
+        "temperature": { "min": 10, "max": 19 },
+        "weather": ["Clouds", "Overcast"]
+      }
+    },
+    {
+      "id": "cold_cloudy",
+      "title": "暖かい冬ルック",
+      "description": "パディングやコートをおすすめします",
+      "clothingItems": ["パディング", "コート", "長ズボン", "スカーフ", "手袋"],
+      "colors": ["黒", "ネイビー", "ダークトーン"],
+      "category": "casual",
+      "weatherType": "cloudy",
+      "temperature": 5.0,
+      "confidence": 90,
+      "conditions": {
+        "temperature": { "min": 0, "max": 9 },
+        "weather": ["Clouds", "Overcast"]
+      }
+    },
+    {
+      "id": "very_cold_snowy",
+      "title": "とても暖かい冬ルック",
+      "description": "厚いパディングと冬のアクセサリーが必要です",
+      "clothingItems": ["厚いパディング", "ファーブーツ", "スカーフ", "手袋", "帽子"],
+      "colors": ["黒", "ダークグレー", "ウォームトーン"],
+      "category": "casual",
+      "weatherType": "snowy",
+      "temperature": -5.0,
+      "confidence": 95,
+      "conditions": {
+        "temperature": { "min": -20, "max": -1 },
+        "weather": ["Snow", "Rain", "Drizzle"]
+      }
+    },
+    {
+      "id": "warm_rainy",
+      "title": "雨の日ルック",
+      "description": "レインコートや防水ジャケットを準備してください",
+      "clothingItems": ["レインコート", "防水ジャケット", "長ズボン", "ブーツ", "傘"],
+      "colors": ["黄色", "透明", "明るい色"],
+      "category": "casual",
+      "weatherType": "rainy",
+      "temperature": 18.0,
+      "confidence": 90,
+      "conditions": {
+        "temperature": { "min": 15, "max": 25 },
+        "weather": ["Rain", "Drizzle", "Thunderstorm"]
+      }
+    },
+    {
+      "id": "cool_rainy",
+      "title": "寒い雨の日ルック",
+      "description": "防水ジャケットと暖かい服を組み合わせてください",
+      "clothingItems": ["防水ジャケット", "セーター", "長ズボン", "ブーツ", "傘"],
+      "colors": ["ダークブルー", "グレー", "ダークトーン"],
+      "category": "casual",
+      "weatherType": "rainy",
+      "temperature": 12.0,
+      "confidence": 88,
+      "conditions": {
+        "temperature": { "min": 5, "max": 14 },
+        "weather": ["Rain", "Drizzle", "Thunderstorm"]
+      }
+    }
+  ]
+}

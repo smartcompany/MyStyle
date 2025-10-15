@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/app_localizations.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'widgets/common/share_ui.dart';
@@ -181,24 +182,24 @@ class DebugTools {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('🌐 API 테스트'),
-          content: const Column(
+          title: Text(AppLocalizations.of(context)!.apiTest),
+          content: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('API 테스트 기능:'),
-              SizedBox(height: 8),
-              Text('• 서버 연결 상태 확인'),
-              Text('• 분석 API 응답 테스트'),
-              Text('• 설정 API 응답 테스트'),
-              SizedBox(height: 16),
-              Text('이 기능은 개발 중입니다.'),
+              Text(AppLocalizations.of(context)!.apiTestFeatures),
+              const SizedBox(height: 8),
+              Text(AppLocalizations.of(context)!.serverConnectionCheck),
+              Text(AppLocalizations.of(context)!.analysisApiTest),
+              Text(AppLocalizations.of(context)!.settingsApiTest),
+              const SizedBox(height: 16),
+              Text(AppLocalizations.of(context)!.featureInDevelopment),
             ],
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text('닫기'),
+              child: Text(AppLocalizations.of(context)!.close),
             ),
           ],
         );
@@ -212,24 +213,24 @@ class DebugTools {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('📺 광고 테스트'),
-          content: const Column(
+          title: Text(AppLocalizations.of(context)!.adTest),
+          content: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('광고 테스트 기능:'),
-              SizedBox(height: 8),
-              Text('• 리워드 광고 로드 테스트'),
-              Text('• 인터스티셜 광고 로드 테스트'),
-              Text('• 광고 표시 테스트'),
-              SizedBox(height: 16),
-              Text('이 기능은 개발 중입니다.'),
+              Text(AppLocalizations.of(context)!.adTestFeatures),
+              const SizedBox(height: 8),
+              Text(AppLocalizations.of(context)!.rewardAdLoadTest),
+              Text(AppLocalizations.of(context)!.interstitialAdLoadTest),
+              Text(AppLocalizations.of(context)!.adDisplayTest),
+              const SizedBox(height: 16),
+              Text(AppLocalizations.of(context)!.featureInDevelopment),
             ],
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text('닫기'),
+              child: Text(AppLocalizations.of(context)!.close),
             ),
           ],
         );
