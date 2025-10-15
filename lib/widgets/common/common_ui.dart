@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../l10n/app_localizations.dart';
+import '../../constants/font_constants.dart';
 
 class CommonUI {
   /// 표준 AppBar 생성
@@ -14,7 +15,7 @@ class CommonUI {
       title: Text(
         title ?? AppLocalizations.of(context)!.appTitle,
         style: const TextStyle(
-          fontSize: 20,
+          fontSize: FontConstants.appBarTitle,
           fontWeight: FontWeight.w700,
           letterSpacing: 0.5,
           color: Colors.white,
@@ -48,7 +49,7 @@ class CommonUI {
       title: Text(
         title,
         style: const TextStyle(
-          fontSize: 20,
+          fontSize: FontConstants.appBarTitle,
           fontWeight: FontWeight.w700,
           letterSpacing: 0.5,
           color: Colors.white,
@@ -57,23 +58,48 @@ class CommonUI {
       backgroundColor: const Color(0xFF4A90E2),
       elevation: 0,
       centerTitle: true,
-      actions: [
-        Container(
-          margin: const EdgeInsets.only(right: 8),
-          decoration: BoxDecoration(
-            color: Colors.white.withValues(alpha: 0.2),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: IconButton(
-            onPressed: onSettingsPressed,
-            icon: const Icon(
-              Icons.settings_outlined,
-              size: 20,
-              color: Colors.white,
-            ),
-          ),
+      iconTheme: const IconThemeData(color: Colors.white),
+      actions: onSettingsPressed != null
+          ? [
+              Container(
+                margin: const EdgeInsets.only(right: 8),
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.2),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: IconButton(
+                  onPressed: onSettingsPressed,
+                  icon: const Icon(
+                    Icons.settings_outlined,
+                    size: 20,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ]
+          : null,
+    );
+  }
+
+  /// 설정 버튼 없는 AppBar
+  static PreferredSizeWidget buildSimpleAppBar({
+    required BuildContext context,
+    required String title,
+  }) {
+    return AppBar(
+      title: Text(
+        title,
+        style: const TextStyle(
+          fontSize: FontConstants.appBarTitle,
+          fontWeight: FontWeight.w700,
+          letterSpacing: 0.5,
+          color: Colors.white,
         ),
-      ],
+      ),
+      backgroundColor: const Color(0xFF4A90E2),
+      elevation: 0,
+      centerTitle: true,
+      iconTheme: const IconThemeData(color: Colors.white),
     );
   }
 
@@ -86,7 +112,7 @@ class CommonUI {
         AppLocalizations.of(context)?.settings ?? 'Settings',
         style: const TextStyle(
           fontWeight: FontWeight.w700,
-          fontSize: 24,
+          fontSize: FontConstants.appBarTitle,
           letterSpacing: -0.5,
           color: Colors.white,
         ),
@@ -94,7 +120,8 @@ class CommonUI {
       backgroundColor: const Color(0xFF4A90E2),
       elevation: 0,
       surfaceTintColor: Colors.transparent,
-      automaticallyImplyLeading: false,
+      automaticallyImplyLeading: true,
+      iconTheme: const IconThemeData(color: Colors.white),
     );
   }
 

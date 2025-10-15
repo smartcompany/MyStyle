@@ -70,8 +70,8 @@ class _MainScreenState extends State<MainScreen> {
           backgroundColor: Colors.transparent,
           selectedItemColor: const Color(0xFF1A1A1A),
           unselectedItemColor: const Color(0xFF8E8E93),
-          selectedFontSize: 11,
-          unselectedFontSize: 11,
+          selectedFontSize: 16,
+          unselectedFontSize: 16,
           elevation: 0,
           items: [
             BottomNavigationBarItem(
@@ -115,27 +115,6 @@ class _MainScreenState extends State<MainScreen> {
                 child: const Icon(Icons.face, size: 20),
               ),
               label: AppLocalizations.of(context)!.camera,
-            ),
-            BottomNavigationBarItem(
-              icon: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: _currentIndex == 2
-                      ? const Color(0xFF1A1A1A).withOpacity(0.1)
-                      : Colors.transparent,
-                ),
-                child: const Icon(Icons.person_outline, size: 20),
-              ),
-              activeIcon: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: const Color(0xFF1A1A1A).withOpacity(0.1),
-                ),
-                child: const Icon(Icons.person, size: 20),
-              ),
-              label: AppLocalizations.of(context)!.profile,
             ),
           ],
         ),

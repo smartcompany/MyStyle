@@ -98,7 +98,12 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
       backgroundColor: const Color(0xFFFAFAFA),
       appBar: CommonUI.buildCustomAppBar(
         context: context,
-        title: AppLocalizations.of(context)!.appTitle,
+        title: AppLocalizations.of(context)!.camera,
+        onSettingsPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const SettingsScreen()),
+          );
+        },
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),

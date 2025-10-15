@@ -60,6 +60,9 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen>
         maxWidth: 1024,
         maxHeight: 1024,
         imageQuality: 85,
+        preferredCameraDevice: source == ImageSource.camera
+            ? CameraDevice.front
+            : CameraDevice.rear,
       );
 
       if (image != null) {

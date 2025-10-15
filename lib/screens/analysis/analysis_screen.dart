@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import 'dart:io';
+import 'package:provider/provider.dart';
 import '../../services/ad_service.dart';
 import '../../services/api_service.dart';
 import '../../models/analysis_result.dart';
 import '../../models/photo_analysis.dart';
+import '../../providers/weather_provider.dart';
 import '../result/result_screen.dart';
 import '../result/ai_styling_result_screen.dart';
 import '../../l10n/app_localizations.dart';
@@ -157,9 +159,27 @@ class _AnalysisScreenState extends State<AnalysisScreen>
         }
       } else {
         // 전신 분석 - analyze-fullbody API 사용
+        // 날씨 정보 가져오기
+        final weatherProvider = Provider.of<WeatherProvider>(
+          context,
+          listen: false,
+        );
+        Map<String, dynamic>? weatherData;
+
+        if (weatherProvider.currentWeather != null) {
+          weatherData = {
+            'temperature': weatherProvider.currentWeather!.temperature,
+            'main': weatherProvider.currentWeather!.main,
+            'description': weatherProvider.currentWeather!.description,
+            'humidity': weatherProvider.currentWeather!.humidity,
+            'windSpeed': weatherProvider.currentWeather!.windSpeed,
+          };
+        }
+
         final result = await ApiService().analyzeFullBody(
           widget.imagePath,
           language: currentLocale.languageCode,
+          weatherData: weatherData,
         );
 
         if (result != null) {

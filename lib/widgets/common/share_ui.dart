@@ -11,6 +11,7 @@ import 'package:flutter/foundation.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import '../../l10n/app_localizations.dart';
+import '../../constants/font_constants.dart';
 
 /// 공유 관련 UI 컴포넌트들을 제공하는 클래스
 class ShareUI {
@@ -141,7 +142,10 @@ class ShareUI {
                   const SizedBox(width: 8),
                   const Text(
                     '공유하기',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    style: TextStyle(
+                      fontSize: FontConstants.buttonText,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ],
               ),
@@ -245,7 +249,7 @@ class ShareUI {
                     AppLocalizations.of(context)!.cancelTitle,
                     style: TextStyle(
                       color: Colors.white.withOpacity(0.7),
-                      fontSize: 16,
+                      fontSize: FontConstants.buttonText,
                     ),
                   ),
                 ),
@@ -301,7 +305,7 @@ class ShareUI {
                       title,
                       style: const TextStyle(
                         color: Colors.white,
-                        fontSize: 16,
+                        fontSize: FontConstants.buttonText,
                         fontWeight: FontWeight.w600,
                       ),
                     ),

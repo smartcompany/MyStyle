@@ -885,13 +885,13 @@ abstract class AppLocalizations {
   /// No description provided for @home.
   ///
   /// In en, this message translates to:
-  /// **'Home'**
+  /// **'Today\'s Coordination'**
   String get home;
 
   /// No description provided for @camera.
   ///
   /// In en, this message translates to:
-  /// **'Camera'**
+  /// **'Face'**
   String get camera;
 
   /// No description provided for @closet.
@@ -921,7 +921,7 @@ abstract class AppLocalizations {
   /// No description provided for @faceStylingTitle.
   ///
   /// In en, this message translates to:
-  /// **'Face Styling'**
+  /// **'Coordinate with My Photo'**
   String get faceStylingTitle;
 
   /// No description provided for @bodyAnalysisResult.

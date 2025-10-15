@@ -215,6 +215,7 @@ class ApiService {
   Future<Map<String, dynamic>?> analyzeFullBody(
     String imagePath, {
     String? language,
+    Map<String, dynamic>? weatherData,
   }) async {
     try {
       final file = File(imagePath);
@@ -230,6 +231,11 @@ class ApiService {
       // 언어 정보 추가
       if (language != null) {
         request.headers['X-Language'] = language;
+      }
+
+      // 날씨 정보 추가
+      if (weatherData != null) {
+        request.fields['weather'] = jsonEncode(weatherData);
       }
 
       if (ApiConstants.useDummy) {

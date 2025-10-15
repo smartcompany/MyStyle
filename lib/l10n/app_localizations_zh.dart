@@ -400,10 +400,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get fullBodyAnalysisTitle => 'AI正在分析您的全身...';
 
   @override
-  String get home => '主页';
+  String get home => '今日搭配';
 
   @override
-  String get camera => '相机';
+  String get camera => '面部';
 
   @override
   String get closet => '衣橱';
@@ -418,7 +418,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get aiStylingTitle => 'AI搭配推荐结果';
 
   @override
-  String get faceStylingTitle => '面部造型';
+  String get faceStylingTitle => '用我的照片搭配';
 
   @override
   String get bodyAnalysisResult => '体型分析结果';

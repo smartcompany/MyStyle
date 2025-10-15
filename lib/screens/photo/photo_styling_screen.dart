@@ -81,7 +81,7 @@ class _PhotoStylingScreenState extends State<PhotoStylingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surfaceContainerLowest,
-      appBar: CommonUI.buildCustomAppBar(
+      appBar: CommonUI.buildSimpleAppBar(
         context: context,
         title: AppLocalizations.of(context)!.faceStylingTitle,
       ),

@@ -57,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: const Color(0xFFFAFAFA),
       appBar: CommonUI.buildCustomAppBar(
         context: context,
-        title: AppLocalizations.of(context)!.appTitle,
+        title: AppLocalizations.of(context)!.home,
         onSettingsPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => const SettingsScreen()),

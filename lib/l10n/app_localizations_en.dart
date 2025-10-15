@@ -409,10 +409,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get fullBodyAnalysisTitle => 'AI is analyzing your full body...';
 
   @override
-  String get home => 'Home';
+  String get home => 'Today\'s Coordination';
 
   @override
-  String get camera => 'Camera';
+  String get camera => 'Face';
 
   @override
   String get closet => 'Closet';
@@ -427,7 +427,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aiStylingTitle => 'AI Styling Recommendation Result';
 
   @override
-  String get faceStylingTitle => 'Face Styling';
+  String get faceStylingTitle => 'Coordinate with My Photo';
 
   @override
   String get bodyAnalysisResult => 'Body Analysis Result';

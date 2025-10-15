@@ -403,10 +403,10 @@ class AppLocalizationsJa extends AppLocalizations {
   String get fullBodyAnalysisTitle => 'AIが全身を分析しています...';
 
   @override
-  String get home => 'ホーム';
+  String get home => '今日のコーディネート';
 
   @override
-  String get camera => 'カメラ';
+  String get camera => 'フェイス';
 
   @override
   String get closet => 'クローゼット';
@@ -421,7 +421,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get aiStylingTitle => 'AIコーディネートおすすめ結果';
 
   @override
-  String get faceStylingTitle => '顔スタイリング';
+  String get faceStylingTitle => '私の写真でコーディネート';
 
   @override
   String get bodyAnalysisResult => '体型分析結果';

@@ -403,10 +403,10 @@ class AppLocalizationsKo extends AppLocalizations {
   String get fullBodyAnalysisTitle => 'AI가 전신을 분석하고 있습니다...';
 
   @override
-  String get home => '홈';
+  String get home => '오늘의 코디';
 
   @override
-  String get camera => '카메라';
+  String get camera => '페이스';
 
   @override
   String get closet => '옷장';
@@ -421,7 +421,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get aiStylingTitle => 'AI 코디 추천 결과';
 
   @override
-  String get faceStylingTitle => '얼굴 스타일링';
+  String get faceStylingTitle => '내 사진으로 코디';
 
   @override
   String get bodyAnalysisResult => '체형 분석 결과';

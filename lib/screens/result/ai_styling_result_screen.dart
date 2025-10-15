@@ -4,6 +4,7 @@ import '../../models/photo_analysis.dart';
 import '../../widgets/common/share_ui.dart';
 import '../../widgets/common/common_ui.dart';
 import '../../l10n/app_localizations.dart';
+import '../../constants/font_constants.dart';
 
 class AIStylingResultScreen extends StatefulWidget {
   final File originalImage;
@@ -137,7 +138,7 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
                             AppLocalizations.of(context)!.bodyAnalysisResult,
                             style: Theme.of(context).textTheme.titleMedium
                                 ?.copyWith(
-                                  fontSize: 18,
+                                  fontSize: FontConstants.aiResultSectionTitle,
                                   fontWeight: FontWeight.bold,
                                   color: const Color(0xFF1A1A1A),
                                 ),
@@ -147,8 +148,8 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
                             '${AppLocalizations.of(context)!.bodyType}: ${_getBodyTypeDisplayName(widget.analysisResult.bodyType)} • ${AppLocalizations.of(context)!.height}: ${_getHeightDisplayName(widget.analysisResult.height)}',
                             style: Theme.of(context).textTheme.bodyMedium
                                 ?.copyWith(
-                                  fontSize: 15,
-                                  color: const Color(0xFF64748B),
+                                  fontSize: FontConstants.aiResultDetailText,
+                                  color: const Color(0xFF1A1A1A),
                                 ),
                           ),
                           const SizedBox(height: 4),
@@ -156,7 +157,7 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
                             '${AppLocalizations.of(context)!.confidence}: ${widget.analysisResult.confidence}%',
                             style: Theme.of(context).textTheme.bodySmall
                                 ?.copyWith(
-                                  fontSize: 14,
+                                  fontSize: FontConstants.aiResultSubText,
                                   color: const Color(0xFF6C63FF),
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -236,8 +237,8 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
                           AppLocalizations.of(context)!.currentStyleAnalyzing,
                           style: Theme.of(context).textTheme.bodyMedium
                               ?.copyWith(
-                                fontSize: 15,
-                                color: const Color(0xFF64748B),
+                                fontSize: FontConstants.aiResultDetailText,
+                                color: const Color(0xFF1A1A1A),
                                 height: 1.4,
                               ),
                         ),
@@ -268,7 +269,7 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
                 Text(
                   '전신 분석을 통한 맞춤형 스타일 추천',
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontSize: 18,
+                    fontSize: FontConstants.aiResultSectionTitle,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -278,7 +279,7 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
             Text(
               'AI가 분석한 체형과 현재 스타일을 바탕으로 최적의 패션 아이템과 스타일링 팁을 제공합니다.',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                fontSize: 16,
+                fontSize: FontConstants.aiResultDetailText,
                 height: 1.5,
                 fontWeight: FontWeight.w500,
               ),
@@ -303,7 +304,7 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
                 Text(
                   AppLocalizations.of(context)!.recommendedItems,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontSize: 18,
+                    fontSize: FontConstants.aiResultSectionTitle,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -369,7 +370,7 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
                 Text(
                   AppLocalizations.of(context)!.stylingTips,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontSize: 18,
+                    fontSize: FontConstants.aiResultSectionTitle,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -402,7 +403,7 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
                       child: Text(
                         tip,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontSize: 16,
+                          fontSize: FontConstants.aiResultDetailText,
                           fontWeight: FontWeight.w600,
                           height: 1.4,
                           color: const Color(0xFF1A1A1A),
@@ -452,7 +453,7 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
                         style: const TextStyle(
                           color: Color(0xFF1A1A1A),
                           fontWeight: FontWeight.w600,
-                          fontSize: 14,
+                          fontSize: FontConstants.aiResultSubText,
                         ),
                       ),
                     ),
@@ -488,7 +489,7 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
                 Text(
                   title,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontSize: 16,
+                    fontSize: FontConstants.aiResultDetailText,
                     fontWeight: FontWeight.w600,
                     color: const Color(0xFF1A1A1A),
                   ),
@@ -497,8 +498,8 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
                 Text(
                   content,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontSize: 15,
-                    color: const Color(0xFF64748B),
+                    fontSize: FontConstants.aiResultDetailText,
+                    color: const Color(0xFF1A1A1A),
                     height: 1.4,
                   ),
                 ),
@@ -528,7 +529,7 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
             Text(
               categoryName,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                fontSize: 16,
+                fontSize: FontConstants.aiResultDetailText,
                 fontWeight: FontWeight.w600,
                 color: const Color(0xFF1A1A1A),
               ),
@@ -557,7 +558,7 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
                     item,
                     style: const TextStyle(
                       color: Color(0xFF6C63FF),
-                      fontSize: 14,
+                      fontSize: FontConstants.aiResultSubText,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
