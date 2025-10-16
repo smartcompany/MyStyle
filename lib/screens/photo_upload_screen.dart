@@ -269,7 +269,7 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
                     color: Colors.white,
                   ),
                   label: Text(
-                    AppLocalizations.of(context)!.takePhoto,
+                    AppLocalizations.of(context)!.takeWithCamera,
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16,

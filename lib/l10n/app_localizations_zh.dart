@@ -42,10 +42,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get colorPalette => '🎨 调色板';
 
   @override
-  String get takePhoto => '拍照';
-
-  @override
-  String get selectFromGallery => '从相册选择';
+  String get selectFromGallery => '相册';
 
   @override
   String get retakePhoto => '重新拍摄';
@@ -496,7 +493,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get photoUpload => '照片上传';
 
   @override
-  String get takeWithCamera => '用相机拍摄';
+  String get takeWithCamera => '相机';
 
   @override
   String get loadingWeatherInfo => '正在加载天气信息...';
@@ -705,4 +702,13 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get sharePersonalizedStyleAnalysis => '与朋友分享您的个性化风格分析结果！';
+
+  @override
+  String get uploadFacePhoto => '请上传面部照片';
+
+  @override
+  String get accurateAnalysisDescription => '为了准确分析，\n请使用面部清晰可见的照片';
+
+  @override
+  String get uploadOrTakePhoto => '上传或拍摄照片';
 }

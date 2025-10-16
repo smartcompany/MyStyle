@@ -44,9 +44,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get colorPalette => '🎨 Color Palette';
 
   @override
-  String get takePhoto => 'Take Photo';
-
-  @override
   String get selectFromGallery => 'Gallery';
 
   @override
@@ -721,4 +718,14 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get sharePersonalizedStyleAnalysis =>
       'Share your personalized style analysis results with friends!';
+
+  @override
+  String get uploadFacePhoto => 'Please upload a face photo';
+
+  @override
+  String get accurateAnalysisDescription =>
+      'For accurate analysis,\nplease use a photo where your face is clearly visible';
+
+  @override
+  String get uploadOrTakePhoto => 'Upload or take a photo';
 }

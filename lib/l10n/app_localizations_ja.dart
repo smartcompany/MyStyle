@@ -44,10 +44,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get colorPalette => '🎨 カラーパレット';
 
   @override
-  String get takePhoto => 'カメラで撮影';
-
-  @override
-  String get selectFromGallery => 'ギャラリーから選択';
+  String get selectFromGallery => 'ギャラリー';
 
   @override
   String get retakePhoto => '再撮影';
@@ -499,7 +496,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get photoUpload => '写真アップロード';
 
   @override
-  String get takeWithCamera => 'カメラで撮影';
+  String get takeWithCamera => 'カメラ';
 
   @override
   String get loadingWeatherInfo => '天気情報を読み込み中...';
@@ -708,4 +705,13 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get sharePersonalizedStyleAnalysis => 'あなただけのカスタムスタイル分析結果を友達と共有しましょう！';
+
+  @override
+  String get uploadFacePhoto => '顔写真をアップロードしてください';
+
+  @override
+  String get accurateAnalysisDescription => '正確な分析のために\n顔がはっきり見える写真を使用してください';
+
+  @override
+  String get uploadOrTakePhoto => '写真をアップロードまたは撮影してください';
 }

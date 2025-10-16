@@ -10,8 +10,7 @@
   "hatStyle": "🎩 帽子スタイル",
   "earrings": "💍 イヤリング",
   "colorPalette": "🎨 カラーパレット",
-  "takePhoto": "カメラで撮影",
-  "selectFromGallery": "ギャラリーから選択",
+  "selectFromGallery": "ギャラリー",
   "retakePhoto": "再撮影",
   "startAnalysis": "分析開始",
   "uploadPhotoInstruction": "写真を選択してください",
@@ -150,8 +149,8 @@
   "tryCoordinatingWithPhoto": "自分の写真でコーディネートしてみる",
   "photoUpload": "写真アップロード",
   "retakePhoto": "再撮影",
-  "selectFromGallery": "ギャラリーから選択",
-  "takeWithCamera": "カメラで撮影",
+  "selectFromGallery": "ギャラリー",
+  "takeWithCamera": "カメラ",
   "retry": "再試行",
   "loadingWeatherInfo": "天気情報を読み込み中...",
   "apiTest": "APIテスト",
@@ -224,5 +223,8 @@
   "tall": "背が高い",
   "short": "背が低い",
   "aiStyleAnalysisResult": "AIスタイル分析結果",
-  "sharePersonalizedStyleAnalysis": "あなただけのカスタムスタイル分析結果を友達と共有しましょう！"
+  "sharePersonalizedStyleAnalysis": "あなただけのカスタムスタイル分析結果を友達と共有しましょう！",
+  "uploadFacePhoto": "顔写真をアップロードしてください",
+  "accurateAnalysisDescription": "正確な分析のために\n顔がはっきり見える写真を使用してください",
+  "uploadOrTakePhoto": "写真をアップロードまたは撮影してください"
 }

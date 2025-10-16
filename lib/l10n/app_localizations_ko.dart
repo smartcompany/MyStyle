@@ -44,10 +44,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get colorPalette => '🎨 컬러 팔레트';
 
   @override
-  String get takePhoto => '카메라로 촬영';
-
-  @override
-  String get selectFromGallery => '갤러리에서 선택';
+  String get selectFromGallery => '갤러리';
 
   @override
   String get retakePhoto => '다시 촬영';
@@ -499,7 +496,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get photoUpload => '사진 업로드';
 
   @override
-  String get takeWithCamera => '카메라로 촬영';
+  String get takeWithCamera => '카메라';
 
   @override
   String get loadingWeatherInfo => '날씨 정보를 불러오는 중...';
@@ -709,4 +706,13 @@ class AppLocalizationsKo extends AppLocalizations {
   @override
   String get sharePersonalizedStyleAnalysis =>
       '나만의 맞춤형 스타일 분석 결과를 친구들과 공유해보세요!';
+
+  @override
+  String get uploadFacePhoto => '얼굴 사진을 업로드해주세요';
+
+  @override
+  String get accurateAnalysisDescription => '정확한 분석을 위해\n얼굴이 잘 보이는 사진을 사용해주세요';
+
+  @override
+  String get uploadOrTakePhoto => '사진을 업로드하거나 촬영하세요';
 }

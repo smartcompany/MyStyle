@@ -168,12 +168,6 @@ abstract class AppLocalizations {
   /// **'🎨 Color Palette'**
   String get colorPalette;
 
-  /// No description provided for @takePhoto.
-  ///
-  /// In en, this message translates to:
-  /// **'Take Photo'**
-  String get takePhoto;
-
   /// No description provided for @selectFromGallery.
   ///
   /// In en, this message translates to:
@@ -1493,6 +1487,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Share your personalized style analysis results with friends!'**
   String get sharePersonalizedStyleAnalysis;
+
+  /// No description provided for @uploadFacePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Please upload a face photo'**
+  String get uploadFacePhoto;
+
+  /// No description provided for @accurateAnalysisDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'For accurate analysis,\nplease use a photo where your face is clearly visible'**
+  String get accurateAnalysisDescription;
+
+  /// No description provided for @uploadOrTakePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload or take a photo'**
+  String get uploadOrTakePhoto;
 }
 
 class _AppLocalizationsDelegate

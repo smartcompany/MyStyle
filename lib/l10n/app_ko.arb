@@ -10,8 +10,7 @@
   "hatStyle": "🎩 모자 스타일",
   "earrings": "💍 귀걸이",
   "colorPalette": "🎨 컬러 팔레트",
-  "takePhoto": "카메라로 촬영",
-  "selectFromGallery": "갤러리에서 선택",
+  "selectFromGallery": "갤러리",
   "retakePhoto": "다시 촬영",
   "startAnalysis": "분석 시작",
   "uploadPhotoInstruction": "사진을 선택하세요",
@@ -166,8 +165,8 @@
         "tryCoordinatingWithPhoto": "내 사진으로 직접 코디해보기",
         "photoUpload": "사진 업로드",
         "retakePhoto": "다시 촬영",
-        "selectFromGallery": "갤러리에서 선택",
-        "takeWithCamera": "카메라로 촬영",
+        "selectFromGallery": "갤러리",
+        "takeWithCamera": "카메라",
         "retry": "다시 시도",
         "loadingWeatherInfo": "날씨 정보를 불러오는 중...",
         "apiTest": "API 테스트",
@@ -240,5 +239,8 @@
   "tall": "키 큰",
   "short": "키 작은",
   "aiStyleAnalysisResult": "AI 스타일 분석 결과",
-  "sharePersonalizedStyleAnalysis": "나만의 맞춤형 스타일 분석 결과를 친구들과 공유해보세요!"
+  "sharePersonalizedStyleAnalysis": "나만의 맞춤형 스타일 분석 결과를 친구들과 공유해보세요!",
+  "uploadFacePhoto": "얼굴 사진을 업로드해주세요",
+  "accurateAnalysisDescription": "정확한 분석을 위해\n얼굴이 잘 보이는 사진을 사용해주세요",
+  "uploadOrTakePhoto": "사진을 업로드하거나 촬영하세요"
 }

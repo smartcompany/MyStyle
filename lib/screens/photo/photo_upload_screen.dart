@@ -72,7 +72,7 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen>
         });
       }
     } catch (e) {
-      _showErrorSnackBar('이미지를 선택하는 중 오류가 발생했습니다.');
+      _showErrorSnackBar(AppLocalizations.of(context)!.imageSelectionError);
     }
   }
 
@@ -132,9 +132,9 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen>
                       ),
                     ),
                     const SizedBox(height: 24),
-                    const Text(
-                      '얼굴 사진을 업로드해주세요',
-                      style: TextStyle(
+                    Text(
+                      AppLocalizations.of(context)!.uploadFacePhoto,
+                      style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                         color: AppTheme.textPrimary,
@@ -142,9 +142,9 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen>
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 12),
-                    const Text(
-                      '정확한 분석을 위해\n얼굴이 잘 보이는 사진을 사용해주세요',
-                      style: TextStyle(
+                    Text(
+                      AppLocalizations.of(context)!.accurateAnalysisDescription,
+                      style: const TextStyle(
                         fontSize: 16,
                         color: AppTheme.textSecondary,
                         height: 1.5,
@@ -169,14 +169,14 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen>
               // Action Buttons
               if (_selectedImage == null) ...[
                 AppButton(
-                  text: '카메라로 촬영',
+                  text: AppLocalizations.of(context)!.takeWithCamera,
                   onPressed: () => _pickImage(ImageSource.camera),
                   icon: Icons.camera_alt,
                   isFullWidth: true,
                 ),
                 const SizedBox(height: 12),
                 AppButton(
-                  text: '갤러리에서 선택',
+                  text: AppLocalizations.of(context)!.selectFromGallery,
                   onPressed: () => _pickImage(ImageSource.gallery),
                   type: AppButtonType.outline,
                   icon: Icons.photo_library_outlined,
@@ -187,7 +187,7 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen>
                   children: [
                     Expanded(
                       child: AppButton(
-                        text: '다시 촬영',
+                        text: AppLocalizations.of(context)!.retakePhoto,
                         onPressed: _retakePhoto,
                         type: AppButtonType.outline,
                         icon: Icons.refresh,
@@ -196,7 +196,7 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen>
                     const SizedBox(width: 12),
                     Expanded(
                       child: AppButton(
-                        text: '분석 시작',
+                        text: AppLocalizations.of(context)!.startAnalysis,
                         onPressed: _analyzePhoto,
                         icon: Icons.analytics_outlined,
                       ),
@@ -233,8 +233,8 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen>
           ),
           const SizedBox(height: 16),
           Text(
-            '사진을 업로드하거나 촬영하세요',
-            style: TextStyle(
+            AppLocalizations.of(context)!.uploadOrTakePhoto,
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w600,
               color: AppTheme.textSecondary,
@@ -242,8 +242,8 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen>
           ),
           const SizedBox(height: 8),
           Text(
-            'JPG, PNG 형식 지원',
-            style: TextStyle(fontSize: 14, color: AppTheme.textTertiary),
+            AppLocalizations.of(context)!.supportedFormats,
+            style: const TextStyle(fontSize: 14, color: AppTheme.textTertiary),
           ),
         ],
       ),

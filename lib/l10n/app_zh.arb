@@ -10,8 +10,7 @@
   "hatStyle": "🎩 帽子风格",
   "earrings": "💍 耳环",
   "colorPalette": "🎨 调色板",
-  "takePhoto": "拍照",
-  "selectFromGallery": "从相册选择",
+  "selectFromGallery": "相册",
   "retakePhoto": "重新拍照",
   "startAnalysis": "开始分析",
   "uploadPhotoInstruction": "请选择照片",
@@ -150,8 +149,8 @@
   "tryCoordinatingWithPhoto": "用您的照片尝试搭配",
   "photoUpload": "照片上传",
   "retakePhoto": "重新拍摄",
-  "selectFromGallery": "从相册选择",
-  "takeWithCamera": "用相机拍摄",
+  "selectFromGallery": "相册",
+  "takeWithCamera": "相机",
   "retry": "重试",
   "loadingWeatherInfo": "正在加载天气信息...",
   "apiTest": "API测试",
@@ -224,5 +223,8 @@
   "tall": "高个子",
   "short": "矮个子",
   "aiStyleAnalysisResult": "AI风格分析结果",
-  "sharePersonalizedStyleAnalysis": "与朋友分享您的个性化风格分析结果！"
+  "sharePersonalizedStyleAnalysis": "与朋友分享您的个性化风格分析结果！",
+  "uploadFacePhoto": "请上传面部照片",
+  "accurateAnalysisDescription": "为了准确分析，\n请使用面部清晰可见的照片",
+  "uploadOrTakePhoto": "上传或拍摄照片"
 }

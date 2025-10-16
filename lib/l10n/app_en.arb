@@ -10,7 +10,6 @@
   "hatStyle": "🎩 Hat Style",
   "earrings": "💍 Earrings",
   "colorPalette": "🎨 Color Palette",
-  "takePhoto": "Take Photo",
   "selectFromGallery": "Gallery",
   "retakePhoto": "Retake Photo",
   "startAnalysis": "Start Analysis",
@@ -240,5 +239,8 @@
   "tall": "Tall",
   "short": "Short",
   "aiStyleAnalysisResult": "AI Style Analysis Result",
-  "sharePersonalizedStyleAnalysis": "Share your personalized style analysis results with friends!"
+  "sharePersonalizedStyleAnalysis": "Share your personalized style analysis results with friends!",
+  "uploadFacePhoto": "Please upload a face photo",
+  "accurateAnalysisDescription": "For accurate analysis,\nplease use a photo where your face is clearly visible",
+  "uploadOrTakePhoto": "Upload or take a photo"
 }
