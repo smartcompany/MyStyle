@@ -1,15 +1,15 @@
 class ApiConstants {
   // Our Next.js API Server
-  // 프로덕션: https://your-production-domain.vercel.app
-  // 개발: http://localhost:3000
+  // 프로덕션: https://my-style-server-chi.vercel.app
+  // 개발: http://localhost:3005
   static const bool useDummy = false;
-  static const String _apiBaseUrl = 'https://my-style-server-chi.vercel.app';
+  static const String apiBaseUrl = 'https://my-style-server-chi.vercel.app';
 
   // Weather Endpoints
-  static final Uri weatherUri = Uri.parse('$_apiBaseUrl/api/weather');
-  static final Uri forecastUri = Uri.parse('$_apiBaseUrl/api/forecast');
+  static final Uri weatherUri = Uri.parse('$apiBaseUrl/api/weather');
+  static final Uri forecastUri = Uri.parse('$apiBaseUrl/api/forecast');
 
   // Analysis Endpoints
-  static final Uri analyzeUri = Uri.parse('$_apiBaseUrl/api/analyze');
-  static final Uri settingsUri = Uri.parse('$_apiBaseUrl/api/settings');
+  static final Uri analyzeUri = Uri.parse('$apiBaseUrl/api/analyze');
+  static final Uri settingsUri = Uri.parse('$apiBaseUrl/api/settings');
 }

@@ -1,10 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'dart:convert';
 import '../../models/photo_analysis.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common/common_ui.dart';
 import '../../widgets/common/share_ui.dart';
 import '../../constants/font_constants.dart';
+import '../../constants/api_constants.dart';
 
 class AIStylingResultScreen extends StatefulWidget {
   final File originalImage;
@@ -669,10 +671,72 @@ ${widget.analysisResult.stylingTips.map((tip) => '• $tip').join('\n')}
   }
 
   void _shareResult() {
-    ShareUI.showShareOptionsDialog(
-      context: context,
-      shareText: _generateShareText(),
-      imagePath: widget.originalImage.path,
-    );
+    try {
+      // 결과 데이터를 URL 파라미터로 인코딩
+      final webUrl = _generateShareUrl();
+
+      // 공유 다이얼로그 표시 (웹 URL 포함)
+      ShareUI.showShareOptionsDialog(
+        context: context,
+        shareText: _generateShareText(),
+        imagePath: widget.originalImage.path,
+        webUrl: webUrl,
+      );
+    } catch (e) {
+      print('공유 URL 생성 실패: $e');
+      // 에러 발생 시 기존 방식으로 공유
+      ShareUI.showShareOptionsDialog(
+        context: context,
+        shareText: _generateShareText(),
+        imagePath: widget.originalImage.path,
+      );
+    }
+  }
+
+  String _generateShareUrl() {
+    try {
+      // 결과 데이터 구성 (이미지 제외하고 텍스트만)
+      final resultData = {
+        'styleAnalysis': {
+          'colorEvaluation':
+              widget.analysisResult.styleAnalysis.colorEvaluation,
+          'silhouette': widget.analysisResult.styleAnalysis.silhouette,
+        },
+        'bodyAnalysis': {
+          'height': widget.analysisResult.height,
+          'bodyType': widget.analysisResult.bodyType,
+        },
+        'recommendations': [
+          ...widget.analysisResult.recommendations.tops.map(
+            (item) => {'item': item, 'reason': '상의 추천'},
+          ),
+          ...widget.analysisResult.recommendations.bottoms.map(
+            (item) => {'item': item, 'reason': '하의 추천'},
+          ),
+          ...widget.analysisResult.recommendations.outerwear.map(
+            (item) => {'item': item, 'reason': '아우터 추천'},
+          ),
+          ...widget.analysisResult.recommendations.shoes.map(
+            (item) => {'item': item, 'reason': '신발 추천'},
+          ),
+          ...widget.analysisResult.recommendations.accessories.map(
+            (item) => {'item': item, 'reason': '액세서리 추천'},
+          ),
+        ],
+        'language': Localizations.localeOf(context).languageCode,
+        'confidence': widget.analysisResult.confidence,
+      };
+
+      // JSON을 문자열로 변환 후 URL 인코딩
+      final jsonString = jsonEncode(resultData);
+      final encodedData = Uri.encodeComponent(jsonString);
+
+      // 고정 URL + 파라미터 조합
+      return '${ApiConstants.apiBaseUrl}/share?data=$encodedData';
+    } catch (e) {
+      print('URL 생성 중 오류: $e');
+      // 에러 시 기본 URL 반환
+      return '${ApiConstants.apiBaseUrl}/share';
+    }
   }
 }

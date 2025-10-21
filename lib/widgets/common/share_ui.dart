@@ -3,49 +3,15 @@ import 'package:share_plus/share_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
-import 'package:file_picker/file_picker.dart';
 import 'dart:io';
-import 'dart:convert';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/foundation.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import '../../l10n/app_localizations.dart';
 import '../../constants/font_constants.dart';
 
 /// 공유 관련 UI 컴포넌트들을 제공하는 클래스
 class ShareUI {
-  /// 앱 아이콘 경로를 가져오는 함수
-  static Future<String> _getAppIconPath() async {
-    try {
-      // 방법 1: PackageInfo를 사용하여 앱 아이콘 경로 가져오기
-      final packageInfo = await PackageInfo.fromPlatform();
-      print('🔍 [앱 아이콘] 패키지명: ${packageInfo.packageName}');
-
-      // 방법 2: assets 폴더의 앱 아이콘 사용
-      final assetIconPath = 'assets/icon/app_icon.png';
-
-      // 방법 3: 플랫폼별 기본 아이콘 경로
-      String platformIconPath;
-      if (Platform.isAndroid) {
-        platformIconPath =
-            '/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png';
-      } else {
-        platformIconPath = assetIconPath;
-      }
-
-      print('🔍 [앱 아이콘] 플랫폼별 경로: $platformIconPath');
-      print('🔍 [앱 아이콘] assets 경로: $assetIconPath');
-
-      // assets 경로를 우선 사용 (가장 안정적)
-      return assetIconPath;
-    } catch (e) {
-      print('❌ [앱 아이콘] 경로 가져오기 실패: $e');
-      // 기본값 반환
-      return 'assets/icon/app_icon.png';
-    }
-  }
-
   /// 공통 공유 컴포넌트
   static Widget buildShareSection({
     required BuildContext context,
@@ -161,6 +127,7 @@ class ShareUI {
     required BuildContext context,
     required String shareText,
     String? imagePath,
+    String? webUrl,
   }) async {
     return showDialog(
       context: context,
@@ -208,7 +175,8 @@ class ShareUI {
                   icon: Icons.chat_bubble_outline,
                   title: AppLocalizations.of(context)!.kakaoTalk,
                   subtitle: AppLocalizations.of(context)!.shareWithFriendsTitle,
-                  onTap: () => _shareToKakao(context, shareText),
+                  onTap: () =>
+                      _shareToKakao(context, shareText, webUrl: webUrl),
                 ),
 
                 _buildShareOption(
@@ -335,9 +303,11 @@ class ShareUI {
   /// 카카오톡 공유 (SDK 사용)
   static Future<bool> _shareToKakao(
     BuildContext context,
-    String shareText,
-  ) async {
+    String shareText, {
+    String? webUrl,
+  }) async {
     print('🔍 [카카오톡 공유] SDK 방식 시작: $shareText');
+    print('🔍 [카카오톡 공유] 웹 URL: $webUrl');
 
     // 카카오톡 설치 여부 확인
     if (await ShareClient.instance.isKakaoTalkSharingAvailable() == false) {
@@ -351,8 +321,20 @@ class ShareUI {
 
       final template = TextTemplate(
         text: shareText,
-        link: Link(), // 빈 링크로 앱 이동 방지
+        link: webUrl != null
+            ? Link(
+                webUrl: Uri.parse(webUrl),
+                mobileWebUrl: Uri.parse(webUrl), // 모바일 웹 URL도 동일하게 설정
+                // 앱으로 이동하지 않도록 파라미터 비워두기
+                androidExecutionParams: null,
+                iosExecutionParams: null,
+              )
+            : Link(), // 웹 링크 포함
       );
+
+      print('🔍 [카카오톡 공유] 템플릿 생성 완료');
+      print('🔍 [카카오톡 공유] Link webUrl: ${template.link.webUrl}');
+      print('🔍 [카카오톡 공유] Link mobileWebUrl: ${template.link.mobileWebUrl}');
 
       final uri = await ShareClient.instance.shareDefault(template: template);
       if (await canLaunchUrl(uri)) {
