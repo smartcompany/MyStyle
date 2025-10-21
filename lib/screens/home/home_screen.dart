@@ -749,7 +749,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   spacing: 4,
                   runSpacing: 4,
                   children: recommendation.clothingItems
-                      .take(3)
+                      .take(4)
                       .map(
                         (item) => Container(
                           padding: const EdgeInsets.symmetric(
