@@ -185,66 +185,16 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // 현재 스타일
+                      // 통합 스타일 분석
                       if (widget
                           .analysisResult
                           .styleAnalysis
-                          .currentStyle
+                          .unifiedAnalysis
                           .isNotEmpty)
                         _buildStyleInfoItem(
                           AppLocalizations.of(context)!.currentStyleAnalysis,
-                          widget.analysisResult.styleAnalysis.currentStyle,
+                          widget.analysisResult.styleAnalysis.unifiedAnalysis,
                           Icons.style,
-                        ),
-
-                      // 색상 평가
-                      if (widget
-                          .analysisResult
-                          .styleAnalysis
-                          .colorEvaluation
-                          .isNotEmpty)
-                        _buildStyleInfoItem(
-                          AppLocalizations.of(context)!.colorEvaluation,
-                          widget.analysisResult.styleAnalysis.colorEvaluation,
-                          Icons.palette,
-                        ),
-
-                      // 실루엣 분석
-                      if (widget
-                          .analysisResult
-                          .styleAnalysis
-                          .silhouette
-                          .isNotEmpty)
-                        _buildStyleInfoItem(
-                          AppLocalizations.of(context)!.silhouetteAnalysis,
-                          widget.analysisResult.styleAnalysis.silhouette,
-                          Icons.accessibility_new,
-                        ),
-
-                      // 모든 정보가 비어있는 경우
-                      if (widget
-                              .analysisResult
-                              .styleAnalysis
-                              .currentStyle
-                              .isEmpty &&
-                          widget
-                              .analysisResult
-                              .styleAnalysis
-                              .colorEvaluation
-                              .isEmpty &&
-                          widget
-                              .analysisResult
-                              .styleAnalysis
-                              .silhouette
-                              .isEmpty)
-                        Text(
-                          AppLocalizations.of(context)!.currentStyleAnalyzing,
-                          style: Theme.of(context).textTheme.bodyMedium
-                              ?.copyWith(
-                                fontSize: FontConstants.aiResultDetailText,
-                                color: const Color(0xFF1A1A1A),
-                                height: 1.4,
-                              ),
                         ),
                     ],
                   ),
@@ -313,59 +263,51 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Icon(Icons.checkroom, color: Colors.blue[600], size: 24),
-                const SizedBox(width: 8),
-                Text(
-                  AppLocalizations.of(context)!.recommendedItems,
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontSize: FontConstants.aiResultSectionTitle,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
+            // 통합 서술형 모드인지 확인하여 다른 UI 표시
+            if (widget
+                .analysisResult
+                .recommendations
+                .isUnifiedDescriptiveMode) ...[
+              // 통합 서술형 모드
+              _buildUnifiedDescriptiveRecommendation(
+                widget.analysisResult.recommendations.unifiedDescriptive ?? '',
+              ),
+            ] else ...[
+              // 기존 리스트 모드
+              _buildItemCategory(
+                AppLocalizations.of(context)!.tops,
+                widget.analysisResult.recommendations.tops,
+                Icons.checkroom,
+              ),
+              const SizedBox(height: 12),
 
-            // 상의
-            _buildItemCategory(
-              AppLocalizations.of(context)!.tops,
-              widget.analysisResult.recommendations.tops,
-              Icons.checkroom,
-            ),
-            const SizedBox(height: 12),
+              _buildItemCategory(
+                AppLocalizations.of(context)!.bottoms,
+                widget.analysisResult.recommendations.bottoms,
+                Icons.accessibility_new,
+              ),
+              const SizedBox(height: 12),
 
-            // 하의
-            _buildItemCategory(
-              AppLocalizations.of(context)!.bottoms,
-              widget.analysisResult.recommendations.bottoms,
-              Icons.accessibility_new,
-            ),
-            const SizedBox(height: 12),
+              _buildItemCategory(
+                AppLocalizations.of(context)!.outerwear,
+                widget.analysisResult.recommendations.outerwear,
+                Icons.ac_unit,
+              ),
+              const SizedBox(height: 12),
 
-            // 아우터
-            _buildItemCategory(
-              AppLocalizations.of(context)!.outerwear,
-              widget.analysisResult.recommendations.outerwear,
-              Icons.ac_unit,
-            ),
-            const SizedBox(height: 12),
+              _buildItemCategory(
+                AppLocalizations.of(context)!.shoes,
+                widget.analysisResult.recommendations.shoes,
+                Icons.directions_walk,
+              ),
+              const SizedBox(height: 12),
 
-            // 신발
-            _buildItemCategory(
-              AppLocalizations.of(context)!.shoes,
-              widget.analysisResult.recommendations.shoes,
-              Icons.directions_walk,
-            ),
-            const SizedBox(height: 12),
-
-            // 액세서리
-            _buildItemCategory(
-              AppLocalizations.of(context)!.accessories,
-              widget.analysisResult.recommendations.accessories,
-              Icons.watch,
-            ),
+              _buildItemCategory(
+                AppLocalizations.of(context)!.accessories,
+                widget.analysisResult.recommendations.accessories,
+                Icons.watch,
+              ),
+            ],
           ],
         ),
       ),
@@ -431,51 +373,6 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
               ),
             ),
             const SizedBox(height: 16),
-
-            // 컬러 팔레트
-            Row(
-              children: [
-                Icon(Icons.palette, color: Colors.purple[600], size: 20),
-                const SizedBox(width: 8),
-                Text(
-                  AppLocalizations.of(context)!.recommendedColors,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: const Color(0xFF1A1A1A),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: widget.analysisResult.colorPalette.recommended
-                  .map(
-                    (color) => Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 6,
-                      ),
-                      decoration: BoxDecoration(
-                        color: _getColorByName(color).withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(
-                          color: _getColorByName(color).withOpacity(0.3),
-                        ),
-                      ),
-                      child: Text(
-                        color,
-                        style: const TextStyle(
-                          color: Color(0xFF1A1A1A),
-                          fontWeight: FontWeight.w600,
-                          fontSize: FontConstants.aiResultSubText,
-                        ),
-                      ),
-                    ),
-                  )
-                  .toList(),
-            ),
           ],
         ),
       ),
@@ -586,6 +483,50 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
     );
   }
 
+  // 통합 서술형 추천 위젯
+  Widget _buildUnifiedDescriptiveRecommendation(String description) {
+    if (description.isEmpty) return const SizedBox.shrink();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Icon(Icons.style, size: 20, color: const Color(0xFF6C63FF)),
+            const SizedBox(width: 8),
+            Text(
+              'AI 코디 추천',
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                fontSize: FontConstants.aiResultSectionTitle,
+                fontWeight: FontWeight.bold,
+                color: const Color(0xFF1A1A1A),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: const Color(0xFFF8F9FA),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: const Color(0xFFE9ECEF), width: 1),
+          ),
+          child: Text(
+            description,
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+              fontSize: FontConstants.aiResultDetailText + 1,
+              color: const Color(0xFF495057),
+              height: 1.6,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   // 체형 타입 표시명
   String _getBodyTypeDisplayName(String bodyType) {
     switch (bodyType.toLowerCase()) {
@@ -618,34 +559,6 @@ class _AIStylingResultScreenState extends State<AIStylingResultScreen> {
     }
   }
 
-  // 색상명으로 Color 객체 반환
-  Color _getColorByName(String colorName) {
-    switch (colorName.toLowerCase()) {
-      case '네이비':
-        return const Color(0xFF1E3A8A);
-      case '아이보리':
-        return const Color(0xFFFFF8DC);
-      case '카키':
-        return const Color(0xFF9CAF88);
-      case '브라운':
-        return const Color(0xFF8B4513);
-      case '그레이':
-        return const Color(0xFF6B7280);
-      case '블랙':
-        return const Color(0xFF000000);
-      case '화이트':
-        return const Color(0xFFFFFFFF);
-      case '레드':
-        return const Color(0xFFDC2626);
-      case '블루':
-        return const Color(0xFF2563EB);
-      case '그린':
-        return const Color(0xFF16A34A);
-      default:
-        return const Color(0xFF6C63FF);
-    }
-  }
-
   String _generateShareText() {
     return '''
 AI 전신 분석 결과를 확인해보세요!
@@ -654,9 +567,7 @@ AI 전신 분석 결과를 확인해보세요!
 키: ${_getHeightDisplayName(widget.analysisResult.height)}
 
 현재 스타일 분석:
-${widget.analysisResult.styleAnalysis.currentStyle.isNotEmpty ? '• 현재 스타일: ${widget.analysisResult.styleAnalysis.currentStyle}' : ''}
-${widget.analysisResult.styleAnalysis.colorEvaluation.isNotEmpty ? '• 색상 평가: ${widget.analysisResult.styleAnalysis.colorEvaluation}' : ''}
-${widget.analysisResult.styleAnalysis.silhouette.isNotEmpty ? '• 실루엣 분석: ${widget.analysisResult.styleAnalysis.silhouette}' : ''}
+${widget.analysisResult.styleAnalysis.unifiedAnalysis.isNotEmpty ? '• ${widget.analysisResult.styleAnalysis.unifiedAnalysis}' : ''}
 
 추천 아이템:
 • 상의: ${widget.analysisResult.recommendations.tops.join(', ')}
@@ -697,11 +608,7 @@ ${widget.analysisResult.stylingTips.map((tip) => '• $tip').join('\n')}
     try {
       // 결과 데이터 구성 (이미지 제외하고 텍스트만)
       final resultData = {
-        'styleAnalysis': {
-          'colorEvaluation':
-              widget.analysisResult.styleAnalysis.colorEvaluation,
-          'silhouette': widget.analysisResult.styleAnalysis.silhouette,
-        },
+        'styleAnalysis': widget.analysisResult.styleAnalysis.unifiedAnalysis,
         'bodyAnalysis': {
           'height': widget.analysisResult.height,
           'bodyType': widget.analysisResult.bodyType,

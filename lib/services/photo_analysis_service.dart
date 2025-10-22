@@ -37,6 +37,7 @@ class PhotoAnalysisService {
       request.fields['location'] = currentWeather.location;
       request.fields['preferredLanguage'] = userPreferences.preferredLanguage;
       request.fields['imageUrl'] = imageUrl ?? '';
+      request.fields['descriptiveMode'] = 'true'; // 서술형 모드 활성화
 
       final streamedResponse = await request.send();
       final response = await http.Response.fromStream(streamedResponse);

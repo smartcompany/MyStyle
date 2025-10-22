@@ -52,7 +52,6 @@ class FullBodyAnalysisResponse {
   final String height;
   final StyleAnalysis styleAnalysis;
   final StyleRecommendations recommendations;
-  final ColorPalette colorPalette;
   final List<String> stylingTips;
   final int confidence;
 
@@ -61,7 +60,6 @@ class FullBodyAnalysisResponse {
     required this.height,
     required this.styleAnalysis,
     required this.recommendations,
-    required this.colorPalette,
     required this.stylingTips,
     required this.confidence,
   });
@@ -70,11 +68,8 @@ class FullBodyAnalysisResponse {
     return FullBodyAnalysisResponse(
       bodyType: json['bodyType'] as String? ?? 'average',
       height: json['height'] as String? ?? 'medium',
-      styleAnalysis: StyleAnalysis.fromJson(json['styleAnalysis'] ?? {}),
-      recommendations: StyleRecommendations.fromJson(
-        json['recommendations'] ?? {},
-      ),
-      colorPalette: ColorPalette.fromJson(json['colorPalette'] ?? {}),
+      styleAnalysis: StyleAnalysis.fromJson(json),
+      recommendations: StyleRecommendations.fromJson(json),
       stylingTips: List<String>.from(json['stylingTips'] ?? []),
       confidence: json['confidence'] as int? ?? 0,
     );
@@ -83,22 +78,27 @@ class FullBodyAnalysisResponse {
 
 /// 스타일 분석 정보
 class StyleAnalysis {
-  final String currentStyle;
-  final String colorEvaluation;
-  final String silhouette;
+  final String unifiedAnalysis;
 
-  StyleAnalysis({
-    required this.currentStyle,
-    required this.colorEvaluation,
-    required this.silhouette,
-  });
+  StyleAnalysis({required this.unifiedAnalysis});
 
   factory StyleAnalysis.fromJson(Map<String, dynamic> json) {
-    return StyleAnalysis(
-      currentStyle: json['currentStyle'] as String? ?? '',
-      colorEvaluation: json['colorEvaluation'] as String? ?? '',
-      silhouette: json['silhouette'] as String? ?? '',
-    );
+    // 통합 서술형 데이터가 있는지 확인
+    final hasUnifiedAnalysis = json['styleAnalysis'] is String;
+
+    if (hasUnifiedAnalysis) {
+      // 통합 서술형 모드
+      return StyleAnalysis(unifiedAnalysis: json['styleAnalysis'] as String);
+    } else {
+      // 기존 분리형 모드 (하위 호환성)
+      final currentStyle = json['currentStyle'] as String? ?? '';
+      final colorEvaluation = json['colorEvaluation'] as String? ?? '';
+      final silhouette = json['silhouette'] as String? ?? '';
+
+      return StyleAnalysis(
+        unifiedAnalysis: '$currentStyle $colorEvaluation $silhouette'.trim(),
+      );
+    }
   }
 }
 
@@ -110,38 +110,46 @@ class StyleRecommendations {
   final List<String> shoes;
   final List<String> accessories;
 
+  // 통합 서술형 모드를 위한 필드
+  final String? unifiedDescriptive;
+
   StyleRecommendations({
     required this.tops,
     required this.bottoms,
     required this.outerwear,
     required this.shoes,
     required this.accessories,
+    this.unifiedDescriptive,
   });
 
   factory StyleRecommendations.fromJson(Map<String, dynamic> json) {
-    return StyleRecommendations(
-      tops: List<String>.from(json['tops'] ?? []),
-      bottoms: List<String>.from(json['bottoms'] ?? []),
-      outerwear: List<String>.from(json['outerwear'] ?? []),
-      shoes: List<String>.from(json['shoes'] ?? []),
-      accessories: List<String>.from(json['accessories'] ?? []),
-    );
+    // 통합 서술형 데이터가 있는지 확인
+    final hasUnifiedDescriptive = json['recommendations'] is String;
+
+    if (hasUnifiedDescriptive) {
+      // 통합 서술형 모드
+      return StyleRecommendations(
+        tops: [],
+        bottoms: [],
+        outerwear: [],
+        shoes: [],
+        accessories: [],
+        unifiedDescriptive: json['recommendations'] as String?,
+      );
+    } else {
+      // 기존 리스트 모드
+      return StyleRecommendations(
+        tops: List<String>.from(json['tops'] ?? []),
+        bottoms: List<String>.from(json['bottoms'] ?? []),
+        outerwear: List<String>.from(json['outerwear'] ?? []),
+        shoes: List<String>.from(json['shoes'] ?? []),
+        accessories: List<String>.from(json['accessories'] ?? []),
+      );
+    }
   }
-}
 
-/// 컬러 팔레트
-class ColorPalette {
-  final List<String> recommended;
-  final List<String> avoid;
-
-  ColorPalette({required this.recommended, required this.avoid});
-
-  factory ColorPalette.fromJson(Map<String, dynamic> json) {
-    return ColorPalette(
-      recommended: List<String>.from(json['recommended'] ?? []),
-      avoid: List<String>.from(json['avoid'] ?? []),
-    );
-  }
+  // 통합 서술형 모드인지 확인
+  bool get isUnifiedDescriptiveMode => unifiedDescriptive != null;
 }
 
 /// 개인 분석 결과

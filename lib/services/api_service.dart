@@ -227,6 +227,7 @@ class ApiService {
 
       request.files.add(await http.MultipartFile.fromPath('image', imagePath));
       request.fields['type'] = 'fullbody'; // 전신 분석 타입 추가
+      request.fields['descriptiveMode'] = 'true'; // 서술형 모드 활성화
 
       // 언어 정보 추가
       if (language != null) {
